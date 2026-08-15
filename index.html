@@ -123,6 +123,11 @@
             .reading-item:hover { transform: scale(1.04); border-color: var(--accent); }
             .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #D81B60; }
             .btn-secondary:hover { box-shadow: 0 8px 0 #7D3C98; }
+            /* Muzik */
+            .music-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+            .music-item { padding: 12px 6px; min-height: 80px; }
+            .music-item .music-emoji { font-size: 2.8rem; }
+            .music-item .music-title { font-size: 0.9rem; }
         }
         @media (min-width: 1200px) {
             #app-container { max-width: 1000px; max-height: 90vh; height: 90vh; }
@@ -131,6 +136,7 @@
             #options-container { max-width: 700px; gap: 20px; }
             h1 { font-size: 3rem; }
             .btn-start { font-size: 2.5rem; padding: 24px 48px; max-width: 450px; }
+            .music-grid { grid-template-columns: repeat(4, 1fr); }
         }
 
         /* ===== STATUS BAR ===== */
@@ -357,7 +363,7 @@
             100% { transform: scale(1); box-shadow: 0 8px 0 #C0392B, 0 6px 20px rgba(238,90,36,0.4); }
         }
 
-        /* GAME */
+        /* ===== GAME ===== */
         #game-screen {
             padding: 4px 10px;
             justify-content: flex-start;
@@ -495,12 +501,12 @@
             opacity: 0.6;
         }
 
-        /* REWARD */
+        /* ===== REWARD ===== */
         #reward-screen { justify-content: center; }
         #feedback-image { font-size: 4.5rem; margin-bottom: 6px; animation: pop 1s infinite alternate; }
         #feedback-text { font-size: 2rem; margin: 4px 0; text-shadow: 0 2px 8px rgba(255,255,255,0.5); }
 
-        /* ALBUM */
+        /* ===== ALBUM ===== */
         #album-screen h2 { font-size: 1.6rem; margin: 4px 0; flex-shrink: 0; text-shadow: 0 2px 8px rgba(255,255,255,0.5); }
         .album-grid {
             display: grid;
@@ -527,7 +533,7 @@
         .album-item .emoji { font-size: 2rem; }
         .album-item .name { font-size: 0.6rem; color: #555; }
 
-        /* READING */
+        /* ===== READING ===== */
         #reading-screen { padding: 4px 10px; justify-content: flex-start; }
         #reading-screen h2 { font-size: 1.6rem; margin: 4px 0; flex-shrink: 0; text-shadow: 0 2px 8px rgba(255,255,255,0.5); }
         .reading-tabs {
@@ -611,7 +617,95 @@
             100% { transform: scale(1); }
         }
 
-        /* BOTTOM NAV */
+        /* ============================================================
+           MUZIK KANAK-KANAK
+           ============================================================ */
+        #music-screen {
+            padding: 4px 10px;
+            justify-content: flex-start;
+        }
+        #music-screen h2 {
+            font-size: 1.6rem;
+            margin: 4px 0;
+            flex-shrink: 0;
+            text-shadow: 0 2px 8px rgba(255,255,255,0.5);
+        }
+        .music-player-container {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 16/9;
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 6px 0;
+            flex-shrink: 0;
+            border: 2px solid rgba(255,255,255,0.2);
+            position: relative;
+        }
+        .music-player-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .music-player-container .placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-size: 1.2rem;
+            font-family: 'Fredoka One', cursive;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(4px);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            width: 100%;
+            max-width: 400px;
+            margin: 6px auto 0;
+            overflow-y: auto;
+            flex: 1 1 auto;
+            padding-bottom: 4px;
+            box-sizing: border-box;
+            align-content: start;
+        }
+        .music-item {
+            background: rgba(255,255,255,0.85);
+            border-radius: 14px;
+            padding: 8px 4px;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+            border: 3px solid transparent;
+            min-height: 64px;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        .music-item:active { transform: scale(0.92); }
+        .music-item .music-emoji { font-size: 2.2rem; line-height: 1.2; }
+        .music-item .music-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #333;
+            margin-top: 2px;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .music-item.active {
+            border-color: var(--primary);
+            background: rgba(255,240,245,0.9);
+            box-shadow: 0 0 16px rgba(255,105,180,0.15);
+        }
+
+        /* ===== BOTTOM NAV (4 item) ===== */
         #bottom-nav {
             flex-shrink: 0;
             width: 100%;
@@ -622,7 +716,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-top: 1px solid rgba(0,0,0,0.05);
-            padding: 4px 0 8px;
+            padding: 4px 0 6px;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
             z-index: 30;
             transition: transform 0.3s ease;
@@ -632,19 +726,19 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 4px 12px;
+            padding: 2px 6px;
             cursor: pointer;
             border: none;
             background: none;
             font-family: 'Nunito', sans-serif;
             transition: transform 0.15s;
             border-radius: 30px;
-            min-width: 60px;
+            min-width: 48px;
         }
         .nav-item:active { transform: scale(0.90); }
-        .nav-item .nav-icon { font-size: 1.8rem; line-height: 1.2; }
+        .nav-item .nav-icon { font-size: 1.6rem; line-height: 1.2; }
         .nav-item .nav-label {
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             color: #888;
             font-weight: 700;
             margin-top: 1px;
@@ -652,7 +746,7 @@
         .nav-item.active .nav-label { color: var(--primary); }
         .nav-item.active .nav-icon { transform: scale(1.05); }
 
-        /* KONFETI & KEJUTAN */
+        /* ===== KONFETI & KEJUTAN ===== */
         #confetti-container {
             position: absolute;
             top: 0;
@@ -718,7 +812,7 @@
             margin: 3px;
         }
 
-        /* ANIMASI */
+        /* ===== ANIMASI ===== */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -739,7 +833,7 @@
         }
         .reward-bonus { color: #F1C40F; font-size: 1.2rem; text-shadow: 0 1px 4px rgba(255,255,255,0.5); }
 
-        /* RESPONSIF TELEFON */
+        /* ===== RESPONSIF ===== */
         @media (max-height: 650px) {
             #status-bar { font-size: 0.8rem; padding: 2px 6px; min-height: 36px; }
             .status-item { font-size: 0.7rem; padding: 1px 6px; }
@@ -757,9 +851,13 @@
             .reading-item .rumi-char { font-size: 1.5rem; }
             .reading-item .sub { font-size: 0.55rem; }
             .nav-item .nav-icon { font-size: 1.4rem; }
-            .nav-item .nav-label { font-size: 0.55rem; }
+            .nav-item .nav-label { font-size: 0.5rem; }
             #bottom-nav { padding: 2px 0 4px; }
             #feedback-text { font-size: 1.6rem; }
+            .music-item { min-height: 54px; padding: 4px 2px; }
+            .music-item .music-emoji { font-size: 1.8rem; }
+            .music-item .music-title { font-size: 0.6rem; }
+            .music-grid { gap: 6px; }
         }
         @media (max-height: 520px) {
             h1 { font-size: 1.3rem; }
@@ -781,11 +879,16 @@
             .reading-item .rumi-char { font-size: 1.1rem; }
             .reading-item .sub { font-size: 0.5rem; }
             .nav-item .nav-icon { font-size: 1.2rem; }
-            .nav-item .nav-label { font-size: 0.5rem; }
+            .nav-item .nav-label { font-size: 0.45rem; }
             #bottom-nav { padding: 1px 0 2px; }
             .reading-tab-btn { font-size: 0.65rem; padding: 4px 10px; }
             #feedback-text { font-size: 1.3rem; }
             #feedback-image { font-size: 3.5rem; }
+            .music-item { min-height: 44px; padding: 2px 2px; }
+            .music-item .music-emoji { font-size: 1.4rem; }
+            .music-item .music-title { font-size: 0.5rem; }
+            .music-grid { gap: 4px; }
+            .music-player-container { aspect-ratio: 16/9; }
         }
         @media (max-width: 400px) {
             #options-container { gap: 4px; }
@@ -798,6 +901,11 @@
             .reading-item .jawi-char { font-size: 1.5rem; }
             .reading-item .rumi-char { font-size: 1.3rem; }
             .btn-start { font-size: 1.2rem; padding: 10px 20px; }
+            .music-grid { gap: 4px; }
+            .music-item .music-emoji { font-size: 1.6rem; }
+            .music-item .music-title { font-size: 0.55rem; }
+            .nav-item .nav-icon { font-size: 1.4rem; }
+            .nav-item .nav-label { font-size: 0.5rem; }
         }
         .hidden { display: none !important; }
     </style>
@@ -833,6 +941,11 @@
             <div class="category-grid" id="category-menu"></div>
         </div>
         <div class="menu-bottom">
+            <div style="display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin-bottom:4px;">
+                <button class="btn btn-small btn-secondary" onclick="showScreen('reading-screen')">📖 Bacaan</button>
+                <button class="btn btn-small btn-secondary" onclick="showScreen('album-screen')">📚 Album</button>
+                <button class="btn btn-small btn-secondary" onclick="showScreen('music-screen')">🎵 Muzik</button>
+            </div>
             <button class="btn-start" id="btn-start" onclick="startGame()">🚀 Mula Main!</button>
         </div>
     </div>
@@ -860,7 +973,7 @@
     <div id="album-screen" class="screen">
         <h2 id="album-title">📚 Album Mikayla</h2>
         <div id="album-content" class="album-grid"></div>
-        <button class="btn btn-small btn-secondary" id="album-back" onclick="showScreen('menu-screen')" style="margin:6px 0;">⬅ Kembali</button>
+        <button class="btn btn-small btn-secondary" onclick="showScreen('menu-screen')" style="margin:6px 0;">⬅ Kembali</button>
     </div>
 
     <!-- ===== READING ===== -->
@@ -872,10 +985,26 @@
             <button class="reading-tab-btn" data-tab="jawi" onclick="showReadingTab('jawi')" id="tab-jawi">🕌 Jawi</button>
         </div>
         <div class="reading-content" id="reading-content"></div>
-        <button class="btn btn-small btn-secondary" id="reading-back" onclick="showScreen('menu-screen')" style="margin:4px 0; flex-shrink:0;">⬅ Kembali</button>
+        <button class="btn btn-small btn-secondary" onclick="showScreen('menu-screen')" style="margin:4px 0; flex-shrink:0;">⬅ Kembali</button>
     </div>
 
-    <!-- ===== BOTTOM NAV ===== -->
+    <!-- ============================================================
+       MUZIK KANAK-KANAK
+       ============================================================ -->
+    <div id="music-screen" class="screen">
+        <h2>🎵 Muzik Kanak-Kanak</h2>
+        <div class="music-player-container" id="music-player">
+            <div class="placeholder" id="music-placeholder">
+                🎶 Pilih lagu di bawah
+            </div>
+        </div>
+        <div class="music-grid" id="music-grid">
+            <!-- Akan dijana oleh JS -->
+        </div>
+        <button class="btn btn-small btn-secondary" onclick="showScreen('menu-screen')" style="margin:4px 0; flex-shrink:0;">⬅ Kembali</button>
+    </div>
+
+    <!-- ===== BOTTOM NAV (4 item) ===== -->
     <div id="bottom-nav">
         <button class="nav-item active" data-target="menu-screen">
             <span class="nav-icon">🏠</span>
@@ -888,6 +1017,10 @@
         <button class="nav-item" data-target="album-screen">
             <span class="nav-icon">📚</span>
             <span class="nav-label" id="nav-album">Album</span>
+        </button>
+        <button class="nav-item" data-target="music-screen">
+            <span class="nav-icon">🎵</span>
+            <span class="nav-label" id="nav-music">Muzik</span>
         </button>
     </div>
 
@@ -903,7 +1036,7 @@
 
 <script>
     // =========================================================
-    // DATA PERMAINAN DENGAN TERJEMAHAN
+    // DATA PERMAINAN (SAMA SEPERTI SEBELUM)
     // =========================================================
     const gameData = {
         colors: [
@@ -997,7 +1130,7 @@
     };
 
     // =========================================================
-    // DATA SUDUT BACAAN (SAMA)
+    // DATA SUDUT BACAAN
     // =========================================================
     const readingData = {
         numbers: [
@@ -1028,6 +1161,20 @@
     };
 
     // =========================================================
+    // DATA LAGU KANAK-KANAK
+    // =========================================================
+    const musicSongs = [
+        { id: 'abc', emoji: '🔤', title: 'ABC Song', url: 'https://www.youtube.com/embed/75p-N9YKqNo' },
+        { id: 'twinkle', emoji: '⭐', title: 'Twinkle Twinkle', url: 'https://www.youtube.com/embed/yCjJyiqpAuU' },
+        { id: 'rasa_sayang', emoji: '💖', title: 'Rasa Sayang', url: 'https://www.youtube.com/embed/XbPm8TlFJ18' },
+        { id: 'burung_kakak', emoji: '🐦', title: 'Burung Kakak Tua', url: 'https://www.youtube.com/embed/eyXn2p2eGkU' },
+        { id: 'bangau', emoji: '🦩', title: 'Bangau Oh Bangau', url: 'https://www.youtube.com/embed/eT9YgJgRKEw' },
+        { id: 'cicak', emoji: '🦎', title: 'Cicak Cicak di Dinding', url: 'https://www.youtube.com/embed/0sBfR-7cMCY' },
+        { id: 'rainbow', emoji: '🌈', title: 'Rainbow Song', url: 'https://www.youtube.com/embed/nRTdq0VsLHk' },
+        { id: 'numbers', emoji: '🔢', title: 'Number Song', url: 'https://www.youtube.com/embed/85M1yxIcHpw' }
+    ];
+
+    // =========================================================
     // OBJEK BAHASA
     // =========================================================
     const lang = {
@@ -1042,6 +1189,7 @@
             nav_home: 'Utama',
             nav_reading: 'Bacaan',
             nav_album: 'Album',
+            nav_music: 'Muzik',
             album_title: '📚 Album Mikayla',
             reading_title: '📖 Sudut Bacaan',
             tab_numbers: '🔢 Nombor',
@@ -1108,6 +1256,7 @@
             nav_home: 'Home',
             nav_reading: 'Reading',
             nav_album: 'Album',
+            nav_music: 'Music',
             album_title: '📚 Mikayla\'s Album',
             reading_title: '📖 Reading Corner',
             tab_numbers: '🔢 Numbers',
@@ -1186,7 +1335,6 @@
     let praiseMessages = lang.bm.correct_messages;
     let wrongMessages = lang.bm.wrong_messages;
 
-    // Data soalan semasa untuk refresh
     let _currentGameType = null;
     let _currentOptions = [];
     let _currentCorrectAnswer = null;
@@ -1278,15 +1426,14 @@
         document.getElementById('highscore-menu').textContent = t.highscore + highScore;
         document.getElementById('next-btn').textContent = t.btn_next;
         document.getElementById('album-title').textContent = t.album_title;
-        document.getElementById('album-back').textContent = t.btn_back;
         document.getElementById('reading-title').textContent = t.reading_title;
         document.getElementById('tab-numbers').textContent = t.tab_numbers;
         document.getElementById('tab-rumi').textContent = t.tab_rumi;
         document.getElementById('tab-jawi').textContent = t.tab_jawi;
-        document.getElementById('reading-back').textContent = t.btn_back;
         document.getElementById('nav-home').textContent = t.nav_home;
         document.getElementById('nav-reading').textContent = t.nav_reading;
         document.getElementById('nav-album').textContent = t.nav_album;
+        document.getElementById('nav-music').textContent = t.nav_music;
         document.getElementById('surprise-title').textContent = t.surprise_title;
         document.getElementById('surprise-btn').textContent = t.btn_thanks;
 
@@ -1400,12 +1547,12 @@
         });
 
         if (id === 'menu-screen') {
-            // Welcome user tanpa suara automatik
             welcomeUser();
             document.getElementById('highscore-menu').textContent = lang[currentLang].highscore + highScore;
         }
         if (id === 'album-screen') renderAlbum();
         if (id === 'reading-screen') showReadingTab(currentReadingTab);
+        if (id === 'music-screen') renderMusicSongs();
     }
 
     function goHome() {
@@ -1416,14 +1563,77 @@
     }
 
     // =========================================================
-    // SAMBUTAN AUTOMATIK (TANPA SUARA)
+    // SAMBUTAN (TANPA SUARA)
     // =========================================================
     function welcomeUser() {
-        // Hanya set welcomeSpoken = true, tanpa sebarang suara
         if (!welcomeSpoken) {
             welcomeSpoken = true;
         }
-        // Tiada panggilan speakAI di sini
+    }
+
+    // =========================================================
+    // MUZIK
+    // =========================================================
+    let currentMusicId = null;
+
+    function renderMusicSongs() {
+        const grid = document.getElementById('music-grid');
+        grid.innerHTML = '';
+        musicSongs.forEach(song => {
+            const div = document.createElement('div');
+            div.className = 'music-item';
+            if (song.id === currentMusicId) div.classList.add('active');
+            div.innerHTML = `
+                <span class="music-emoji">${song.emoji}</span>
+                <span class="music-title">${song.title}</span>
+            `;
+            div.onclick = () => playMusic(song);
+            grid.appendChild(div);
+        });
+        // Jika ada lagu aktif, mainkan
+        if (currentMusicId) {
+            const song = musicSongs.find(s => s.id === currentMusicId);
+            if (song) {
+                const player = document.getElementById('music-player');
+                const placeholder = document.getElementById('music-placeholder');
+                // Jika player sudah ada iframe, jangan buat semula
+                let iframe = player.querySelector('iframe');
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.src = song.url + '?autoplay=1&rel=0';
+                    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                    iframe.allowFullscreen = true;
+                    player.appendChild(iframe);
+                    placeholder.style.display = 'none';
+                } else {
+                    iframe.src = song.url + '?autoplay=1&rel=0';
+                }
+            }
+        }
+    }
+
+    function playMusic(song) {
+        currentMusicId = song.id;
+        const player = document.getElementById('music-player');
+        const placeholder = document.getElementById('music-placeholder');
+        // Remove old iframe
+        const oldIframe = player.querySelector('iframe');
+        if (oldIframe) oldIframe.remove();
+        // Create new iframe
+        const iframe = document.createElement('iframe');
+        iframe.src = song.url + '?autoplay=1&rel=0';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        player.appendChild(iframe);
+        placeholder.style.display = 'none';
+        // Update active state
+        document.querySelectorAll('.music-item').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.music-item').forEach(el => {
+            if (el.querySelector('.music-title')?.textContent === song.title) {
+                el.classList.add('active');
+            }
+        });
+        playPop();
     }
 
     // =========================================================
@@ -1844,7 +2054,7 @@
         }
     })();
 
-    console.log('🎮 Minda Mikayla sedia (Suara automatik dibuang, latar belakang blur)');
+    console.log('🎮 Minda Mikayla sedia (Slot Muzik Kanak-Kanak ditambah)');
 </script>
 </body>
 </html>
