@@ -31,7 +31,6 @@
             --nav-bg: #FFFFFF;
         }
 
-        /* ===== RESET ===== */
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
@@ -51,7 +50,6 @@
             align-items: center;
         }
 
-        /* ===== PANEL UTAMA ===== */
         #app-container {
             width: 100%;
             max-width: 480px;
@@ -67,7 +65,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== STATUS BAR (ATAS) ===== */
+        /* ===== STATUS BAR ===== */
         #status-bar {
             flex-shrink: 0;
             width: 100%;
@@ -115,7 +113,6 @@
         }
         .btn-home:active { transform: scale(0.8); }
 
-        /* Timer toggle di status bar */
         #timer-toggle {
             background: none;
             border: none;
@@ -259,7 +256,6 @@
             padding-bottom: 4px;
         }
 
-        /* ===== BUTANG MULA MAIN (BERDENYUT) ===== */
         .btn-start {
             background: linear-gradient(145deg, #FF6B6B, #EE5A24);
             color: white;
@@ -1073,12 +1069,10 @@
     // PAPARAN SKRIN & NAVIGASI
     // =========================================================
     function showScreen(id) {
-        // Sembunyikan semua skrin
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         document.getElementById('surprise-overlay').style.display = 'none';
 
-        // Toggle bottom nav: sembunyi semasa game/reward, tunjuk untuk menu/album/reading
         const nav = document.getElementById('bottom-nav');
         if (id === 'game-screen' || id === 'reward-screen') {
             nav.classList.add('hidden');
@@ -1086,22 +1080,17 @@
             nav.classList.remove('hidden');
         }
 
-        // Update nav active
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.toggle('active', item.dataset.target === id);
         });
 
-        // Jika menu, sambut pengguna
         if (id === 'menu-screen') {
             welcomeUser();
-            // Sembunyikan status bar? Biar je.
         }
-        // Jika game, pastikan status bar kelihatan
         if (id === 'game-screen' || id === 'reward-screen') {
             document.getElementById('status-bar').style.display = 'flex';
         }
 
-        // Render content jika album atau reading
         if (id === 'album-screen') renderAlbum();
         if (id === 'reading-screen') showReadingTab(currentReadingTab || 'numbers');
     }
@@ -1112,7 +1101,6 @@
         isAnswered = true;
         setMikaylaReaction('👧');
         showScreen('menu-screen');
-        // Status bar akan kekal
     }
 
     // =========================================================
@@ -1123,7 +1111,6 @@
             setTimeout(() => {
                 speakAI("Hai Mikayla! Jom pilih kategori dan mula main!");
                 setMikaylaReaction('👋', 'Jom main!');
-                // Lambai
                 const avatar = document.getElementById('mikayla-avatar');
                 avatar.classList.remove('wave');
                 void avatar.offsetWidth;
@@ -1131,7 +1118,6 @@
                 welcomeSpoken = true;
             }, 600);
         } else {
-            // Sapa ringkas
             setTimeout(() => {
                 speakAI("Mari main lagi, Mikayla!");
                 setMikaylaReaction('😊', 'Main lagi!');
@@ -1139,9 +1125,6 @@
         }
     }
 
-    // =========================================================
-    // MIKAYLA REACTION
-    // =========================================================
     function setMikaylaReaction(emoji, bubbleText='') {
         const avatar = document.getElementById('mikayla-avatar');
         const bubble = document.getElementById('avatar-bubble');
@@ -1188,7 +1171,6 @@
         container.innerHTML = '';
         const allTypes = Object.keys(gameData);
 
-        // Butang Semua
         const allBtn = document.createElement('div');
         allBtn.className = 'cat-btn' + (currentCategory === 'all' ? ' active' : '');
         allBtn.innerHTML = `<span style="font-size:1.8rem;">🌟</span><span class="cat-label">Semua</span>`;
@@ -1323,15 +1305,19 @@
         renderCategoryMenu();
         if (!timerMode) document.getElementById('timer-container').style.display = 'none';
         else document.getElementById('timer-container').style.display = 'block';
-        // Tukar ke game screen selepas 1.2s
         setTimeout(() => {
             showScreen('game-screen');
             nextQuestion();
         }, 1200);
     }
 
+    // ========== INI BAHAGIAN YANG DIBETULKAN ==========
     function nextQuestion() {
-        isAnswered = false; isBonus = false;
+        // TUKAR SKRIN KE GAME-SCREEN SETIAP KALI SOALAN BARU
+        showScreen('game-screen');
+
+        isAnswered = false;
+        isBonus = false;
         document.getElementById('bonus-indicator').innerText = '';
 
         let typeList = Object.keys(gameData);
@@ -1528,15 +1514,11 @@
         item.addEventListener('click', function() {
             const target = this.dataset.target;
             if (target) {
-                // Jika dalam game, jangan benarkan navigasi ke tempat lain (kecuali kita force stop game?)
-                // Tapi kita akan benarkan, tapi dengan reset state? Kita benarkan je.
-                // Tapi untuk keselamatan, kita akan pause game.
                 clearInterval(timerInterval);
                 document.getElementById('timer-container').style.display = 'none';
-                isAnswered = true; // untuk elak gangguan
+                isAnswered = true;
                 showScreen(target);
                 if (target === 'menu-screen') {
-                    // Reset sedikit
                     setMikaylaReaction('👧');
                 }
             }
@@ -1549,9 +1531,8 @@
     renderCategoryMenu();
     updateScore();
     showScreen('menu-screen');
-    welcomeSpoken = false; // akan trigger pada first load
+    welcomeSpoken = false;
 
-    // Bintang latar
     (function addBgStars() {
         const container = document.getElementById('app-container');
         for (let i=0; i<8; i++) {
@@ -1563,7 +1544,7 @@
         }
     })();
 
-    console.log('🎮 Minda Mikayla sedia! Home + Bottom Nav + Reading Corner + PWA');
+    console.log('🎮 Minda Mikayla sedia! (Pembetulan nextQuestion)');
 </script>
 </body>
 </html>
