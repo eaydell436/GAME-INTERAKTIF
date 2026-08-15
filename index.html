@@ -1184,30 +1184,24 @@
 
     // SURAH: tambah Ayatul Kursi & 10 ayat pertama Al-Kahfi
     const quranSurah = [
-        { id: 'alfatihah', emoji: '📖', title: 'Al-Fatihah', url: 'https://www.youtube.com/embed/5G3UZxW7UfU' },
-        { id: 'annas', emoji: '📖', title: 'An-Nas', url: 'https://www.youtube.com/embed/1QnqVv7xU4E' },
-        { id: 'alfalaq', emoji: '📖', title: 'Al-Falaq', url: 'https://www.youtube.com/embed/2Pq8E8eHl-U' },
-        { id: 'alikhlas', emoji: '📖', title: 'Al-Ikhlas', url: 'https://www.youtube.com/embed/7Vk-4q9fMqI' },
-        { id: 'ayatul_kursi', emoji: '🛡️', title: 'Ayatul Kursi', url: 'https://www.youtube.com/embed/akLlSftO7g8' },
-        { id: 'alkahfi_10', emoji: '🕋', title: 'Al-Kahfi (10 ayat pertama)', url: 'https://www.youtube.com/embed/3l5qnU5eHl0' }
-    ];
-
-    // DOA: tambah Selawat Tafrijiah & Doa Dhuha
-    const doaList = [
-        { id: 'doa_makan', emoji: '🍽️', title: 'Doa Makan', url: 'https://www.youtube.com/embed/6FQ9cVhYHI8' },
-        { id: 'doa_tidur', emoji: '😴', title: 'Doa Tidur', url: 'https://www.youtube.com/embed/0ZP3x_2aUfM' },
-        { id: 'doa_bangun', emoji: '🌅', title: 'Doa Bangun Tidur', url: 'https://www.youtube.com/embed/t4s8gFIJ2mI' },
-        { id: 'doa_masuk_tandas', emoji: '🚻', title: 'Doa Masuk Tandas', url: 'https://www.youtube.com/embed/Ap8B6iXjVbY' },
-        { id: 'doa_keluar_tandas', emoji: '🚽', title: 'Doa Keluar Tandas', url: 'https://www.youtube.com/embed/OSYQlMd5IYw' },
-        { id: 'doa_belajar', emoji: '📚', title: 'Doa Sebelum Belajar', url: 'https://www.youtube.com/embed/PkG5lBmB3oU' },
-        { id: 'doa_kenderaan', emoji: '🚗', title: 'Doa Naik Kenderaan', url: 'https://www.youtube.com/embed/LOhYF_M1e5I' },
-        { id: 'doa_ibu_bapa', emoji: '👨‍👩‍👧', title: 'Doa Ibu Bapa', url: 'https://www.youtube.com/embed/6b-hEwHdH-c' },
-        { id: 'doa_perlindungan', emoji: '🛡️', title: 'Doa Perlindungan', url: 'https://www.youtube.com/embed/KP4S4hWw9bU' },
-        { id: 'doa_dunia_akhirat', emoji: '🌍', title: 'Doa Kebaikan Dunia Akhirat', url: 'https://www.youtube.com/embed/J5q1W0s8dRs' },
-        // DOA BARU
-        { id: 'selawat_tafrijiah', emoji: '🌹', title: 'Selawat Tafrijiah (Nariyah)', url: 'https://www.youtube.com/embed/2YgQ9xV5Vq0' },
-        { id: 'doa_dhuha', emoji: '☀️', title: 'Doa Dhuha', url: 'https://www.youtube.com/embed/5DqY1FkSdLg' }
-    ];
+    { id: 'alfatihah', emoji: '📖', title: 'Al-Fatihah', url: 'https://www.youtube.com/embed/NGaMggXquqo' },
+    { id: 'tigaqul', emoji: '📖', title: 'An-Nas, Al-Falaq & Al-Ikhlas', url: 'https://www.youtube.com/embed/VDHIBZA7gxg' },
+    { id: 'ayatul_kursi', emoji: '🛡️', title: 'Ayatul Kursi', url: 'https://www.youtube.com/embed/i0g1cm2EVIw' },
+    { id: 'alkahfi_10', emoji: '🕋', title: 'Al-Kahfi (10 ayat pertama)', url: 'https://www.youtube.com/embed/ygiPzZeGTAY' }
+];
+const doaList = [
+    { id: 'doa_makan', emoji: '🍽️', title: 'Doa Makan', url: 'https://www.youtube.com/embed/CJli8Fsneao' },
+    { id: 'doa_tidur', emoji: '😴', title: 'Doa Tidur', url: 'https://www.youtube.com/embed/2LJl5HcB2Sk' },
+    { id: 'doa_bangun', emoji: '🌅', title: 'Doa Bangun Tidur', url: 'https://www.youtube.com/embed/2CS6iU_WmzU' },
+    { id: 'doa_masuk_keluar_tandas', emoji: '🚻', title: 'Doa Masuk & Keluar Tandas', url: 'https://www.youtube.com/embed/MSHyt32gj6I' },
+    { id: 'doa_belajar', emoji: '📚', title: 'Doa Sebelum Belajar', url: 'https://www.youtube.com/embed/0WNKQM_MQ_0' },
+    { id: 'doa_kenderaan', emoji: '🚗', title: 'Doa Naik Kenderaan', url: 'https://www.youtube.com/embed/T78RVUSgi7Q' },
+    { id: 'doa_ibu_bapa', emoji: '👨‍👩‍👧', title: 'Doa Kedua Ibu Bapa', url: 'https://www.youtube.com/embed/hmRq2GoAwIk' },
+    { id: 'doa_perlindungan', emoji: '🛡️', title: 'Doa Perlindungan', url: 'https://www.youtube.com/embed/Z6qYzQirX64' },
+    { id: 'doa_dunia_akhirat', emoji: '🌍', title: 'Doa Kebaikan Dunia Akhirat', url: 'https://www.youtube.com/embed/1m-BnaZHSsA' },
+    { id: 'selawat_tafrijiah', emoji: '🌹', title: 'Selawat Tafrijiah (Nariyah)', url: 'https://www.youtube.com/embed/QCxpb4GAlUc' },
+    { id: 'doa_dhuha', emoji: '☀️', title: 'Doa Dhuha', url: 'https://www.youtube.com/embed/afAWcL9wKME' }
+];
 
     // =========================================================
     // OBJEK BAHASA
