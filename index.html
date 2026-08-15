@@ -16,7 +16,7 @@
 
     <style>
         /* ============================================================
-           GAYA UTAMA (SAMA SEPERTI SEBELUM, TANPA PERUBAHAN)
+           GAYA UTAMA
            ============================================================ */
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700&display=swap');
         :root {
@@ -50,7 +50,6 @@
             position: relative;
         }
 
-        /* ===== LATAR BELAKANG DENGAN BLUR ===== */
         body::before {
             content: '';
             position: fixed;
@@ -68,7 +67,6 @@
             z-index: -1;
         }
 
-        /* ===== PANEL UTAMA ===== */
         #app-container {
             width: 100%;
             max-width: 480px;
@@ -123,7 +121,6 @@
             .reading-item:hover { transform: scale(1.04); border-color: var(--accent); }
             .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #D81B60; }
             .btn-secondary:hover { box-shadow: 0 8px 0 #7D3C98; }
-            /* Muzik */
             .music-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
             .music-item { padding: 12px 6px; min-height: 80px; }
             .music-item .music-emoji { font-size: 2.8rem; }
@@ -139,7 +136,6 @@
             .music-grid { grid-template-columns: repeat(4, 1fr); }
         }
 
-        /* ===== STATUS BAR ===== */
         #status-bar {
             flex-shrink: 0;
             width: 100%;
@@ -218,7 +214,6 @@
             min-width: 36px;
         }
 
-        /* ===== SCREENS ===== */
         .screen {
             display: none;
             flex-direction: column;
@@ -236,7 +231,6 @@
         }
         .screen.active { display: flex; }
 
-        /* MENU */
         #menu-screen {
             justify-content: space-between;
             padding: 6px 12px 4px;
@@ -363,7 +357,6 @@
             100% { transform: scale(1); box-shadow: 0 8px 0 #C0392B, 0 6px 20px rgba(238,90,36,0.4); }
         }
 
-        /* ===== GAME ===== */
         #game-screen {
             padding: 4px 10px;
             justify-content: flex-start;
@@ -501,12 +494,10 @@
             opacity: 0.6;
         }
 
-        /* ===== REWARD ===== */
         #reward-screen { justify-content: center; }
         #feedback-image { font-size: 4.5rem; margin-bottom: 6px; animation: pop 1s infinite alternate; }
         #feedback-text { font-size: 2rem; margin: 4px 0; text-shadow: 0 2px 8px rgba(255,255,255,0.5); }
 
-        /* ===== ALBUM ===== */
         #album-screen h2 { font-size: 1.6rem; margin: 4px 0; flex-shrink: 0; text-shadow: 0 2px 8px rgba(255,255,255,0.5); }
         .album-grid {
             display: grid;
@@ -533,7 +524,6 @@
         .album-item .emoji { font-size: 2rem; }
         .album-item .name { font-size: 0.6rem; color: #555; }
 
-        /* ===== READING ===== */
         #reading-screen { padding: 4px 10px; justify-content: flex-start; }
         #reading-screen h2 { font-size: 1.6rem; margin: 4px 0; flex-shrink: 0; text-shadow: 0 2px 8px rgba(255,255,255,0.5); }
         .reading-tabs {
@@ -617,9 +607,6 @@
             100% { transform: scale(1); }
         }
 
-        /* ============================================================
-           MUZIK KANAK-KANAK, SURAH & DOA
-           ============================================================ */
         #music-screen {
             padding: 4px 10px;
             justify-content: flex-start;
@@ -734,7 +721,6 @@
             box-shadow: 0 0 16px rgba(255,105,180,0.15);
         }
 
-        /* ===== BOTTOM NAV (4 item) ===== */
         #bottom-nav {
             flex-shrink: 0;
             width: 100%;
@@ -775,7 +761,6 @@
         .nav-item.active .nav-label { color: var(--primary); }
         .nav-item.active .nav-icon { transform: scale(1.05); }
 
-        /* ===== KONFETI & KEJUTAN ===== */
         #confetti-container {
             position: absolute;
             top: 0;
@@ -841,7 +826,6 @@
             margin: 3px;
         }
 
-        /* ===== ANIMASI ===== */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -862,7 +846,6 @@
         }
         .reward-bonus { color: #F1C40F; font-size: 1.2rem; text-shadow: 0 1px 4px rgba(255,255,255,0.5); }
 
-        /* ===== RESPONSIF ===== */
         @media (max-height: 650px) {
             #status-bar { font-size: 0.8rem; padding: 2px 6px; min-height: 36px; }
             .status-item { font-size: 0.7rem; padding: 1px 6px; }
@@ -1012,9 +995,7 @@
         <button class="btn btn-small btn-secondary" onclick="showScreen('menu-screen')" style="margin:4px 0; flex-shrink:0;">⬅ Kembali</button>
     </div>
 
-    <!-- ============================================================
-       MUZIK KANAK-KANAK, SURAH & DOA
-       ============================================================ -->
+    <!-- ===== MUZIK ===== -->
     <div id="music-screen" class="screen">
         <h2>🎵 Muzik & Doa</h2>
         <div class="music-tabs">
@@ -1027,13 +1008,11 @@
                 🎶 Pilih lagu/surah/doa di bawah
             </div>
         </div>
-        <div class="music-grid" id="music-grid">
-            <!-- Akan dijana oleh JS -->
-        </div>
+        <div class="music-grid" id="music-grid"></div>
         <button class="btn btn-small btn-secondary" onclick="showScreen('menu-screen')" style="margin:4px 0; flex-shrink:0;">⬅ Kembali</button>
     </div>
 
-    <!-- ===== BOTTOM NAV (4 item) ===== -->
+    <!-- ===== BOTTOM NAV ===== -->
     <div id="bottom-nav">
         <button class="nav-item active" data-target="menu-screen">
             <span class="nav-icon">🏠</span>
@@ -1065,7 +1044,7 @@
 
 <script>
     // =========================================================
-    // DATA PERMAINAN (SAMA SEPERTI SEBELUM)
+    // DATA PERMAINAN
     // =========================================================
     const gameData = {
         colors: [
@@ -1190,7 +1169,7 @@
     };
 
     // =========================================================
-    // DATA LAGU KANAK-KANAK, SURAH & DOA
+    // DATA LAGU, SURAH & DOA (DIKEMASKINI)
     // =========================================================
     const musicSongs = [
         { id: 'abc', emoji: '🔤', title: 'ABC Song', url: 'https://www.youtube.com/embed/75p-N9YKqNo' },
@@ -1203,14 +1182,17 @@
         { id: 'numbers', emoji: '🔢', title: 'Number Song', url: 'https://www.youtube.com/embed/85M1yxIcHpw' }
     ];
 
+    // SURAH: tambah Ayatul Kursi & 10 ayat pertama Al-Kahfi
     const quranSurah = [
         { id: 'alfatihah', emoji: '📖', title: 'Al-Fatihah', url: 'https://www.youtube.com/embed/5G3UZxW7UfU' },
         { id: 'annas', emoji: '📖', title: 'An-Nas', url: 'https://www.youtube.com/embed/1QnqVv7xU4E' },
         { id: 'alfalaq', emoji: '📖', title: 'Al-Falaq', url: 'https://www.youtube.com/embed/2Pq8E8eHl-U' },
-        { id: 'alikhlas', emoji: '📖', title: 'Al-Ikhlas', url: 'https://www.youtube.com/embed/7Vk-4q9fMqI' }
+        { id: 'alikhlas', emoji: '📖', title: 'Al-Ikhlas', url: 'https://www.youtube.com/embed/7Vk-4q9fMqI' },
+        { id: 'ayatul_kursi', emoji: '🛡️', title: 'Ayatul Kursi', url: 'https://www.youtube.com/embed/akLlSftO7g8' },
+        { id: 'alkahfi_10', emoji: '🕋', title: 'Al-Kahfi (10 ayat pertama)', url: 'https://www.youtube.com/embed/3l5qnU5eHl0' }
     ];
 
-    // ===== DOA HARIAN UNTUK KANAK-KANAK =====
+    // DOA: tambah Selawat Tafrijiah & Doa Dhuha
     const doaList = [
         { id: 'doa_makan', emoji: '🍽️', title: 'Doa Makan', url: 'https://www.youtube.com/embed/6FQ9cVhYHI8' },
         { id: 'doa_tidur', emoji: '😴', title: 'Doa Tidur', url: 'https://www.youtube.com/embed/0ZP3x_2aUfM' },
@@ -1221,7 +1203,10 @@
         { id: 'doa_kenderaan', emoji: '🚗', title: 'Doa Naik Kenderaan', url: 'https://www.youtube.com/embed/LOhYF_M1e5I' },
         { id: 'doa_ibu_bapa', emoji: '👨‍👩‍👧', title: 'Doa Ibu Bapa', url: 'https://www.youtube.com/embed/6b-hEwHdH-c' },
         { id: 'doa_perlindungan', emoji: '🛡️', title: 'Doa Perlindungan', url: 'https://www.youtube.com/embed/KP4S4hWw9bU' },
-        { id: 'doa_dunia_akhirat', emoji: '🌍', title: 'Doa Kebaikan Dunia Akhirat', url: 'https://www.youtube.com/embed/J5q1W0s8dRs' }
+        { id: 'doa_dunia_akhirat', emoji: '🌍', title: 'Doa Kebaikan Dunia Akhirat', url: 'https://www.youtube.com/embed/J5q1W0s8dRs' },
+        // DOA BARU
+        { id: 'selawat_tafrijiah', emoji: '🌹', title: 'Selawat Tafrijiah (Nariyah)', url: 'https://www.youtube.com/embed/2YgQ9xV5Vq0' },
+        { id: 'doa_dhuha', emoji: '☀️', title: 'Doa Dhuha', url: 'https://www.youtube.com/embed/5DqY1FkSdLg' }
     ];
 
     // =========================================================
@@ -1419,7 +1404,7 @@
     // =========================================================
     // KEADAAN MUZIK
     // =========================================================
-    let currentMusicType = 'songs'; // 'songs', 'quran', 'doa'
+    let currentMusicType = 'songs';
     let currentMusicId = null;
 
     // =========================================================
@@ -1499,7 +1484,6 @@
         document.getElementById('surprise-title').textContent = t.surprise_title;
         document.getElementById('surprise-btn').textContent = t.btn_thanks;
 
-        // Muzik tab
         document.querySelectorAll('.music-tab-btn').forEach(btn => {
             if (btn.dataset.type === 'songs') btn.textContent = t.tab_songs;
             else if (btn.dataset.type === 'quran') btn.textContent = t.tab_quran;
@@ -1634,9 +1618,6 @@
         showScreen('menu-screen');
     }
 
-    // =========================================================
-    // SAMBUTAN (TANPA SUARA)
-    // =========================================================
     function welcomeUser() {
         if (!welcomeSpoken) {
             welcomeSpoken = true;
@@ -1651,7 +1632,6 @@
         document.querySelectorAll('.music-tab-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.type === type);
         });
-        // Kosongkan player
         const player = document.getElementById('music-player');
         const oldIframe = player.querySelector('iframe');
         if (oldIframe) oldIframe.remove();
@@ -1686,7 +1666,6 @@
             div.onclick = () => playMusicItem(item);
             grid.appendChild(div);
         });
-        // Jika ada item aktif, mainkan semula
         if (currentMusicId) {
             const item = items.find(i => i.id === currentMusicId);
             if (item) {
@@ -1702,17 +1681,14 @@
         currentMusicId = item.id;
         const player = document.getElementById('music-player');
         const placeholder = document.getElementById('music-placeholder');
-        // Remove old iframe
         const oldIframe = player.querySelector('iframe');
         if (oldIframe) oldIframe.remove();
-        // Create new iframe
         const iframe = document.createElement('iframe');
         iframe.src = item.url + '?autoplay=1&rel=0';
         iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
         iframe.allowFullscreen = true;
         player.appendChild(iframe);
         placeholder.style.display = 'none';
-        // Update active state
         document.querySelectorAll('.music-item').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.music-item').forEach(el => {
             if (el.querySelector('.music-title')?.textContent === item.title) {
@@ -1725,15 +1701,13 @@
     // =========================================================
     // TIMER TOGGLE
     // =========================================================
-    function toggleTimerMode() {
+    document.getElementById('timer-toggle').addEventListener('click', function() {
         timerMode = !timerMode;
-        const btn = document.getElementById('timer-toggle');
-        btn.classList.toggle('active', timerMode);
+        this.classList.toggle('active', timerMode);
         document.getElementById('timer-container').style.display = timerMode ? 'block' : 'none';
         if (!timerMode) clearInterval(timerInterval);
         updateTimerToggleText();
-    }
-    document.getElementById('timer-toggle').addEventListener('click', toggleTimerMode);
+    });
 
     // =========================================================
     // SOUND TOGGLE
@@ -2139,7 +2113,7 @@
         }
     })();
 
-    console.log('🎮 Minda Mikayla sedia (Folder Doa Harian ditambah)');
+    console.log('🎮 Minda Mikayla sedia (Ayatul Kursi, Al-Kahfi 10 ayat, Selawat Tafrijiah, Doa Dhuha ditambah)');
 </script>
 </body>
 </html>
