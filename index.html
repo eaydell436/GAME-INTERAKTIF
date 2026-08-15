@@ -15,9 +15,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <style>
-        /* ===== SAMA SEPERTI SEBELUM ===== */
+        /* ============================================================
+           SEMUA GAYA SAMA SEPERTI SEBELUM, TAPI SAYA RINGKASKAN
+           ============================================================ */
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700&display=swap');
-
         :root {
             --bg-color: #FFF0F5;
             --text-color: #37474F;
@@ -31,13 +32,11 @@
             --timer-bg: #FF6B6B;
             --nav-bg: #FFFFFF;
         }
-
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
         }
-
         html, body {
             margin: 0;
             padding: 0;
@@ -50,7 +49,6 @@
             justify-content: center;
             align-items: center;
         }
-
         #app-container {
             width: 100%;
             max-width: 480px;
@@ -65,24 +63,10 @@
             overflow: hidden;
             overflow-x: hidden;
         }
-
         @media (min-width: 768px) {
-            #app-container {
-                max-width: 850px;
-                max-height: 95vh;
-                height: 95vh;
-                border-radius: 28px;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-            }
-            #status-bar {
-                min-height: 52px;
-                padding: 6px 16px;
-                font-size: 1.2rem;
-            }
-            .status-item {
-                font-size: 1rem;
-                padding: 4px 14px;
-            }
+            #app-container { max-width: 850px; max-height: 95vh; height: 95vh; border-radius: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+            #status-bar { min-height: 52px; padding: 6px 16px; font-size: 1.2rem; }
+            .status-item { font-size: 1rem; padding: 4px 14px; }
             .btn-home { font-size: 1.8rem; }
             #sound-toggle, #timer-toggle, #lang-toggle { font-size: 1.6rem; }
             h1 { font-size: 2.6rem; }
@@ -122,7 +106,6 @@
             .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #D81B60; }
             .btn-secondary:hover { box-shadow: 0 8px 0 #7D3C98; }
         }
-
         @media (min-width: 1200px) {
             #app-container { max-width: 1000px; max-height: 90vh; height: 90vh; }
             .cat-btn { font-size: 2.8rem; padding: 18px 4px; }
@@ -132,7 +115,7 @@
             .btn-start { font-size: 2.5rem; padding: 24px 48px; max-width: 450px; }
         }
 
-        /* ===== SAMA SEPERTI SEBELUM ===== */
+        /* ===== STATUS BAR ===== */
         #status-bar {
             flex-shrink: 0;
             width: 100%;
@@ -210,6 +193,7 @@
             min-width: 36px;
         }
 
+        /* ===== SCREENS ===== */
         .screen {
             display: none;
             flex-direction: column;
@@ -832,8 +816,8 @@
 
 <div id="app-container">
 
-    <!-- ===== STATUS BAR ===== -->
-    <div id="status-bar" style="display: none;">
+    <!-- ===== STATUS BAR (SENTIASA KELIHATAN) ===== -->
+    <div id="status-bar">
         <div class="status-left">
             <button class="btn-home" onclick="goHome()">🏠</button>
             <div class="status-item">⭐ <span id="score-display">0</span></div>
@@ -935,7 +919,7 @@
 
 <script>
     // =========================================================
-    // DATA PERMAINAN (SAMA)
+    // DATA PERMAINAN
     // =========================================================
     const gameData = {
         colors: [
@@ -1029,7 +1013,7 @@
     };
 
     // =========================================================
-    // DATA SUDUT BACAAN (SAMA)
+    // DATA SUDUT BACAAN
     // =========================================================
     const readingData = {
         numbers: [
@@ -1221,8 +1205,21 @@
     const surpriseMessages = ["🎁 Hadiah untuk Mikayla! +10 mata bonus!","🎉 Kotak kejutan! Mikayla dapat bonus 10 mata!","🌟 Istimewa! Mikayla dapat tambahan 10 mata!","💎 Hebat! Mikayla dapat 10 mata bonus!"];
     const categoryEmojis = { colors:'🎨', numbers:'🔢', shapes:'🔺', letters:'🔤', animals:'🐾', fruits:'🍎', vehicles:'🚗', foods:'🍕', jobs:'👨‍⚕️', superheroes:'🦸' };
     const categoryNames = { colors:'Warna', numbers:'Nombor', shapes:'Bentuk', letters:'Huruf', animals:'Haiwan', fruits:'Buah', vehicles:'Kenderaan', foods:'Makanan', jobs:'Pekerjaan', superheroes:'Superhero' };
+    const categoryNamesEn = {
+        colors: 'Colors',
+        numbers: 'Numbers',
+        shapes: 'Shapes',
+        letters: 'Letters',
+        animals: 'Animals',
+        fruits: 'Fruits',
+        vehicles: 'Vehicles',
+        foods: 'Foods',
+        jobs: 'Jobs',
+        superheroes: 'Superheroes'
+    };
     const themeColors = { colors:'#FFF0F5', numbers:'#E8F8F5', shapes:'#FEF9E7', letters:'#EBF5FB', animals:'#E9F7EF', fruits:'#FDF2E9', vehicles:'#EAF2F8', foods:'#FDF2E9', jobs:'#F4F6F7', superheroes:'#F4ECF7' };
     let _lastCategory = null;
+    let currentReadingTab = 'numbers';
 
     // =========================================================
     // FUNGSI UTAMA
@@ -1277,7 +1274,6 @@
         praiseMessages = t.correct_messages;
         wrongMessages = t.wrong_messages;
 
-        // Update UI texts
         document.getElementById('menu-title').textContent = t.menu_title;
         document.getElementById('menu-sub').textContent = t.menu_sub;
         document.getElementById('btn-start').textContent = t.btn_start;
@@ -1296,27 +1292,17 @@
         document.getElementById('surprise-title').textContent = t.surprise_title;
         document.getElementById('surprise-btn').textContent = t.btn_thanks;
 
-        // Timer toggle button text
         updateTimerToggleText();
-
-        // Update category labels
         renderCategoryMenu();
-
-        // Update reading tab if active
         if (document.getElementById('reading-screen').classList.contains('active')) {
-            showReadingTab(currentReadingTab || 'numbers');
+            showReadingTab(currentReadingTab);
         }
-
-        // Update album if active
         if (document.getElementById('album-screen').classList.contains('active')) {
             renderAlbum();
         }
 
-        // Update lang toggle button
         document.getElementById('lang-toggle').textContent = langCode === 'bm' ? '🇲🇾' : '🇬🇧';
         document.getElementById('lang-toggle').title = langCode === 'bm' ? 'Tukar ke BI' : 'Switch to BM';
-
-        // Change app language meta
         document.documentElement.lang = langCode === 'bm' ? 'ms' : 'en';
     }
 
@@ -1330,7 +1316,6 @@
         const btn = document.getElementById('timer-toggle');
         const t = lang[currentLang];
         btn.title = timerMode ? t.timer_on : t.timer_off;
-        // We'll keep icon only to avoid clutter
     }
 
     // =========================================================
@@ -1352,17 +1337,16 @@
             item.classList.toggle('active', item.dataset.target === id);
         });
 
+        // Status bar sentiasa kelihatan, kecuali kita nak sembunyi? Kita biar je.
+        // Tapi untuk game/reward, kita biarkan ia kelihatan juga, tapi mungkin kita boleh sembunyi jika perlu.
+        // Biar je.
+
         if (id === 'menu-screen') {
             welcomeUser();
-            // Update highscore on menu
             document.getElementById('highscore-menu').textContent = lang[currentLang].highscore + highScore;
         }
-        if (id === 'game-screen' || id === 'reward-screen') {
-            document.getElementById('status-bar').style.display = 'flex';
-        }
-
         if (id === 'album-screen') renderAlbum();
-        if (id === 'reading-screen') showReadingTab(currentReadingTab || 'numbers');
+        if (id === 'reading-screen') showReadingTab(currentReadingTab);
     }
 
     function goHome() {
@@ -1443,7 +1427,7 @@
     document.getElementById('lang-toggle').addEventListener('click', toggleLanguage);
 
     // =========================================================
-    // RENDER KATEGORI MENU
+    // RENDER KATEGORI
     // =========================================================
     function renderCategoryMenu() {
         const container = document.getElementById('category-menu');
@@ -1465,7 +1449,6 @@
             if (unlocked) btn.classList.add('unlocked');
 
             const emoji = categoryEmojis[key] || '📚';
-            // Use translated category name if available in lang object, else fallback
             const name = currentLang === 'bm' ? categoryNames[key] : (categoryNamesEn[key] || categoryNames[key]);
             const badge = unlocked ? '<span class="badge-star">⭐</span>' : '';
             btn.innerHTML = `<span style="font-size:1.8rem;">${emoji}</span><span class="cat-label">${name}</span>${badge}`;
@@ -1473,20 +1456,6 @@
             container.appendChild(btn);
         });
     }
-
-    // English version of category names
-    const categoryNamesEn = {
-        colors: 'Colors',
-        numbers: 'Numbers',
-        shapes: 'Shapes',
-        letters: 'Letters',
-        animals: 'Animals',
-        fruits: 'Fruits',
-        vehicles: 'Vehicles',
-        foods: 'Foods',
-        jobs: 'Jobs',
-        superheroes: 'Superheroes'
-    };
 
     // =========================================================
     // ALBUM
@@ -1514,7 +1483,6 @@
     // =========================================================
     // SUDUT BACAAN
     // =========================================================
-    let currentReadingTab = 'numbers';
     function showReadingTab(tab) {
         currentReadingTab = tab;
         document.querySelectorAll('.reading-tab-btn').forEach(btn => {
@@ -1596,7 +1564,6 @@
     function startGame() {
         initAudio();
         score = 0; stars = 0; isAnswered = false;
-        document.getElementById('status-bar').style.display = 'flex';
         updateScore();
         speakAI(lang[currentLang].welcome);
         renderCategoryMenu();
@@ -1817,9 +1784,7 @@
     // =========================================================
     // INISIALISASI
     // =========================================================
-    // Set initial language
     setLanguage(currentLang);
-
     renderCategoryMenu();
     updateScore();
     showScreen('menu-screen');
@@ -1840,7 +1805,7 @@
         }
     })();
 
-    console.log('🎮 Minda Mikayla sedia! (Dwibahasa BM/BI)');
+    console.log('🎮 Minda Mikayla sedia (Dwibahasa, status bar sentiasa kelihatan)');
 </script>
 </body>
 </html>
