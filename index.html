@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Permainan Minda Mikayla</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700&display=swap');
+
+        :root {
+            --bg-color: #FFF0F5;
+            --text-color: #37474F;
+            --primary: #FF69B4;
+            --secondary: #9B59B6;
+            --accent: #FFE66D;
+            --success: #2ECC71;
+            --error: #E74C3C;
+            --card-bg: #FFFFFF;
+            --theme-bg: #FFF0F5;
+            --timer-bg: #FF6B6B;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0e6ef;
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Panel utama - 80% lebar & tinggi, dengan had */
+        #app-container {
+            width: 80%;
+            max-width: 480px;
+            height: 80vh;
+            max-height: 900px;
+            background-color: var(--theme-bg);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            border-radius: 30px;
+            transition: background-color 0.8s ease;
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            min-height: 80px;
+            width: 100%;
+            padding: 0 10px;
+            position: relative;
+        }
+
+        h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin: 0;
+            flex: 1;
+        }
+
+        #replay-audio-btn {
+            background-color: var(--accent);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 0px #E5C345;
+            transition: transform 0.1s, box-shadow 0.1s;
+            flex-shrink: 0;
+        }
+        #replay-audio-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0px #E5C345;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.8rem;
+            font-family: 'Fredoka One', cursive;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 0px #D81B60;
+            transition: transform 0.1s, box-shadow 0.1s;
+            margin: 10px;
+            width: 80%;
+            max-width: 300px;
+        }
+        .btn:active {
+            transform: translateY(8px);
+            box-shadow: 0 0px 0px #D81B60;
+        }
+        .btn-secondary {
+            background-color: var(--secondary);
+            box-shadow: 0 8px 0px #7D3C98;
+        }
+        .btn-secondary:active {
+            box-shadow: 0 0px 0px #7D3C98;
+        }
+        .btn-small {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            width: auto;
+            max-width: 200px;
+            margin: 5px;
+        }
+        .btn-home {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0 8px;
+            color: var(--text-color);
+            transition: transform 0.2s;
+        }
+        .btn-home:active {
+            transform: scale(0.8);
+        }
+
+        #status-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.3rem;
+            font-family: 'Fredoka One', cursive;
+            z-index: 20;
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(4px);
+            flex-wrap: wrap;
+            gap: 5px;
+            border-radius: 30px 30px 0 0;
+        }
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .status-item {
+            background: rgba(255,255,255,0.8);
+            padding: 4px 12px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        #sound-toggle {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        /* Watak Mikayla */
+        #mikayla-avatar {
+            position: absolute;
+            top: 70px;
+            right: 15px;
+            font-size: 3.5rem;
+            z-index: 15;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+        #mikayla-avatar .bubble {
+            position: absolute;
+            top: -30px;
+            right: -10px;
+            background: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'Nunito', sans-serif;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #mikayla-avatar .bubble.show {
+            opacity: 1;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 10px;
+        }
+
+        .option-card {
+            background-color: var(--card-bg);
+            border-radius: 25px;
+            aspect-ratio: 1/1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 0px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s, border 0.2s, background 0.2s, box-shadow 0.2s;
+            border: 4px solid transparent;
+            padding: 10px;
+            position: relative;
+        }
+        .option-card:active {
+            transform: scale(0.95);
+        }
+        .option-card .emoji {
+            font-size: 4rem;
+            line-height: 1.2;
+        }
+        .option-card .label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #333;
+            margin-top: 5px;
+            background: rgba(255,255,255,0.7);
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+        .option-card.correct {
+            border-color: var(--success);
+            background-color: #E8F8F5;
+            box-shadow: 0 0 20px rgba(46,204,113,0.4);
+        }
+        .option-card.wrong {
+            border-color: var(--error);
+            background-color: #FDEDEC;
+            animation: shake 0.4s ease;
+        }
+        .option-card.bonus {
+            border-color: #F1C40F;
+            background: #FEF9E7;
+            animation: pulse-gold 1s infinite alternate;
+        }
+        .option-card.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .option-card .glow {
+            position: absolute;
+            inset: -4px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, gold, #FFD700, gold);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+        .option-card.glow-active .glow {
+            opacity: 1;
+            animation: spin-glow 1s linear infinite;
+        }
+
+        @keyframes spin-glow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 10px rgba(241,196,15,0.5); }
+            100% { box-shadow: 0 0 30px rgba(241,196,15,0.9); }
+        }
+
+        /* Timer bar */
+        #timer-container {
+            width: 80%;
+            max-width: 350px;
+            height: 12px;
+            background: #ddd;
+            border-radius: 20px;
+            margin: 10px auto 5px;
+            overflow: hidden;
+            display: none;
+        }
+        #timer-bar {
+            height: 100%;
+            width: 100%;
+            background: var(--timer-bg);
+            border-radius: 20px;
+            transition: width 0.1s linear;
+        }
+
+        /* Reward screen */
+        #feedback-image {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            animation: pop 1s infinite alternate;
+        }
+        .reward-bonus {
+            color: #F1C40F;
+            font-size: 1.5rem;
+        }
+
+        /* Menu kategori */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 400px;
+            margin: 15px 0;
+        }
+        .cat-btn {
+            background: white;
+            border: 3px solid #ddd;
+            border-radius: 20px;
+            padding: 12px 5px;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.05);
+        }
+        .cat-btn:active {
+            transform: scale(0.95);
+        }
+        .cat-btn .cat-label {
+            font-size: 0.7rem;
+            font-family: 'Nunito', sans-serif;
+            color: #555;
+            margin-top: 2px;
+        }
+        .cat-btn.active {
+            border-color: var(--primary);
+            background: #FFF0F5;
+        }
+        .cat-btn.locked {
+            opacity: 0.5;
+            filter: grayscale(1);
+        }
+        .cat-btn .badge {
+            font-size: 0.8rem;
+            margin-left: 2px;
+        }
+
+        /* Album */
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin: 10px 0;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+        .album-item {
+            background: white;
+            border-radius: 16px;
+            padding: 10px 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .album-item .emoji {
+            font-size: 2.5rem;
+        }
+        .album-item .name {
+            font-size: 0.7rem;
+            color: #555;
+        }
+
+        /* Konfeti & latar */
+        #confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0.9;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* Latar dinamik (bintang jatuh) */
+        .bg-star {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0.3;
+            animation: float-star 6s infinite alternate ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes float-star {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
+            100% { transform: translateY(-30px) rotate(20deg); opacity: 0.6; }
+        }
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        .shake { animation: shake 0.4s ease; }
+        .pop { animation: pop 0.5s ease; }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            border-top-color: #D35400;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden { display: none !important; }
+
+        /* Responsif */
+        @media (max-width: 500px) {
+            #app-container {
+                width: 95%;
+                height: 90vh;
+                border-radius: 20px;
+            }
+            h2 { font-size: 1.4rem; }
+            .option-card .emoji { font-size: 3rem; }
+            .category-grid { gap: 8px; }
+            .cat-btn { font-size: 1.6rem; padding: 8px 2px; }
+            #mikayla-avatar { font-size: 2.8rem; top: 65px; }
+        }
+        @media (max-height: 700px) {
+            #app-container { height: 95vh; }
+            .question-header { min-height: 60px; margin-bottom: 10px; }
+            .option-card .emoji { font-size: 2.8rem; }
+            .btn { padding: 10px 20px; font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="app-container">
+    <!-- Status Bar dengan Butang Home -->
+    <div id="status-bar" style="display: none;">
+        <div class="status-left">
+            <button class="btn-home" onclick="goHome()">🏠</button>
+            <div class="status-item">⭐ <span id="score-display">0</span></div>
+        </div>
+        <div class="status-right">
+            <div class="status-item">🌟 <span id="star-display">0</span></div>
+            <div class="status-item">🏆 <span id="highscore-display">0</span></div>
+            <button id="sound-toggle">🔊</button>
+        </div>
+    </div>
+
+    <!-- Watak Mikayla -->
+    <div id="mikayla-avatar">
+        👧
+        <div class="bubble" id="avatar-bubble">Yeay!</div>
+    </div>
+
+    <!-- Skrin Menu -->
+    <div id="menu-screen" class="screen active">
+        <div style="font-size: 4rem; margin-bottom: 10px;">👧🦄</div>
+        <h1>Minda Mikayla</h1>
+        <p style="font-size: 1.1rem; margin-bottom: 5px; color: #555;">Mari belajar dan bermain!</p>
+        <p id="highscore-menu" style="font-size: 1rem; color: #D35400; margin: 0;">🏆 Rekod: 0</p>
+        <div class="category-grid" id="category-menu">
+            <!-- Butang kategori akan dijana JS -->
+        </div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 10px 0;">
+            <button class="btn btn-small btn-secondary" onclick="toggleTimerMode()">⏱️ Lawan Masa</button>
+            <button class="btn btn-small btn-secondary" onclick="showAlbum()">📚 Album</button>
+        </div>
+        <button class="btn" onclick="startGame()">Mula Main!</button>
+    </div>
+
+    <!-- Skrin Permainan -->
+    <div id="game-screen" class="screen">
+        <div class="question-header">
+            <h2 id="question-text">Soalan di sini</h2>
+            <button id="replay-audio-btn" onclick="replayQuestion()">🔊</button>
+        </div>
+        <div id="bonus-indicator" style="font-size: 1.2rem; color: #F1C40F; height: 30px;"></div>
+        <div id="timer-container"><div id="timer-bar"></div></div>
+        <div id="options-container" class="options-grid"></div>
+    </div>
+
+    <!-- Skrin Ganjaran -->
+    <div id="reward-screen" class="screen">
+        <div id="feedback-image">🌟</div>
+        <h1 id="feedback-text">Pandai Mikayla!</h1>
+        <div id="reward-bonus-text" class="reward-bonus"></div>
+        <button class="btn btn-secondary" id="next-btn" onclick="nextQuestion()" style="margin-top: 30px;">Seterusnya</button>
+    </div>
+
+    <!-- Skrin Album -->
+    <div id="album-screen" class="screen">
+        <h2 style="font-family:'Fredoka One',cursive; font-size:2rem;">📚 Album Mikayla</h2>
+        <div id="album-content" class="album-grid"></div>
+        <button class="btn btn-small btn-secondary" onclick="showScreen('menu-screen')">⬅ Kembali</button>
+    </div>
+
+    <!-- Kotak Kejutan (overlay) -->
+    <div id="surprise-overlay" style="display:none; position:absolute; inset:0; background:rgba(0,0,0,0.6); z-index:50; justify-content:center; align-items:center; flex-direction:column; backdrop-filter:blur(4px);">
+        <div style="font-size:5rem; animation:pop 0.8s infinite alternate;">🎁</div>
+        <h2 style="color:white; font-family:'Fredoka One',cursive;">🎉 Hadiah Istimewa!</h2>
+        <p style="color:white; font-size:1.3rem;" id="surprise-msg">+10 mata bonus!</p>
+        <button class="btn" onclick="closeSurprise()">Terima Kasih!</button>
+    </div>
+
+    <div id="confetti-container"></div>
+</div>
+
+<script>
+    // ========================================================
+    // DATA PERMAINAN (10 kategori dengan emoji)
+    // ========================================================
+    const gameData = {
+        colors: [
+            { id: 'merah', name: 'Merah', text: '🟥', color: '#FF4136' },
+            { id: 'biru', name: 'Biru', text: '🟦', color: '#0074D9' },
+            { id: 'kuning', name: 'Kuning', text: '🟨', color: '#FFDC00' },
+            { id: 'hijau', name: 'Hijau', text: '🟩', color: '#2ECC40' },
+            { id: 'oren', name: 'Oren', text: '🟧', color: '#FF851B' },
+            { id: 'ungu', name: 'Ungu', text: '🟪', color: '#B10DC9' }
+        ],
+        numbers: [
+            { id: '1', name: 'Satu', text: '1️⃣', color: '#FF6B6B' },
+            { id: '2', name: 'Dua', text: '2️⃣', color: '#4ECDC4' },
+            { id: '3', name: 'Tiga', text: '3️⃣', color: '#FFE66D' },
+            { id: '4', name: 'Empat', text: '4️⃣', color: '#A569BD' },
+            { id: '5', name: 'Lima', text: '5️⃣', color: '#5DADE2' }
+        ],
+        shapes: [
+            { id: 'bulat', name: 'Bulatan', text: '⭕', color: '#E74C3C' },
+            { id: 'segiempat', name: 'Segi Empat', text: '🟫', color: '#3498DB' },
+            { id: 'segitiga', name: 'Segi Tiga', text: '🔺', color: '#2ECC71' },
+            { id: 'bintang', name: 'Bintang', text: '⭐', color: '#F1C40F' }
+        ],
+        letters: [
+            { id: 'A', name: 'A', text: '🔤', color: '#E74C3C' },
+            { id: 'B', name: 'B', text: '🇧', color: '#3498DB' },
+            { id: 'C', name: 'C', text: '🇨', color: '#2ECC71' },
+            { id: 'D', name: 'D', text: '🇩', color: '#9B59B6' },
+            { id: 'E', name: 'E', text: '🇪', color: '#E67E22' }
+        ],
+        animals: [
+            { id: 'kucing', name: 'Kucing', text: '🐱', color: '#F39C12' },
+            { id: 'anjing', name: 'Anjing', text: '🐶', color: '#E67E22' },
+            { id: 'arnab', name: 'Arnab', text: '🐰', color: '#E74C3C' },
+            { id: 'ikan', name: 'Ikan', text: '🐟', color: '#3498DB' },
+            { id: 'burung', name: 'Burung', text: '🐦', color: '#2ECC71' },
+            { id: 'lembu', name: 'Lembu', text: '🐄', color: '#95A5A6' },
+            { id: 'ayam', name: 'Ayam', text: '🐔', color: '#F1C40F' },
+            { id: 'gajah', name: 'Gajah', text: '🐘', color: '#7F8C8D' }
+        ],
+        fruits: [
+            { id: 'epal', name: 'Epal', text: '🍎', color: '#E74C3C' },
+            { id: 'pisang', name: 'Pisang', text: '🍌', color: '#F1C40F' },
+            { id: 'oren_buah', name: 'Oren', text: '🍊', color: '#E67E22' },
+            { id: 'anggur', name: 'Anggur', text: '🍇', color: '#8E44AD' },
+            { id: 'strawberi', name: 'Strawberi', text: '🍓', color: '#E74C3C' },
+            { id: 'tembikai', name: 'Tembikai', text: '🍉', color: '#2ECC71' },
+            { id: 'mangga', name: 'Mangga', text: '🥭', color: '#F39C12' },
+            { id: 'nanas', name: 'Nanas', text: '🍍', color: '#F1C40F' }
+        ],
+        vehicles: [
+            { id: 'kereta', name: 'Kereta', text: '🚗', color: '#3498DB' },
+            { id: 'bas', name: 'Bas', text: '🚌', color: '#F1C40F' },
+            { id: 'kapal', name: 'Kapal', text: '🚢', color: '#1ABC9C' },
+            { id: 'kapal_terbang', name: 'Kapal Terbang', text: '✈️', color: '#95A5A6' },
+            { id: 'basikal', name: 'Basikal', text: '🚲', color: '#E67E22' },
+            { id: 'motorsikal', name: 'Motorsikal', text: '🏍️', color: '#E74C3C' },
+            { id: 'kereta_api', name: 'Kereta Api', text: '🚂', color: '#34495E' },
+            { id: 'helikopter', name: 'Helikopter', text: '🚁', color: '#2ECC71' }
+        ],
+        foods: [
+            { id: 'nasi', name: 'Nasi', text: '🍚', color: '#F39C12' },
+            { id: 'mi', name: 'Mi', text: '🍜', color: '#E67E22' },
+            { id: 'pizza', name: 'Pizza', text: '🍕', color: '#E74C3C' },
+            { id: 'burger', name: 'Burger', text: '🍔', color: '#D35400' },
+            { id: 'kek', name: 'Kek', text: '🎂', color: '#F1C40F' },
+            { id: 'aiskrim', name: 'Ais Krim', text: '🍦', color: '#85C1E9' },
+            { id: 'roti', name: 'Roti', text: '🍞', color: '#E67E22' },
+            { id: 'keju', name: 'Keju', text: '🧀', color: '#F1C40F' }
+        ],
+        jobs: [
+            { id: 'doktor', name: 'Doktor', text: '👨‍⚕️', color: '#2ECC71' },
+            { id: 'polis', name: 'Polis', text: '👮', color: '#3498DB' },
+            { id: 'guru', name: 'Guru', text: '👩‍🏫', color: '#E67E22' },
+            { id: 'bomba', name: 'Bomba', text: '🧑‍🚒', color: '#E74C3C' },
+            { id: 'juruterbang', name: 'Juruterbang', text: '✈️', color: '#1ABC9C' },
+            { id: 'nelayan', name: 'Nelayan', text: '🎣', color: '#2C3E50' },
+            { id: 'tukang_kebun', name: 'Tukang Kebun', text: '🌱', color: '#27AE60' },
+            { id: 'arkitek', name: 'Arkitek', text: '🏗️', color: '#8E44AD' }
+        ],
+        superheroes: [
+            { id: 'superman', name: 'Superman', text: '🦸', color: '#E74C3C' },
+            { id: 'spiderman', name: 'Spider-Man', text: '🕷️', color: '#E74C3C' },
+            { id: 'batman', name: 'Batman', text: '🦇', color: '#2C3E50' },
+            { id: 'wonder_woman', name: 'Wonder Woman', text: '⚡', color: '#F1C40F' },
+            { id: 'ironman', name: 'Iron Man', text: '🤖', color: '#E67E22' },
+            { id: 'thor', name: 'Thor', text: '🔨', color: '#3498DB' },
+            { id: 'hulk', name: 'Hulk', text: '💪', color: '#2ECC71' },
+            { id: 'flash', name: 'Flash', text: '⚡', color: '#F39C12' }
+        ]
+    };
+
+    // ========================================================
+    // KEADAAN GLOBAL
+    // ========================================================
+    let score = 0;
+    let stars = 0;
+    let highScore = parseInt(localStorage.getItem('mikayla_highscore')) || 0;
+    let soundEnabled = true;
+    let timerMode = false;
+    let timerInterval = null;
+    let timeLeft = 10;
+    let currentAnswer = null;
+    let currentQuestionText = "";
+    let isAnswered = false;
+    let isBonus = false;
+    let currentCategory = 'all';
+    let categoryCorrect = {};
+    let categoryUnlocked = {};
+    try {
+        const saved = localStorage.getItem('mikayla_category_correct');
+        if (saved) categoryCorrect = JSON.parse(saved);
+        const unlocked = localStorage.getItem('mikayla_category_unlocked');
+        if (unlocked) categoryUnlocked = JSON.parse(unlocked);
+    } catch(e) {}
+
+    let audioCtx = null;
+    let currentTTSAudioSource = null;
+    const praiseMessages = [
+        "Pandai Mikayla! Hebat sangat!",
+        "Wah, bijaknya Mikayla! Teruskan!",
+        "Mantap! Mikayla memang genius!",
+        "Bagus! Mikayla pasti boleh jadi juara!",
+        "Syabas! Mikayla sangat pintar!",
+        "Cemerlang! Teruskan usaha, Mikayla!",
+        "Tahniah! Mikayla hebat!",
+        "Gempak! Mikayla memang power!",
+        "Awesome! Mikayla terbaik!",
+        "Wow! Mikayla luar biasa!"
+    ];
+    const praiseEmojis = ['🌟', '🎉', '🏆', '✨', '👏', '💖', '🌈', '⭐'];
+    const encouragementMessages = [
+        "Tak apa, Mikayla. Cuba lagi, pasti boleh!",
+        "Jangan putus asa, Mikayla. Lagi sekali!",
+        "Mikayla, belajar dari kesilapan. Teruskan!",
+        "Tak mengapa, Mikayla. Kamu hebat!",
+        "Mikayla, usaha lebih sikit lagi!",
+        "Jangan kecil hati, Mikayla. Kamu boleh!"
+    ];
+    const surpriseMessages = [
+        "🎁 Hadiah untuk Mikayla! +10 mata bonus!",
+        "🎉 Kotak kejutan! Mikayla dapat bonus 10 mata!",
+        "🌟 Istimewa! Mikayla dapat tambahan 10 mata!",
+        "💎 Hebat! Mikayla dapat 10 mata bonus!"
+    ];
+    const categoryEmojis = {
+        colors: '🎨',
+        numbers: '🔢',
+        shapes: '🔺',
+        letters: '🔤',
+        animals: '🐾',
+        fruits: '🍎',
+        vehicles: '🚗',
+        foods: '🍕',
+        jobs: '👨‍⚕️',
+        superheroes: '🦸'
+    };
+    const categoryNames = {
+        colors: 'Warna',
+        numbers: 'Nombor',
+        shapes: 'Bentuk',
+        letters: 'Huruf',
+        animals: 'Haiwan',
+        fruits: 'Buah',
+        vehicles: 'Kenderaan',
+        foods: 'Makanan',
+        jobs: 'Pekerjaan',
+        superheroes: 'Superhero'
+    };
+    const themeColors = {
+        colors: '#FFF0F5',
+        numbers: '#E8F8F5',
+        shapes: '#FEF9E7',
+        letters: '#EBF5FB',
+        animals: '#E9F7EF',
+        fruits: '#FDF2E9',
+        vehicles: '#EAF2F8',
+        foods: '#FDF2E9',
+        jobs: '#F4F6F7',
+        superheroes: '#F4ECF7'
+    };
+    let _lastCategory = null;
+
+    // ========================================================
+    // FUNGSI AUDIO & TTS
+    // ========================================================
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playTone(freq, type, duration, volume=0.3) {
+        if (!soundEnabled || !audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+    }
+
+    function playPop() { playTone(600, 'sine', 0.15); }
+    function playError() { playTone(200, 'sawtooth', 0.3); }
+    function playSuccess() {
+        if (!soundEnabled) return;
+        const variants = [[400,500,600],[500,600,700],[300,500,700]];
+        const notes = variants[Math.floor(Math.random()*variants.length)];
+        notes.forEach((f,i) => setTimeout(() => playTone(f,'sine',0.2), i*150));
+    }
+    function playBonus() {
+        if (!soundEnabled) return;
+        [800,1000,1200].forEach((f,i) => setTimeout(() => playTone(f,'sine',0.15), i*120));
+    }
+    function playSurprise() {
+        if (!soundEnabled) return;
+        [500,600,700,800].forEach((f,i) => setTimeout(() => playTone(f,'sine',0.2), i*150));
+    }
+    function playTimerTick() { playTone(300, 'sine', 0.05, 0.1); }
+
+    function speakAI(text) {
+        if (!soundEnabled) return;
+        if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ms-MY';
+            utterance.rate = 0.9;
+            utterance.pitch = 1.1;
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    // ========================================================
+    // FUNGSI PAPARAN & KAWALAN
+    // ========================================================
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+        document.getElementById('surprise-overlay').style.display = 'none';
+    }
+
+    function updateScore() {
+        document.getElementById('score-display').innerText = score;
+        document.getElementById('star-display').innerText = stars;
+        document.getElementById('highscore-display').innerText = highScore;
+        document.getElementById('highscore-menu').innerText = '🏆 Rekod: ' + highScore;
+    }
+
+    function setMikaylaReaction(emoji, bubbleText='') {
+        const avatar = document.getElementById('mikayla-avatar');
+        const bubble = document.getElementById('avatar-bubble');
+        avatar.childNodes[0].nodeValue = emoji;
+        if (bubbleText) {
+            bubble.innerText = bubbleText;
+            bubble.classList.add('show');
+        } else {
+            bubble.classList.remove('show');
+        }
+        clearTimeout(avatar._timeout);
+        avatar._timeout = setTimeout(() => {
+            avatar.childNodes[0].nodeValue = '👧';
+            bubble.classList.remove('show');
+        }, 2000);
+    }
+
+    function toggleTimerMode() {
+        timerMode = !timerMode;
+        const btn = document.querySelector('#menu-screen .btn-secondary');
+        if (btn) btn.innerText = timerMode ? '⏱️ Lawan Masa (ON)' : '⏱️ Lawan Masa';
+        if (timerMode) {
+            document.getElementById('timer-container').style.display = 'block';
+        } else {
+            document.getElementById('timer-container').style.display = 'none';
+            clearInterval(timerInterval);
+        }
+    }
+
+    // BUTANG HOME
+    function goHome() {
+        clearInterval(timerInterval);
+        document.getElementById('timer-container').style.display = 'none';
+        showScreen('menu-screen');
+        // Reset state permainan jika perlu
+        isAnswered = true; // cegah soalan tergantung
+        // Kembalikan avatar
+        setMikaylaReaction('👧');
+        speakAI('Jom main lagi nanti!');
+    }
+
+    // ========================================================
+    // MENU & KATEGORI
+    // ========================================================
+    function renderCategoryMenu() {
+        const container = document.getElementById('category-menu');
+        container.innerHTML = '';
+        const allTypes = Object.keys(gameData);
+        const allBtn = document.createElement('div');
+        allBtn.className = 'cat-btn' + (currentCategory === 'all' ? ' active' : '');
+        allBtn.innerHTML = `<span style="font-size:2rem;">🌟</span><span class="cat-label">Semua</span>`;
+        allBtn.onclick = () => { currentCategory = 'all'; renderCategoryMenu(); };
+        container.appendChild(allBtn);
+
+        allTypes.forEach(key => {
+            const btn = document.createElement('div');
+            btn.className = 'cat-btn';
+            if (currentCategory === key) btn.classList.add('active');
+            const emoji = categoryEmojis[key] || '📚';
+            const name = categoryNames[key] || key;
+            const unlocked = categoryUnlocked[key] || false;
+            const badge = unlocked ? '✅' : '';
+            btn.innerHTML = `<span style="font-size:2rem;">${emoji}</span><span class="cat-label">${name} ${badge}</span>`;
+            btn.onclick = () => { currentCategory = key; renderCategoryMenu(); };
+            container.appendChild(btn);
+        });
+    }
+
+    // ========================================================
+    // ALBUM
+    // ========================================================
+    function showAlbum() {
+        const container = document.getElementById('album-content');
+        container.innerHTML = '';
+        const allTypes = Object.keys(gameData);
+        allTypes.forEach(key => {
+            const unlocked = categoryUnlocked[key] || false;
+            if (!unlocked) return;
+            const items = gameData[key];
+            const header = document.createElement('div');
+            header.style.cssText = 'grid-column:1/-1;font-weight:bold;font-size:1.2rem;margin-top:10px;';
+            header.innerText = categoryEmojis[key] + ' ' + categoryNames[key];
+            container.appendChild(header);
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'album-item';
+                div.innerHTML = `<span class="emoji">${item.text}</span><span class="name">${item.name}</span>`;
+                container.appendChild(div);
+            });
+        });
+        showScreen('album-screen');
+    }
+
+    // ========================================================
+    // KOTAK KEJUTAN
+    // ========================================================
+    function checkSurprise() {
+        if (stars >= 5) {
+            stars = 0;
+            updateScore();
+            const overlay = document.getElementById('surprise-overlay');
+            overlay.style.display = 'flex';
+            const msg = surpriseMessages[Math.floor(Math.random() * surpriseMessages.length)];
+            document.getElementById('surprise-msg').innerText = msg;
+            playSurprise();
+            score += 10;
+            updateScore();
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('mikayla_highscore', highScore);
+                updateScore();
+            }
+            shootConfetti(40);
+        }
+    }
+    function closeSurprise() {
+        document.getElementById('surprise-overlay').style.display = 'none';
+    }
+
+    // ========================================================
+    // PERMAINAN
+    // ========================================================
+    function startGame() {
+        initAudio();
+        score = 0;
+        stars = 0;
+        isAnswered = false;
+        document.getElementById('status-bar').style.display = 'flex';
+        updateScore();
+        speakAI("Hai Mikayla! Mari kita mula bermain.");
+        renderCategoryMenu();
+        if (!timerMode) document.getElementById('timer-container').style.display = 'none';
+        else document.getElementById('timer-container').style.display = 'block';
+        setTimeout(() => nextQuestion(), 1500);
+    }
+
+    function nextQuestion() {
+        isAnswered = false;
+        isBonus = false;
+        document.getElementById('bonus-indicator').innerText = '';
+        showScreen('game-screen');
+
+        let typeList = Object.keys(gameData);
+        if (currentCategory !== 'all' && typeList.includes(currentCategory)) {
+            typeList = [currentCategory];
+        }
+        const gameType = typeList[Math.floor(Math.random() * typeList.length)];
+        _lastCategory = gameType;
+        let items = [...gameData[gameType]];
+        items = shuffleArray(items);
+        const options = items.slice(0, 4);
+        const correctAnswer = options[Math.floor(Math.random() * options.length)];
+        currentAnswer = correctAnswer.id;
+
+        if (Math.random() < 0.2) {
+            isBonus = true;
+            document.getElementById('bonus-indicator').innerHTML = '⭐ BONUS! 2x markah! ⭐';
+            playBonus();
+        }
+
+        const typeMessages = {
+            colors: `Mikayla, cari warna ${correctAnswer.name}!`,
+            numbers: `Mikayla, pilih nombor ${correctAnswer.name}!`,
+            shapes: `Mikayla, mana satu bentuk ${correctAnswer.name}?`,
+            letters: `Mikayla, cari huruf ${correctAnswer.name}!`,
+            animals: `Mikayla, tunjukkan haiwan ${correctAnswer.name}!`,
+            fruits: `Mikayla, cari buah ${correctAnswer.name}!`,
+            vehicles: `Mikayla, mana satu kenderaan ${correctAnswer.name}?`,
+            foods: `Mikayla, pilih makanan ${correctAnswer.name}!`,
+            jobs: `Mikayla, cari pekerjaan ${correctAnswer.name}!`,
+            superheroes: `Mikayla, siapa superhero ${correctAnswer.name}?`
+        };
+        currentQuestionText = typeMessages[gameType] || `Cari ${correctAnswer.name}!`;
+        document.getElementById('question-text').innerText = currentQuestionText;
+        speakAI(currentQuestionText);
+
+        document.getElementById('app-container').style.backgroundColor = themeColors[gameType] || '#FFF0F5';
+
+        if (timerMode) {
+            timeLeft = 10;
+            document.getElementById('timer-bar').style.width = '100%';
+            document.getElementById('timer-container').style.display = 'block';
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                if (timeLeft <= 0) {
+                    timeLeft = 0;
+                    document.getElementById('timer-bar').style.width = '0%';
+                    clearInterval(timerInterval);
+                    if (!isAnswered) {
+                        isAnswered = true;
+                        document.querySelectorAll('.option-card').forEach(c => c.classList.add('disabled'));
+                        document.querySelectorAll('.option-card').forEach(card => {
+                            if (card.dataset.id === currentAnswer) {
+                                card.classList.add('correct');
+                            }
+                        });
+                        setTimeout(() => showReward(false), 800);
+                    }
+                } else {
+                    document.getElementById('timer-bar').style.width = (timeLeft / 10 * 100) + '%';
+                    if (timeLeft < 3) playTimerTick();
+                }
+            }, 100);
+        } else {
+            document.getElementById('timer-container').style.display = 'none';
+        }
+
+        const container = document.getElementById('options-container');
+        container.innerHTML = '';
+        options.forEach((opt, index) => {
+            const btn = document.createElement('div');
+            btn.className = 'option-card pop';
+            btn.style.animationDelay = `${index * 0.1}s`;
+            btn.dataset.id = opt.id;
+
+            if (gameType === 'colors') {
+                btn.style.backgroundColor = opt.color;
+                btn.style.borderColor = opt.color;
+            } else {
+                const emojiSpan = document.createElement('span');
+                emojiSpan.className = 'emoji';
+                emojiSpan.innerText = opt.text || opt.name;
+                emojiSpan.style.color = opt.color || '#333';
+                btn.appendChild(emojiSpan);
+                const label = document.createElement('span');
+                label.className = 'label';
+                label.innerText = opt.name;
+                btn.appendChild(label);
+            }
+
+            if (isBonus && opt.id === currentAnswer) {
+                btn.classList.add('bonus');
+            }
+
+            btn.onclick = () => checkAnswer(btn, opt.id);
+            container.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(element, selectedId) {
+        if (isAnswered) return;
+        isAnswered = true;
+        clearInterval(timerInterval);
+
+        document.querySelectorAll('.option-card').forEach(c => c.classList.add('disabled'));
+
+        if (selectedId === currentAnswer) {
+            element.classList.add('correct');
+            let addScore = 10;
+            if (isBonus) addScore = 20;
+            score += addScore;
+            stars += 1;
+            updateScore();
+
+            const cat = _lastCategory;
+            if (cat) {
+                categoryCorrect[cat] = (categoryCorrect[cat] || 0) + 1;
+                if (categoryCorrect[cat] >= 5 && !categoryUnlocked[cat]) {
+                    categoryUnlocked[cat] = true;
+                    localStorage.setItem('mikayla_category_correct', JSON.stringify(categoryCorrect));
+                    localStorage.setItem('mikayla_category_unlocked', JSON.stringify(categoryUnlocked));
+                    setTimeout(() => speakAI(`Tahniah! Mikayla buka lencana ${categoryNames[cat]}!`), 300);
+                }
+                localStorage.setItem('mikayla_category_correct', JSON.stringify(categoryCorrect));
+                localStorage.setItem('mikayla_category_unlocked', JSON.stringify(categoryUnlocked));
+            }
+
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('mikayla_highscore', highScore);
+                updateScore();
+            }
+
+            setMikaylaReaction('🥳', 'Yeay!');
+            if (isBonus) playBonus();
+            else playSuccess();
+            shootConfetti(30);
+            checkSurprise();
+
+            setTimeout(() => showReward(true), 1000);
+        } else {
+            element.classList.add('wrong');
+            document.querySelectorAll('.option-card').forEach(card => {
+                if (card.dataset.id === currentAnswer) {
+                    card.classList.add('correct');
+                }
+            });
+            setMikaylaReaction('😅', 'Cuba lagi!');
+            playError();
+            setTimeout(() => showReward(false), 1200);
+        }
+    }
+
+    function showReward(isCorrect) {
+        const feedbackImg = document.getElementById('feedback-image');
+        const feedbackText = document.getElementById('feedback-text');
+        const bonusText = document.getElementById('reward-bonus-text');
+
+        if (isCorrect) {
+            const msg = praiseMessages[Math.floor(Math.random() * praiseMessages.length)];
+            const emoji = praiseEmojis[Math.floor(Math.random() * praiseEmojis.length)];
+            feedbackImg.innerText = emoji + '🎉';
+            feedbackText.innerText = msg;
+            bonusText.innerText = isBonus ? '⭐ BONUS! +20 mata! ⭐' : '';
+            speakAI(msg);
+        } else {
+            const msg = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
+            feedbackImg.innerText = '😊💪';
+            feedbackText.innerText = msg;
+            bonusText.innerText = '';
+            speakAI(msg);
+        }
+        showScreen('reward-screen');
+        document.getElementById('next-btn').style.display = 'block';
+    }
+
+    function replayQuestion() {
+        playPop();
+        speakAI(currentQuestionText);
+    }
+
+    // ========================================================
+    // KONFETI
+    // ========================================================
+    function shootConfetti(count=50) {
+        const container = document.getElementById('confetti-container');
+        const colors = ['#FF4136','#0074D9','#FFDC00','#2ECC40','#FF851B','#B10DC9','#FF69B4','#9B59B6','#F1C40F','#E74C3C','#3498DB'];
+        const shapes = ['circle','square','star'];
+        for (let i=0; i<count; i++) {
+            const el = document.createElement('div');
+            el.className = 'confetti';
+            const size = Math.random()*12 + 6;
+            el.style.width = size + 'px';
+            el.style.height = size + 'px';
+            el.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+            el.style.left = Math.random()*100 + '%';
+            el.style.top = '-10%';
+            const shape = shapes[Math.floor(Math.random()*shapes.length)];
+            if (shape === 'circle') el.style.borderRadius = '50%';
+            else if (shape === 'star') {
+                el.style.transform = 'rotate(45deg)';
+                el.style.clipPath = 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)';
+            }
+            el.style.animationDuration = (Math.random()*2 + 1.5) + 's';
+            el.style.animationDelay = Math.random()*1.5 + 's';
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 4000);
+        }
+    }
+
+    // ========================================================
+    // UTILITY
+    // ========================================================
+    function shuffleArray(arr) {
+        for (let i=arr.length-1; i>0; i--) {
+            const j = Math.floor(Math.random()*(i+1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // ========================================================
+    // INISIALISASI
+    // ========================================================
+    document.getElementById('sound-toggle').addEventListener('click', function() {
+        soundEnabled = !soundEnabled;
+        this.innerText = soundEnabled ? '🔊' : '🔇';
+        if (soundEnabled) initAudio();
+    });
+
+    renderCategoryMenu();
+    updateScore();
+    showScreen('menu-screen');
+
+    // Bintang latar
+    function addBgStars() {
+        const container = document.getElementById('app-container');
+        for (let i=0; i<10; i++) {
+            const star = document.createElement('div');
+            star.className = 'bg-star';
+            star.innerText = ['✨','⭐','🌟','💫'][Math.floor(Math.random()*4)];
+            star.style.left = Math.random()*90 + '%';
+            star.style.top = Math.random()*90 + '%';
+            star.style.animationDelay = Math.random()*5 + 's';
+            star.style.fontSize = (Math.random()*1.5+0.8) + 'rem';
+            container.appendChild(star);
+        }
+    }
+    addBgStars();
+
+    console.log('🎮 Permainan Minda Mikayla sedia!');
+</script>
+</body>
+</html>
