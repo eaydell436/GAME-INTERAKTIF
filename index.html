@@ -618,7 +618,7 @@
         }
 
         /* ============================================================
-           MUZIK KANAK-KANAK
+           MUZIK KANAK-KANAK, SURAH & DOA
            ============================================================ */
         #music-screen {
             padding: 4px 10px;
@@ -629,6 +629,35 @@
             margin: 4px 0;
             flex-shrink: 0;
             text-shadow: 0 2px 8px rgba(255,255,255,0.5);
+        }
+        .music-tabs {
+            display: flex;
+            gap: 8px;
+            margin: 4px 0;
+            flex-shrink: 0;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .music-tab-btn {
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 3px solid rgba(200,200,200,0.5);
+            background: rgba(255,255,255,0.85);
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.04);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        .music-tab-btn:active { transform: scale(0.94); }
+        .music-tab-btn.active {
+            border-color: var(--primary);
+            background: rgba(255,240,245,0.9);
+            box-shadow: 0 0 12px rgba(255,105,180,0.15);
         }
         .music-player-container {
             width: 100%;
@@ -941,7 +970,6 @@
             <div class="category-grid" id="category-menu"></div>
         </div>
         <div class="menu-bottom">
-            <!-- Butang tambahan (Bacaan, Album, Muzik) TELAH DIALIH KELUAR -->
             <button class="btn-start" id="btn-start" onclick="startGame()">🚀 Mula Main!</button>
         </div>
     </div>
@@ -985,13 +1013,18 @@
     </div>
 
     <!-- ============================================================
-       MUZIK KANAK-KANAK
+       MUZIK KANAK-KANAK, SURAH & DOA
        ============================================================ -->
     <div id="music-screen" class="screen">
-        <h2>🎵 Muzik Kanak-Kanak</h2>
+        <h2>🎵 Muzik & Doa</h2>
+        <div class="music-tabs">
+            <button class="music-tab-btn active" data-type="songs" onclick="switchMusicTab('songs')">🎵 Lagu</button>
+            <button class="music-tab-btn" data-type="quran" onclick="switchMusicTab('quran')">📖 Surah</button>
+            <button class="music-tab-btn" data-type="doa" onclick="switchMusicTab('doa')">🤲 Doa</button>
+        </div>
         <div class="music-player-container" id="music-player">
             <div class="placeholder" id="music-placeholder">
-                🎶 Pilih lagu di bawah
+                🎶 Pilih lagu/surah/doa di bawah
             </div>
         </div>
         <div class="music-grid" id="music-grid">
@@ -1157,7 +1190,7 @@
     };
 
     // =========================================================
-    // DATA LAGU KANAK-KANAK
+    // DATA LAGU KANAK-KANAK, SURAH & DOA
     // =========================================================
     const musicSongs = [
         { id: 'abc', emoji: '🔤', title: 'ABC Song', url: 'https://www.youtube.com/embed/75p-N9YKqNo' },
@@ -1168,6 +1201,27 @@
         { id: 'cicak', emoji: '🦎', title: 'Cicak Cicak di Dinding', url: 'https://www.youtube.com/embed/q4odQn6JadA' },
         { id: 'rainbow', emoji: '🌈', title: 'Rainbow Song', url: 'https://www.youtube.com/embed/GLigE_f4dl0' },
         { id: 'numbers', emoji: '🔢', title: 'Number Song', url: 'https://www.youtube.com/embed/85M1yxIcHpw' }
+    ];
+
+    const quranSurah = [
+        { id: 'alfatihah', emoji: '📖', title: 'Al-Fatihah', url: 'https://www.youtube.com/embed/5G3UZxW7UfU' },
+        { id: 'annas', emoji: '📖', title: 'An-Nas', url: 'https://www.youtube.com/embed/1QnqVv7xU4E' },
+        { id: 'alfalaq', emoji: '📖', title: 'Al-Falaq', url: 'https://www.youtube.com/embed/2Pq8E8eHl-U' },
+        { id: 'alikhlas', emoji: '📖', title: 'Al-Ikhlas', url: 'https://www.youtube.com/embed/7Vk-4q9fMqI' }
+    ];
+
+    // ===== DOA HARIAN UNTUK KANAK-KANAK =====
+    const doaList = [
+        { id: 'doa_makan', emoji: '🍽️', title: 'Doa Makan', url: 'https://www.youtube.com/embed/6FQ9cVhYHI8' },
+        { id: 'doa_tidur', emoji: '😴', title: 'Doa Tidur', url: 'https://www.youtube.com/embed/0ZP3x_2aUfM' },
+        { id: 'doa_bangun', emoji: '🌅', title: 'Doa Bangun Tidur', url: 'https://www.youtube.com/embed/t4s8gFIJ2mI' },
+        { id: 'doa_masuk_tandas', emoji: '🚻', title: 'Doa Masuk Tandas', url: 'https://www.youtube.com/embed/Ap8B6iXjVbY' },
+        { id: 'doa_keluar_tandas', emoji: '🚽', title: 'Doa Keluar Tandas', url: 'https://www.youtube.com/embed/OSYQlMd5IYw' },
+        { id: 'doa_belajar', emoji: '📚', title: 'Doa Sebelum Belajar', url: 'https://www.youtube.com/embed/PkG5lBmB3oU' },
+        { id: 'doa_kenderaan', emoji: '🚗', title: 'Doa Naik Kenderaan', url: 'https://www.youtube.com/embed/LOhYF_M1e5I' },
+        { id: 'doa_ibu_bapa', emoji: '👨‍👩‍👧', title: 'Doa Ibu Bapa', url: 'https://www.youtube.com/embed/6b-hEwHdH-c' },
+        { id: 'doa_perlindungan', emoji: '🛡️', title: 'Doa Perlindungan', url: 'https://www.youtube.com/embed/KP4S4hWw9bU' },
+        { id: 'doa_dunia_akhirat', emoji: '🌍', title: 'Doa Kebaikan Dunia Akhirat', url: 'https://www.youtube.com/embed/J5q1W0s8dRs' }
     ];
 
     // =========================================================
@@ -1239,7 +1293,10 @@
             timer_off: 'Lawan Masa',
             timer_on: 'Lawan Masa (ON)',
             sound_on: 'Bunyi',
-            sound_off: 'Bisu'
+            sound_off: 'Bisu',
+            tab_songs: '🎵 Lagu',
+            tab_quran: '📖 Surah',
+            tab_doa: '🤲 Doa'
         },
         bi: {
             menu_title: 'Mikayla\'s Mind Game',
@@ -1306,7 +1363,10 @@
             timer_off: 'Timer Off',
             timer_on: 'Timer On',
             sound_on: 'Sound On',
-            sound_off: 'Mute'
+            sound_off: 'Mute',
+            tab_songs: '🎵 Songs',
+            tab_quran: '📖 Surah',
+            tab_doa: '🤲 Dua (Prayers)'
         }
     };
 
@@ -1355,6 +1415,12 @@
     const themeColors = { colors:'#FFF0F5', numbers:'#E8F8F5', shapes:'#FEF9E7', letters:'#EBF5FB', animals:'#E9F7EF', fruits:'#FDF2E9', vehicles:'#EAF2F8', foods:'#FDF2E9', jobs:'#F4F6F7', superheroes:'#F4ECF7' };
     let _lastCategory = null;
     let currentReadingTab = 'numbers';
+
+    // =========================================================
+    // KEADAAN MUZIK
+    // =========================================================
+    let currentMusicType = 'songs'; // 'songs', 'quran', 'doa'
+    let currentMusicId = null;
 
     // =========================================================
     // FUNGSI UTAMA
@@ -1433,6 +1499,13 @@
         document.getElementById('surprise-title').textContent = t.surprise_title;
         document.getElementById('surprise-btn').textContent = t.btn_thanks;
 
+        // Muzik tab
+        document.querySelectorAll('.music-tab-btn').forEach(btn => {
+            if (btn.dataset.type === 'songs') btn.textContent = t.tab_songs;
+            else if (btn.dataset.type === 'quran') btn.textContent = t.tab_quran;
+            else if (btn.dataset.type === 'doa') btn.textContent = t.tab_doa;
+        });
+
         updateTimerToggleText();
         renderCategoryMenu();
         if (document.getElementById('reading-screen').classList.contains('active')) {
@@ -1440,6 +1513,9 @@
         }
         if (document.getElementById('album-screen').classList.contains('active')) {
             renderAlbum();
+        }
+        if (document.getElementById('music-screen').classList.contains('active')) {
+            renderMusicGrid();
         }
 
         const activeScreen = document.querySelector('.screen.active');
@@ -1548,7 +1624,7 @@
         }
         if (id === 'album-screen') renderAlbum();
         if (id === 'reading-screen') showReadingTab(currentReadingTab);
-        if (id === 'music-screen') renderMusicSongs();
+        if (id === 'music-screen') renderMusicGrid();
     }
 
     function goHome() {
@@ -1568,48 +1644,62 @@
     }
 
     // =========================================================
-    // MUZIK
+    // MUZIK - SWITCH TAB
     // =========================================================
-    let currentMusicId = null;
+    function switchMusicTab(type) {
+        currentMusicType = type;
+        document.querySelectorAll('.music-tab-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.type === type);
+        });
+        // Kosongkan player
+        const player = document.getElementById('music-player');
+        const oldIframe = player.querySelector('iframe');
+        if (oldIframe) oldIframe.remove();
+        const placeholder = document.getElementById('music-placeholder');
+        placeholder.style.display = 'flex';
+        if (type === 'songs') placeholder.textContent = '🎶 Pilih lagu di bawah';
+        else if (type === 'quran') placeholder.textContent = '📖 Pilih surah di bawah';
+        else placeholder.textContent = '🤲 Pilih doa di bawah';
+        currentMusicId = null;
+        renderMusicGrid();
+    }
 
-    function renderMusicSongs() {
+    // =========================================================
+    // MUZIK - RENDER GRID
+    // =========================================================
+    function renderMusicGrid() {
         const grid = document.getElementById('music-grid');
         grid.innerHTML = '';
-        musicSongs.forEach(song => {
+        let items = [];
+        if (currentMusicType === 'songs') items = musicSongs;
+        else if (currentMusicType === 'quran') items = quranSurah;
+        else items = doaList;
+
+        items.forEach(item => {
             const div = document.createElement('div');
             div.className = 'music-item';
-            if (song.id === currentMusicId) div.classList.add('active');
+            if (item.id === currentMusicId) div.classList.add('active');
             div.innerHTML = `
-                <span class="music-emoji">${song.emoji}</span>
-                <span class="music-title">${song.title}</span>
+                <span class="music-emoji">${item.emoji}</span>
+                <span class="music-title">${item.title}</span>
             `;
-            div.onclick = () => playMusic(song);
+            div.onclick = () => playMusicItem(item);
             grid.appendChild(div);
         });
-        // Jika ada lagu aktif, mainkan
+        // Jika ada item aktif, mainkan semula
         if (currentMusicId) {
-            const song = musicSongs.find(s => s.id === currentMusicId);
-            if (song) {
-                const player = document.getElementById('music-player');
-                const placeholder = document.getElementById('music-placeholder');
-                // Jika player sudah ada iframe, jangan buat semula
-                let iframe = player.querySelector('iframe');
-                if (!iframe) {
-                    iframe = document.createElement('iframe');
-                    iframe.src = song.url + '?autoplay=1&rel=0';
-                    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-                    iframe.allowFullscreen = true;
-                    player.appendChild(iframe);
-                    placeholder.style.display = 'none';
-                } else {
-                    iframe.src = song.url + '?autoplay=1&rel=0';
-                }
+            const item = items.find(i => i.id === currentMusicId);
+            if (item) {
+                playMusicItem(item, true);
             }
         }
     }
 
-    function playMusic(song) {
-        currentMusicId = song.id;
+    // =========================================================
+    // MUZIK - PLAY ITEM
+    // =========================================================
+    function playMusicItem(item, skipPop = false) {
+        currentMusicId = item.id;
         const player = document.getElementById('music-player');
         const placeholder = document.getElementById('music-placeholder');
         // Remove old iframe
@@ -1617,7 +1707,7 @@
         if (oldIframe) oldIframe.remove();
         // Create new iframe
         const iframe = document.createElement('iframe');
-        iframe.src = song.url + '?autoplay=1&rel=0';
+        iframe.src = item.url + '?autoplay=1&rel=0';
         iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
         iframe.allowFullscreen = true;
         player.appendChild(iframe);
@@ -1625,11 +1715,11 @@
         // Update active state
         document.querySelectorAll('.music-item').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.music-item').forEach(el => {
-            if (el.querySelector('.music-title')?.textContent === song.title) {
+            if (el.querySelector('.music-title')?.textContent === item.title) {
                 el.classList.add('active');
             }
         });
-        playPop();
+        if (!skipPop) playPop();
     }
 
     // =========================================================
@@ -1714,7 +1804,6 @@
             });
         });
     }
-    function showAlbum() { showScreen('album-screen'); }
 
     // =========================================================
     // SUDUT BACAAN
@@ -2050,7 +2139,7 @@
         }
     })();
 
-    console.log('🎮 Minda Mikayla sedia (Slot Muzik Kanak-Kanak ditambah)');
+    console.log('🎮 Minda Mikayla sedia (Folder Doa Harian ditambah)');
 </script>
 </body>
 </html>
