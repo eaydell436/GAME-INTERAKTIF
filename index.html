@@ -16,7 +16,7 @@
 
     <style>
         /* ============================================================
-           GAYA (SAMA SEPERTI SEBELUM, TANPA AVATAR)
+           GAYA UTAMA
            ============================================================ */
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700&display=swap');
         :root {
@@ -27,10 +27,10 @@
             --accent: #FFE66D;
             --success: #2ECC71;
             --error: #E74C3C;
-            --card-bg: #FFFFFF;
-            --theme-bg: #FFF0F5;
+            --card-bg: rgba(255,255,255,0.85);
+            --theme-bg: rgba(255,255,255,0.75);
             --timer-bg: #FF6B6B;
-            --nav-bg: #FFFFFF;
+            --nav-bg: rgba(255,255,255,0.85);
         }
         * {
             box-sizing: border-box;
@@ -43,17 +43,23 @@
             height: 100%;
             overflow: hidden;
             font-family: 'Nunito', sans-serif;
-            background-color: #f0e6ef;
             color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
+            /* ===== LATAR BELAKANG PADA BODY ===== */
+            background-image: url('https://raw.githubusercontent.com/eaydell436/GAME-INTERAKTIF/main/backgroundgame.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
         #app-container {
             width: 100%;
             max-width: 480px;
             height: 100dvh;
-            background-color: var(--theme-bg);
+            /* ===== PANEL LUTSINAR SEPENUHNYA ===== */
+            background-color: transparent;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -62,6 +68,7 @@
             transition: background-color 0.8s ease, max-width 0.3s ease;
             overflow: hidden;
             overflow-x: hidden;
+            /* Tiada backdrop-filter pada panel utama */
         }
         @media (min-width: 768px) {
             #app-container { max-width: 850px; max-height: 95vh; height: 95vh; border-radius: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
@@ -124,8 +131,9 @@
             font-size: 1rem;
             font-family: 'Fredoka One', cursive;
             z-index: 20;
-            background: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.5);
             backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             flex-wrap: nowrap;
             gap: 4px;
             min-height: 44px;
@@ -140,7 +148,7 @@
             flex-shrink: 0;
         }
         .status-item {
-            background: rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.7);
             padding: 2px 8px;
             border-radius: 30px;
             display: flex;
@@ -260,8 +268,8 @@
             box-sizing: border-box;
         }
         .cat-btn {
-            background: white;
-            border: 3px solid #e0e0e0;
+            background: rgba(255,255,255,0.85);
+            border: 3px solid rgba(200,200,200,0.5);
             border-radius: 16px;
             padding: 10px 2px;
             font-size: 1.8rem;
@@ -272,6 +280,8 @@
             align-items: center;
             box-shadow: 0 4px 0 rgba(0,0,0,0.04);
             position: relative;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
         .cat-btn:active { transform: scale(0.93); }
         .cat-btn .cat-label {
@@ -290,12 +300,12 @@
         }
         .cat-btn.active {
             border-color: var(--primary);
-            background: #FFF5F8;
+            background: rgba(255,245,248,0.9);
             box-shadow: 0 0 16px rgba(255,105,180,0.15);
         }
         .cat-btn.unlocked {
             border-color: #F1C40F;
-            background: #FFFDE7;
+            background: rgba(255,253,231,0.9);
         }
         .menu-bottom {
             flex-shrink: 0;
@@ -359,6 +369,7 @@
             flex: 1;
             line-height: 1.2;
             word-break: break-word;
+            text-shadow: 0 1px 4px rgba(255,255,255,0.5);
         }
         #replay-audio-btn {
             background-color: var(--accent);
@@ -385,17 +396,19 @@
             color: #F1C40F;
             height: 20px;
             line-height: 20px;
+            text-shadow: 0 1px 4px rgba(255,255,255,0.5);
         }
         #timer-container {
             flex-shrink: 0;
             width: 60%;
             max-width: 220px;
             height: 8px;
-            background: #ddd;
+            background: rgba(255,255,255,0.5);
             border-radius: 20px;
             margin: 2px auto;
             overflow: hidden;
             display: none;
+            backdrop-filter: blur(4px);
         }
         #timer-bar {
             height: 100%;
@@ -418,7 +431,7 @@
             box-sizing: border-box;
         }
         .option-card {
-            background-color: var(--card-bg);
+            background-color: rgba(255,255,255,0.85);
             border-radius: 18px;
             display: flex;
             flex-direction: column;
@@ -435,6 +448,8 @@
             max-height: 100%;
             box-sizing: border-box;
             overflow: hidden;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
         .option-card:active { transform: scale(0.94); }
         .option-card .emoji { font-size: 2.8rem; line-height: 1.1; }
@@ -470,10 +485,10 @@
         /* REWARD */
         #reward-screen { justify-content: center; }
         #feedback-image { font-size: 4.5rem; margin-bottom: 6px; animation: pop 1s infinite alternate; }
-        #feedback-text { font-size: 2rem; margin: 4px 0; }
+        #feedback-text { font-size: 2rem; margin: 4px 0; text-shadow: 0 2px 8px rgba(255,255,255,0.5); }
 
         /* ALBUM */
-        #album-screen h2 { font-size: 1.6rem; margin: 4px 0; flex-shrink: 0; }
+        #album-screen h2 { font-size: 1.6rem; margin: 4px 0; flex-shrink: 0; text-shadow: 0 2px 8px rgba(255,255,255,0.5); }
         .album-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -486,20 +501,22 @@
             box-sizing: border-box;
         }
         .album-item {
-            background: white;
+            background: rgba(255,255,255,0.85);
             border-radius: 12px;
             padding: 6px 2px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
         .album-item .emoji { font-size: 2rem; }
         .album-item .name { font-size: 0.6rem; color: #555; }
 
         /* READING */
         #reading-screen { padding: 4px 10px; justify-content: flex-start; }
-        #reading-screen h2 { font-size: 1.6rem; margin: 4px 0; flex-shrink: 0; }
+        #reading-screen h2 { font-size: 1.6rem; margin: 4px 0; flex-shrink: 0; text-shadow: 0 2px 8px rgba(255,255,255,0.5); }
         .reading-tabs {
             display: flex;
             gap: 8px;
@@ -512,19 +529,21 @@
         .reading-tab-btn {
             padding: 6px 14px;
             border-radius: 30px;
-            border: 3px solid #ddd;
-            background: white;
+            border: 3px solid rgba(200,200,200,0.5);
+            background: rgba(255,255,255,0.85);
             font-family: 'Nunito', sans-serif;
             font-weight: 700;
             font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 3px 0 rgba(0,0,0,0.04);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
         .reading-tab-btn:active { transform: scale(0.94); }
         .reading-tab-btn.active {
             border-color: var(--primary);
-            background: #FFF0F5;
+            background: rgba(255,240,245,0.9);
             box-shadow: 0 0 12px rgba(255,105,180,0.15);
         }
         .reading-content {
@@ -545,7 +564,7 @@
         }
         .reading-grid.rumi-grid { grid-template-columns: repeat(6, 1fr); }
         .reading-item {
-            background: white;
+            background: rgba(255,255,255,0.85);
             border-radius: 14px;
             padding: 6px 2px;
             box-shadow: 0 4px 0 rgba(0,0,0,0.05);
@@ -558,6 +577,8 @@
             border: 3px solid transparent;
             min-height: 64px;
             position: relative;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
         .reading-item:active { transform: scale(0.92); box-shadow: 0 2px 0 rgba(0,0,0,0.05); }
         .reading-item .char { font-size: 2rem; line-height: 1.2; font-weight: 700; }
@@ -584,8 +605,9 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            background: rgba(255,255,255,0.85);
+            background: rgba(255,255,255,0.7);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-top: 1px solid rgba(0,0,0,0.05);
             padding: 4px 0 8px;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
@@ -702,7 +724,7 @@
             0% { box-shadow: 0 0 10px rgba(241,196,15,0.4); }
             100% { box-shadow: 0 0 30px rgba(241,196,15,0.8); }
         }
-        .reward-bonus { color: #F1C40F; font-size: 1.2rem; }
+        .reward-bonus { color: #F1C40F; font-size: 1.2rem; text-shadow: 0 1px 4px rgba(255,255,255,0.5); }
 
         /* RESPONSIF TELEFON */
         @media (max-height: 650px) {
@@ -786,10 +808,10 @@
         </div>
     </div>
 
-    <!-- ===== MENU ===== (Avatar telah dibuang) ===== -->
+    <!-- ===== MENU ===== -->
     <div id="menu-screen" class="screen active">
         <div class="menu-top">
-            <span class="title-emoji">👧🦄</span>  <!-- Kekal bersama unicorn -->
+            <span class="title-emoji">👧🦄</span>
             <h1 id="menu-title">Minda Mikayla</h1>
             <div class="menu-sub" id="menu-sub">Mari belajar dan bermain!</div>
             <div id="highscore-menu">🏆 Rekod: 0</div>
@@ -1178,7 +1200,7 @@
     let currentReadingTab = 'numbers';
 
     // =========================================================
-    // FUNGSI UTAMA (TANPA REACTION AVATAR)
+    // FUNGSI UTAMA
     // =========================================================
     function initAudio() {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1220,7 +1242,6 @@
         }
     }
 
-    // Fungsi dapatkan nama item
     function getItemName(item, langCode) {
         if (langCode === 'bi' && item.nameEn) {
             return item.nameEn;
@@ -1265,7 +1286,6 @@
             renderAlbum();
         }
 
-        // Refresh soalan/reward jika skrin aktif
         const activeScreen = document.querySelector('.screen.active');
         if (activeScreen) {
             const id = activeScreen.id;
@@ -1311,7 +1331,6 @@
             document.getElementById('bonus-indicator').innerHTML = '';
         }
 
-        // Kemaskini label option (untuk bukan kategori warna)
         const optionCards = document.querySelectorAll('.option-card');
         optionCards.forEach(card => {
             const itemId = card.dataset.id;
@@ -1383,7 +1402,7 @@
     }
 
     // =========================================================
-    // SAMBUTAN AUTOMATIK (tanpa avatar)
+    // SAMBUTAN AUTOMATIK
     // =========================================================
     function welcomeUser() {
         const t = lang[currentLang];
@@ -1616,7 +1635,10 @@
         currentQuestionText = template.replace('{name}', correctName);
         document.getElementById('question-text').innerText = currentQuestionText;
         speakAI(currentQuestionText);
-        document.getElementById('app-container').style.backgroundColor = themeColors[gameType] || '#FFF0F5';
+        // Latar belakang panel tidak lagi menggunakan warna tema kerana panel lutsinar, 
+        // tetapi kita boleh tambah sedikit overlay warna pada container jika mahu, atau biarkan.
+        // Untuk konsistensi, kita boleh tetapkan background-color pada #app-container
+        // tetapi kerana ia lutsinar, kita tidak nampak. Kita biarkan.
 
         if (timerMode) {
             timeLeft = 10;
@@ -1818,7 +1840,7 @@
         }
     })();
 
-    console.log('🎮 Minda Mikayla sedia (Avatar dibuang, emoji tajuk kekal)');
+    console.log('🎮 Minda Mikayla sedia (Latar belakang pada body, panel lutsinar)');
 </script>
 </body>
 </html>
