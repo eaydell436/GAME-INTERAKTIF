@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Permainan Minda Mikayla</title>
 
-    <!-- PWA -->
+    <!-- ===== PWA MANIFEST & IKON ===== -->
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/eaydell436/GAME-INTERAKTIF/main/icongame.png">
     <link rel="icon" type="image/png" sizes="512x512" href="https://raw.githubusercontent.com/eaydell436/GAME-INTERAKTIF/main/icongame.png">
@@ -30,6 +30,7 @@
             --timer-bg: #FF6B6B;
         }
 
+        /* ===== RESET + PAPARAN PENUH ===== */
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
@@ -49,6 +50,7 @@
             align-items: center;
         }
 
+        /* ===== PANEL UTAMA ===== */
         #app-container {
             width: 100%;
             max-width: 480px;
@@ -65,6 +67,7 @@
             overflow-x: hidden;
         }
 
+        /* ===== SKRIN ===== */
         .screen {
             display: none;
             flex-direction: column;
@@ -84,81 +87,6 @@
             display: flex;
         }
 
-        /* ===== ANIMASI MASUK ===== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            70% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(40px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes glowPulse {
-            0% { box-shadow: 0 0 5px rgba(255,105,180,0.3); }
-            50% { box-shadow: 0 0 25px rgba(255,105,180,0.7); }
-            100% { box-shadow: 0 0 5px rgba(255,105,180,0.3); }
-        }
-
-        @keyframes timerPulse {
-            0%, 100% { background: var(--timer-bg); }
-            50% { background: #ff0000; box-shadow: 0 0 15px rgba(255,0,0,0.5); }
-        }
-
-        @keyframes bounceScore {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); color: #FFD700; }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .anim-pop {
-            animation: popIn 0.4s ease forwards;
-        }
-
-        .anim-slide {
-            animation: slideUp 0.5s ease forwards;
-        }
-
-        .anim-float {
-            animation: float 2s ease-in-out infinite;
-        }
-
-        .anim-glow {
-            animation: glowPulse 2s ease-in-out infinite;
-        }
-
-        .anim-pulse {
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
         /* ===== MENU ===== */
         #menu-screen {
             justify-content: center;
@@ -170,10 +98,16 @@
             text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
             margin-bottom: 6px;
             line-height: 1.2;
-            animation: slideUp 0.6s ease;
         }
 
-        /* ===== STATUS BAR ===== */
+        /* ===== GAME SCREEN ===== */
+        #game-screen {
+            padding: 6px 10px;
+            justify-content: flex-start;
+            gap: 0px;
+        }
+
+        /* Status bar */
         #status-bar {
             flex-shrink: 0;
             width: 100%;
@@ -209,12 +143,7 @@
             font-size: 0.9rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             white-space: nowrap;
-            transition: transform 0.2s;
         }
-        .status-item.bounce {
-            animation: bounceScore 0.4s ease;
-        }
-
         .btn-home {
             background: none;
             border: none;
@@ -223,9 +152,8 @@
             padding: 0 2px;
             color: var(--text-color);
             flex-shrink: 0;
-            transition: transform 0.2s;
         }
-        .btn-home:active { transform: scale(0.7) rotate(-10deg); }
+        .btn-home:active { transform: scale(0.8); }
 
         /* ===== SOALAN ===== */
         .question-header {
@@ -248,7 +176,6 @@
             flex: 1;
             line-height: 1.2;
             word-break: break-word;
-            animation: slideUp 0.4s ease;
         }
         #replay-audio-btn {
             background-color: var(--accent);
@@ -262,15 +189,12 @@
             align-items: center;
             cursor: pointer;
             box-shadow: 0 4px 0px #E5C345;
-            transition: transform 0.15s, box-shadow 0.15s;
+            transition: transform 0.1s, box-shadow 0.1s;
             flex-shrink: 0;
         }
         #replay-audio-btn:active {
-            transform: translateY(4px) scale(0.9);
+            transform: translateY(4px);
             box-shadow: 0 0px 0px #E5C345;
-        }
-        #replay-audio-btn:hover {
-            transform: scale(1.05);
         }
 
         #bonus-indicator {
@@ -279,7 +203,6 @@
             color: #F1C40F;
             height: 22px;
             line-height: 22px;
-            animation: pulse 1s infinite;
         }
 
         /* ===== TIMER ===== */
@@ -293,17 +216,13 @@
             margin: 2px auto;
             overflow: hidden;
             display: none;
-            transition: height 0.3s;
         }
         #timer-bar {
             height: 100%;
             width: 100%;
             background: var(--timer-bg);
             border-radius: 20px;
-            transition: width 0.1s linear, background 0.3s;
-        }
-        #timer-bar.warning {
-            animation: timerPulse 0.5s infinite;
+            transition: width 0.1s linear;
         }
 
         /* ===== GRID PILIHAN ===== */
@@ -320,7 +239,6 @@
             max-height: 70vh;
             box-sizing: border-box;
         }
-
         .option-card {
             background-color: var(--card-bg);
             border-radius: 18px;
@@ -330,7 +248,7 @@
             align-items: center;
             box-shadow: 0 6px 0px rgba(0,0,0,0.08);
             cursor: pointer;
-            transition: transform 0.15s, border 0.2s, background 0.2s, box-shadow 0.3s;
+            transition: transform 0.15s, border 0.2s, background 0.2s, box-shadow 0.2s;
             border: 4px solid transparent;
             padding: 4px;
             position: relative;
@@ -339,24 +257,13 @@
             max-height: 100%;
             box-sizing: border-box;
             overflow: hidden;
-            animation: popIn 0.5s ease forwards;
-            opacity: 0;
         }
-        .option-card:nth-child(1) { animation-delay: 0.05s; }
-        .option-card:nth-child(2) { animation-delay: 0.15s; }
-        .option-card:nth-child(3) { animation-delay: 0.25s; }
-        .option-card:nth-child(4) { animation-delay: 0.35s; }
-
         .option-card:active {
-            transform: scale(0.92);
+            transform: scale(0.94);
         }
         .option-card .emoji {
             font-size: 3rem;
             line-height: 1.1;
-            transition: transform 0.3s;
-        }
-        .option-card:hover .emoji {
-            transform: scale(1.1) rotate(-5deg);
         }
         .option-card .label {
             font-size: 0.85rem;
@@ -370,8 +277,7 @@
         .option-card.correct {
             border-color: var(--success);
             background-color: #E8F8F5;
-            box-shadow: 0 0 30px rgba(46,204,113,0.5);
-            animation: popIn 0.4s ease;
+            box-shadow: 0 0 20px rgba(46,204,113,0.4);
         }
         .option-card.wrong {
             border-color: var(--error);
@@ -388,11 +294,6 @@
             opacity: 0.7;
         }
 
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 10px rgba(241,196,15,0.4); }
-            100% { box-shadow: 0 0 30px rgba(241,196,15,0.9); }
-        }
-
         /* ===== BUTANG ===== */
         .btn {
             background-color: var(--primary);
@@ -404,21 +305,15 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 6px 0px #D81B60;
-            transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+            transition: transform 0.1s, box-shadow 0.1s;
             margin: 4px;
             width: 80%;
             max-width: 280px;
             box-sizing: border-box;
-            position: relative;
-            overflow: hidden;
         }
         .btn:active {
-            transform: translateY(6px) scale(0.96);
+            transform: translateY(6px);
             box-shadow: 0 0px 0px #D81B60;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 0px #D81B60;
         }
         .btn-secondary {
             background-color: var(--secondary);
@@ -427,26 +322,12 @@
         .btn-secondary:active {
             box-shadow: 0 0px 0px #7D3C98;
         }
-        .btn-secondary:hover {
-            box-shadow: 0 8px 0px #7D3C98;
-        }
         .btn-small {
             font-size: 0.9rem;
             padding: 6px 14px;
             width: auto;
-            max-width: 160px;
+            max-width: 180px;
             margin: 3px;
-        }
-        .btn .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            transform: scale(0);
-            animation: rippleAnim 0.6s linear;
-            pointer-events: none;
-        }
-        @keyframes rippleAnim {
-            to { transform: scale(4); opacity: 0; }
         }
 
         /* ===== WATAK MIKAYLA ===== */
@@ -473,21 +354,10 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             white-space: nowrap;
             opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            transform: scale(0.8);
+            transition: opacity 0.3s;
         }
         #mikayla-avatar .bubble.show {
             opacity: 1;
-            transform: scale(1);
-        }
-        #mikayla-avatar.jump {
-            animation: jump 0.5s ease;
-        }
-        @keyframes jump {
-            0% { transform: translateY(0) rotate(0deg); }
-            30% { transform: translateY(-30px) rotate(-10deg); }
-            60% { transform: translateY(-15px) rotate(5deg); }
-            100% { transform: translateY(0) rotate(0deg); }
         }
 
         /* ===== REWARD SCREEN ===== */
@@ -499,10 +369,124 @@
             margin-bottom: 8px;
             animation: pop 1s infinite alternate;
         }
-        @keyframes pop {
-            0% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(-5deg); }
-            100% { transform: scale(1) rotate(5deg); }
+
+        /* ======================================================
+           SUDUT BACAAN (READING CORNER)
+           ====================================================== */
+        #reading-screen {
+            padding: 6px 10px;
+            justify-content: flex-start;
+        }
+        #reading-screen h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            margin: 4px 0;
+            flex: none;
+        }
+
+        .reading-tabs {
+            display: flex;
+            gap: 8px;
+            margin: 6px 0;
+            flex-shrink: 0;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .reading-tab-btn {
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 3px solid #ddd;
+            background: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.05);
+        }
+        .reading-tab-btn:active {
+            transform: scale(0.94);
+        }
+        .reading-tab-btn.active {
+            border-color: var(--primary);
+            background: #FFF0F5;
+            box-shadow: 0 0 12px rgba(255,105,180,0.2);
+        }
+
+        .reading-content {
+            flex: 1 1 auto;
+            width: 100%;
+            overflow-y: auto;
+            padding: 4px 0;
+            box-sizing: border-box;
+        }
+        .reading-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .reading-grid.rumi-grid {
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        .reading-item {
+            background: white;
+            border-radius: 16px;
+            padding: 8px 2px;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+            border: 3px solid transparent;
+            min-height: 70px;
+            position: relative;
+        }
+        .reading-item:active {
+            transform: scale(0.92);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.06);
+        }
+        .reading-item .char {
+            font-size: 2.2rem;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        .reading-item .sub {
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 2px;
+            background: rgba(0,0,0,0.04);
+            padding: 1px 6px;
+            border-radius: 10px;
+        }
+        .reading-item .jawi-char {
+            font-size: 2.4rem;
+            font-family: 'Arial', 'Times New Roman', serif;
+            line-height: 1.2;
+        }
+        .reading-item .rumi-char {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        /* Animasi bounce untuk bacaan */
+        .reading-item.speak-anim {
+            animation: bounce-read 0.4s ease;
+            border-color: var(--accent);
+            background: #FFFDE7;
+            box-shadow: 0 0 20px rgba(255,230,109,0.5);
+        }
+        @keyframes bounce-read {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.15); }
+            70% { transform: scale(0.95); }
+            100% { transform: scale(1); }
         }
 
         /* ===== ALBUM & KATEGORI ===== */
@@ -522,14 +506,13 @@
             padding: 8px 2px;
             font-size: 1.6rem;
             cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, border-color 0.2s;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-shadow: 0 4px 0 rgba(0,0,0,0.05);
         }
-        .cat-btn:active { transform: scale(0.92); }
-        .cat-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 rgba(0,0,0,0.1); }
+        .cat-btn:active { transform: scale(0.94); }
         .cat-btn .cat-label {
             font-size: 0.6rem;
             font-family: 'Nunito', sans-serif;
@@ -539,7 +522,6 @@
         .cat-btn.active {
             border-color: var(--primary);
             background: #FFF0F5;
-            animation: glowPulse 2s infinite;
         }
 
         .album-grid {
@@ -561,9 +543,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: transform 0.2s;
         }
-        .album-item:hover { transform: scale(1.05); }
         .album-item .emoji { font-size: 2rem; }
         .album-item .name { font-size: 0.6rem; color: #555; }
 
@@ -602,18 +582,38 @@
             backdrop-filter: blur(4px);
             padding: 20px;
             box-sizing: border-box;
-            animation: fadeIn 0.5s ease;
         }
         #surprise-overlay h2 {
             color: white;
             font-family: 'Fredoka One', cursive;
             font-size: 1.8rem;
-            animation: pulse 1.5s infinite;
         }
         #surprise-overlay p {
             color: white;
             font-size: 1.1rem;
         }
+
+        /* ===== ANIMASI ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 10px rgba(241,196,15,0.5); }
+            100% { box-shadow: 0 0 30px rgba(241,196,15,0.9); }
+        }
+        .shake { animation: shake 0.4s ease; }
+        .pop { animation: pop 0.5s ease; }
 
         /* ===== RESPONSIF ===== */
         @media (max-height: 650px) {
@@ -630,6 +630,12 @@
             #bonus-indicator { font-size: 0.7rem; height: 18px; line-height: 18px; }
             .btn { font-size: 1.1rem; padding: 8px 16px; }
             .btn-small { font-size: 0.8rem; padding: 4px 10px; }
+            .reading-item { min-height: 56px; padding: 4px 2px; }
+            .reading-item .char { font-size: 1.6rem; }
+            .reading-item .jawi-char { font-size: 1.8rem; }
+            .reading-item .rumi-char { font-size: 1.6rem; }
+            .reading-item .sub { font-size: 0.6rem; }
+            .reading-grid { gap: 5px; }
         }
 
         @media (max-height: 520px) {
@@ -643,6 +649,13 @@
             #options-container { gap: 4px; }
             .option-card { border-width: 3px; border-radius: 12px; }
             #replay-audio-btn { width: 28px; height: 28px; font-size: 0.7rem; }
+            .reading-item { min-height: 44px; padding: 2px 2px; }
+            .reading-item .char { font-size: 1.2rem; }
+            .reading-item .jawi-char { font-size: 1.4rem; }
+            .reading-item .rumi-char { font-size: 1.2rem; }
+            .reading-item .sub { font-size: 0.5rem; }
+            .reading-grid { gap: 4px; }
+            .reading-tab-btn { font-size: 0.7rem; padding: 4px 8px; }
         }
 
         @media (max-width: 400px) {
@@ -652,10 +665,15 @@
             .cat-btn { font-size: 1.2rem; padding: 4px 2px; }
             .album-grid { gap: 4px; }
             #app-container { border-radius: 0; }
+            .reading-grid { gap: 4px; }
+            .reading-item .char { font-size: 1.4rem; }
+            .reading-item .jawi-char { font-size: 1.6rem; }
+            .reading-item .rumi-char { font-size: 1.4rem; }
         }
 
+        /* ===== HIDDEN ===== */
         .hidden { display: none !important; }
-        .reward-bonus { color: #F1C40F; font-size: 1.2rem; animation: pulse 1s infinite; }
+        .reward-bonus { color: #F1C40F; font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -665,11 +683,11 @@
     <div id="status-bar" style="display: none;">
         <div class="status-left">
             <button class="btn-home" onclick="goHome()">🏠</button>
-            <div class="status-item" id="score-item">⭐ <span id="score-display">0</span></div>
+            <div class="status-item">⭐ <span id="score-display">0</span></div>
         </div>
         <div class="status-right">
-            <div class="status-item" id="star-item">🌟 <span id="star-display">0</span></div>
-            <div class="status-item" id="highscore-item">🏆 <span id="highscore-display">0</span></div>
+            <div class="status-item">🌟 <span id="star-display">0</span></div>
+            <div class="status-item">🏆 <span id="highscore-display">0</span></div>
             <button id="sound-toggle" style="background:none;border:none;font-size:1.5rem;cursor:pointer;padding:0 2px;">🔊</button>
         </div>
     </div>
@@ -682,7 +700,7 @@
 
     <!-- MENU -->
     <div id="menu-screen" class="screen active">
-        <div style="font-size:3.2rem; margin-bottom:4px; animation: float 3s infinite;">👧🦄</div>
+        <div style="font-size:3.2rem; margin-bottom:4px;">👧🦄</div>
         <h1>Minda Mikayla</h1>
         <p style="font-size:0.95rem; margin-bottom:4px; color:#555;">Mari belajar dan bermain!</p>
         <p id="highscore-menu" style="font-size:0.9rem; color:#D35400; margin:0;">🏆 Rekod: 0</p>
@@ -690,6 +708,7 @@
         <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin:4px 0;">
             <button class="btn btn-small btn-secondary" onclick="toggleTimerMode()">⏱️ Lawan Masa</button>
             <button class="btn btn-small btn-secondary" onclick="showAlbum()">📚 Album</button>
+            <button class="btn btn-small btn-secondary" onclick="showScreen('reading-screen')">📖 Sudut Bacaan</button>
         </div>
         <button class="btn" onclick="startGame()">Mula Main!</button>
     </div>
@@ -720,6 +739,22 @@
         <button class="btn btn-small btn-secondary" onclick="showScreen('menu-screen')">⬅ Kembali</button>
     </div>
 
+    <!-- =========================================================
+         SUDUT BACAAN (READING CORNER)
+         ========================================================= -->
+    <div id="reading-screen" class="screen">
+        <h2>📖 Sudut Bacaan</h2>
+        <div class="reading-tabs">
+            <button class="reading-tab-btn active" data-tab="numbers" onclick="showReadingTab('numbers')">🔢 Nombor</button>
+            <button class="reading-tab-btn" data-tab="rumi" onclick="showReadingTab('rumi')">🔤 Rumi</button>
+            <button class="reading-tab-btn" data-tab="jawi" onclick="showReadingTab('jawi')">🕌 Jawi</button>
+        </div>
+        <div class="reading-content" id="reading-content">
+            <!-- Kandungan akan dijana oleh JS -->
+        </div>
+        <button class="btn btn-small btn-secondary" onclick="showScreen('menu-screen')" style="margin-top:6px; flex-shrink:0;">⬅ Kembali</button>
+    </div>
+
     <!-- SURPRISE -->
     <div id="surprise-overlay">
         <div style="font-size:4rem; animation:pop 0.8s infinite alternate;">🎁</div>
@@ -733,7 +768,7 @@
 
 <script>
     // =========================================================
-    // DATA PERMAINAN (sama seperti sebelumnya)
+    // DATA PERMAINAN (sedia ada)
     // =========================================================
     const gameData = {
         colors: [
@@ -827,6 +862,56 @@
     };
 
     // =========================================================
+    // DATA SUDUT BACAAN
+    // =========================================================
+    const readingData = {
+        numbers: [
+            { num: '1', rumi: 'Satu', jawi: 'ساتو' },
+            { num: '2', rumi: 'Dua', jawi: 'دوا' },
+            { num: '3', rumi: 'Tiga', jawi: 'تيݢ' },
+            { num: '4', rumi: 'Empat', jawi: 'امڤت' },
+            { num: '5', rumi: 'Lima', jawi: 'ليم' },
+            { num: '6', rumi: 'Enam', jawi: 'انم' },
+            { num: '7', rumi: 'Tujuh', jawi: 'توجوه' },
+            { num: '8', rumi: 'Lapan', jawi: 'لاڤن' },
+            { num: '9', rumi: 'Sembilan', jawi: 'سمبيلن' },
+            { num: '10', rumi: 'Sepuluh', jawi: 'سڤولوه' }
+        ],
+        rumi: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
+        jawi: [
+            { char: 'ا', name: 'Alif' },
+            { char: 'ب', name: 'Ba' },
+            { char: 'ت', name: 'Ta' },
+            { char: 'ث', name: 'Tha' },
+            { char: 'ج', name: 'Jim' },
+            { char: 'ح', name: 'Ha' },
+            { char: 'خ', name: 'Kha' },
+            { char: 'د', name: 'Dal' },
+            { char: 'ذ', name: 'Zal' },
+            { char: 'ر', name: 'Ra' },
+            { char: 'ز', name: 'Zai' },
+            { char: 'س', name: 'Sin' },
+            { char: 'ش', name: 'Syin' },
+            { char: 'ص', name: 'Sad' },
+            { char: 'ض', name: 'Dhad' },
+            { char: 'ط', name: 'Ta' },
+            { char: 'ظ', name: 'Za' },
+            { char: 'ع', name: 'Ain' },
+            { char: 'غ', name: 'Ghain' },
+            { char: 'ف', name: 'Fa' },
+            { char: 'ق', name: 'Qaf' },
+            { char: 'ك', name: 'Kaf' },
+            { char: 'ل', name: 'Lam' },
+            { char: 'م', name: 'Mim' },
+            { char: 'ن', name: 'Nun' },
+            { char: 'و', name: 'Wau' },
+            { char: 'ه', name: 'Ha' },
+            { char: 'لا', name: 'Lam-Alif' },
+            { char: 'ي', name: 'Ya' }
+        ]
+    };
+
+    // =========================================================
     // KEADAAN
     // =========================================================
     let score = 0, stars = 0, highScore = parseInt(localStorage.getItem('mikayla_highscore')) || 0;
@@ -851,7 +936,7 @@
     let _lastCategory = null;
 
     // =========================================================
-    // FUNGSI (sama seperti sebelumnya, dengan tambahan animasi)
+    // FUNGSI UTAMA
     // =========================================================
     function initAudio() {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -897,51 +982,27 @@
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         document.getElementById('surprise-overlay').style.display = 'none';
+        // Jika masuk reading, render tab pertama
+        if (id === 'reading-screen') {
+            showReadingTab('numbers');
+        }
     }
 
     function updateScore() {
-        const scoreEl = document.getElementById('score-display');
-        const starEl = document.getElementById('star-display');
-        const highEl = document.getElementById('highscore-display');
-        const highMenu = document.getElementById('highscore-menu');
-
-        scoreEl.innerText = score;
-        starEl.innerText = stars;
-        highEl.innerText = highScore;
-        highMenu.innerText = '🏆 Rekod: ' + highScore;
-
-        // Bounce animation on score change
-        const scoreItem = document.getElementById('score-item');
-        const starItem = document.getElementById('star-item');
-        scoreItem.classList.remove('bounce');
-        starItem.classList.remove('bounce');
-        // Force reflow
-        void scoreItem.offsetWidth;
-        scoreItem.classList.add('bounce');
-        starItem.classList.add('bounce');
-        setTimeout(() => {
-            scoreItem.classList.remove('bounce');
-            starItem.classList.remove('bounce');
-        }, 500);
+        document.getElementById('score-display').innerText = score;
+        document.getElementById('star-display').innerText = stars;
+        document.getElementById('highscore-display').innerText = highScore;
+        document.getElementById('highscore-menu').innerText = '🏆 Rekod: ' + highScore;
     }
 
-    function setMikaylaReaction(emoji, bubbleText='', jump=false) {
+    function setMikaylaReaction(emoji, bubbleText='') {
         const avatar = document.getElementById('mikayla-avatar');
         const bubble = document.getElementById('avatar-bubble');
         avatar.childNodes[0].nodeValue = emoji;
         if (bubbleText) { bubble.innerText = bubbleText; bubble.classList.add('show'); }
         else bubble.classList.remove('show');
-        if (jump) {
-            avatar.classList.remove('jump');
-            void avatar.offsetWidth;
-            avatar.classList.add('jump');
-            setTimeout(() => avatar.classList.remove('jump'), 600);
-        }
         clearTimeout(avatar._timeout);
-        avatar._timeout = setTimeout(() => {
-            avatar.childNodes[0].nodeValue = '👧';
-            bubble.classList.remove('show');
-        }, 2500);
+        avatar._timeout = setTimeout(() => { avatar.childNodes[0].nodeValue = '👧'; bubble.classList.remove('show'); }, 2000);
     }
 
     function toggleTimerMode() {
@@ -957,7 +1018,7 @@
         document.getElementById('timer-container').style.display = 'none';
         showScreen('menu-screen');
         isAnswered = true;
-        setMikaylaReaction('👋', 'Jumpa lagi!');
+        setMikaylaReaction('👧');
         speakAI('Jom main lagi nanti!');
     }
 
@@ -1001,6 +1062,92 @@
         showScreen('album-screen');
     }
 
+    // =========================================================
+    // SUDUT BACAAN - RENDER & INTERAKSI
+    // =========================================================
+    let currentReadingTab = 'numbers';
+
+    function showReadingTab(tab) {
+        currentReadingTab = tab;
+        // Toggle active class on tabs
+        document.querySelectorAll('.reading-tab-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.tab === tab);
+        });
+
+        const container = document.getElementById('reading-content');
+        container.innerHTML = '';
+        const grid = document.createElement('div');
+        grid.className = 'reading-grid';
+
+        if (tab === 'numbers') {
+            grid.classList.add('numbers-grid');
+            readingData.numbers.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'reading-item';
+                el.innerHTML = `
+                    <span class="char jawi-char">${item.jawi}</span>
+                    <span class="char rumi-char" style="font-size:1.6rem;">${item.num}</span>
+                    <span class="sub">${item.rumi}</span>
+                `;
+                el.onclick = () => speakReadingItem(`Nombor ${item.rumi}`);
+                grid.appendChild(el);
+            });
+        }
+        else if (tab === 'rumi') {
+            grid.classList.add('rumi-grid');
+            readingData.rumi.forEach(letter => {
+                const el = document.createElement('div');
+                el.className = 'reading-item';
+                el.innerHTML = `
+                    <span class="char rumi-char" style="font-size:2.4rem;">${letter}</span>
+                    <span class="sub">Huruf ${letter}</span>
+                `;
+                el.onclick = () => speakReadingItem(`Huruf ${letter}`);
+                grid.appendChild(el);
+            });
+        }
+        else if (tab === 'jawi') {
+            grid.classList.add('jawi-grid');
+            readingData.jawi.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'reading-item';
+                el.innerHTML = `
+                    <span class="char jawi-char">${item.char}</span>
+                    <span class="sub">${item.name}</span>
+                `;
+                el.onclick = () => speakReadingItem(item.name);
+                grid.appendChild(el);
+            });
+        }
+
+        container.appendChild(grid);
+    }
+
+    function speakReadingItem(text) {
+        playPop();
+        // Animasi bounce pada semua item? Lebih baik kita highlight item yang disentuh.
+        // Tapi kita tak tahu item mana. Kita bagi je feedback bunyi + suara.
+        // Kita boleh cari item yang sedang aktif, tapi tak perlu.
+        // Tambah kesan kilauan pada grid.
+        const items = document.querySelectorAll('.reading-item');
+        items.forEach(el => {
+            el.classList.remove('speak-anim');
+            // Reset animation
+            void el.offsetWidth;
+        });
+        // Random choose one to animate? Better animate the whole grid as a feedback, or just rely on sound.
+        // Since we don't have a specific target easily, just speak.
+        speakAI(text);
+        // Add a flash to the container
+        const container = document.getElementById('reading-content');
+        container.style.transition = 'background 0.1s';
+        container.style.background = 'rgba(255,230,109,0.2)';
+        setTimeout(() => { container.style.background = 'transparent'; }, 300);
+    }
+
+    // =========================================================
+    // FUNGSI PERMAINAN
+    // =========================================================
     function checkSurprise() {
         if (stars >= 5) {
             stars = 0;
@@ -1013,7 +1160,6 @@
             updateScore();
             if (score > highScore) { highScore = score; localStorage.setItem('mikayla_highscore', highScore); updateScore(); }
             shootConfetti(40);
-            setMikaylaReaction('🎁', 'Hadiah!', true);
         }
     }
     function closeSurprise() { document.getElementById('surprise-overlay').style.display = 'none'; }
@@ -1070,7 +1216,6 @@
         if (timerMode) {
             timeLeft = 10;
             document.getElementById('timer-bar').style.width = '100%';
-            document.getElementById('timer-bar').classList.remove('warning');
             document.getElementById('timer-container').style.display = 'block';
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
@@ -1078,7 +1223,6 @@
                 if (timeLeft <= 0) {
                     timeLeft = 0;
                     document.getElementById('timer-bar').style.width = '0%';
-                    document.getElementById('timer-bar').classList.remove('warning');
                     clearInterval(timerInterval);
                     if (!isAnswered) {
                         isAnswered = true;
@@ -1089,14 +1233,8 @@
                         setTimeout(() => showReward(false), 800);
                     }
                 } else {
-                    const pct = (timeLeft / 10 * 100);
-                    document.getElementById('timer-bar').style.width = pct + '%';
-                    if (timeLeft < 3) {
-                        document.getElementById('timer-bar').classList.add('warning');
-                        playTimerTick();
-                    } else {
-                        document.getElementById('timer-bar').classList.remove('warning');
-                    }
+                    document.getElementById('timer-bar').style.width = (timeLeft / 10 * 100) + '%';
+                    if (timeLeft < 3) playTimerTick();
                 }
             }, 100);
         } else {
@@ -1107,8 +1245,8 @@
         container.innerHTML = '';
         options.forEach((opt, index) => {
             const btn = document.createElement('div');
-            btn.className = 'option-card';
-            btn.style.animationDelay = `${index * 0.1 + 0.1}s`;
+            btn.className = 'option-card pop';
+            btn.style.animationDelay = `${index * 0.08}s`;
             btn.dataset.id = opt.id;
             if (gameType === 'colors') {
                 btn.style.backgroundColor = opt.color;
@@ -1156,7 +1294,7 @@
                 localStorage.setItem('mikayla_category_unlocked', JSON.stringify(categoryUnlocked));
             }
             if (score > highScore) { highScore = score; localStorage.setItem('mikayla_highscore', highScore); updateScore(); }
-            setMikaylaReaction('🥳', 'Yeay!', true);
+            setMikaylaReaction('🥳', 'Yeay!');
             if (isBonus) playBonus(); else playSuccess();
             shootConfetti(30);
             checkSurprise();
@@ -1166,7 +1304,7 @@
             document.querySelectorAll('.option-card').forEach(card => {
                 if (card.dataset.id === currentAnswer) card.classList.add('correct');
             });
-            setMikaylaReaction('😅', 'Cuba lagi!', false);
+            setMikaylaReaction('😅', 'Cuba lagi!');
             playError();
             setTimeout(() => showReward(false), 1200);
         }
@@ -1182,8 +1320,6 @@
             text.innerText = msg;
             bonus.innerText = isBonus ? '⭐ BONUS! +20 mata! ⭐' : '';
             speakAI(msg);
-            // Add confetti again
-            shootConfetti(20);
         } else {
             const msg = encouragementMessages[Math.floor(Math.random()*encouragementMessages.length)];
             img.innerText = '😊💪';
@@ -1250,7 +1386,7 @@
         }
     })();
 
-    console.log('🎮 Permainan Minda Mikayla sedia (PWA + Animasi)');
+    console.log('🎮 Permainan Minda Mikayla sedia (PWA) + Sudut Bacaan!');
 </script>
 </body>
 </html>
