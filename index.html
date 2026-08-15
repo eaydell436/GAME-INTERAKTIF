@@ -15,7 +15,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <style>
-        /* ===== GAYA SAMA SEPERTI SEBELUM (Saya ringkaskan) ===== */
+        /* ============================================================
+           GAYA (SAMA SEPERTI SEBELUM, TANPA AVATAR)
+           ============================================================ */
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700&display=swap');
         :root {
             --bg-color: #FFF0F5;
@@ -92,8 +94,6 @@
             #feedback-image { font-size: 6rem; }
             #feedback-text { font-size: 2.8rem; }
             .btn { font-size: 1.6rem; padding: 16px 32px; max-width: 320px; }
-            #mikayla-avatar { font-size: 3.2rem; top: 60px; right: 20px; }
-            #mikayla-avatar .bubble { font-size: 0.9rem; padding: 4px 14px; top: -32px; right: -8px; max-width: 220px; }
             #bonus-indicator { font-size: 1.1rem; height: 28px; line-height: 28px; }
             #timer-container { height: 10px; max-width: 300px; }
             .cat-btn:hover { transform: scale(1.04); border-color: var(--primary); }
@@ -577,47 +577,6 @@
             100% { transform: scale(1); }
         }
 
-        /* MIKAYLA */
-        #mikayla-avatar {
-            position: absolute;
-            top: 50px;
-            right: 10px;
-            font-size: 2.4rem;
-            z-index: 15;
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-            pointer-events: none;
-        }
-        #mikayla-avatar.wave {
-            animation: wave-avatar 0.6s ease;
-        }
-        @keyframes wave-avatar {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(-15deg); }
-            50% { transform: rotate(10deg); }
-            75% { transform: rotate(-10deg); }
-            100% { transform: rotate(0deg); }
-        }
-        #mikayla-avatar .bubble {
-            position: absolute;
-            top: -26px;
-            right: -4px;
-            background: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-family: 'Nunito', sans-serif;
-            color: #333;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
-            max-width: 160px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        #mikayla-avatar .bubble.show { opacity: 1; }
-
         /* BOTTOM NAV */
         #bottom-nav {
             flex-shrink: 0;
@@ -754,7 +713,6 @@
             .menu-top .title-emoji { font-size: 2.2rem; }
             .cat-btn { font-size: 1.4rem; padding: 6px 2px; }
             .btn-start { font-size: 1.4rem; padding: 12px 24px; }
-            #mikayla-avatar { font-size: 2rem; top: 42px; }
             .option-card .emoji { font-size: 2rem; }
             .option-card .label { font-size: 0.65rem; }
             #options-container { gap: 6px; }
@@ -774,7 +732,6 @@
             .cat-btn { font-size: 1.1rem; padding: 4px 2px; }
             .cat-btn .cat-label { font-size: 0.5rem; }
             .btn-start { font-size: 1.1rem; padding: 8px 16px; }
-            #mikayla-avatar { font-size: 1.6rem; top: 34px; }
             .option-card .emoji { font-size: 1.5rem; }
             .option-card .label { font-size: 0.55rem; }
             #options-container { gap: 4px; }
@@ -829,16 +786,10 @@
         </div>
     </div>
 
-    <!-- ===== MIKAYLA ===== -->
-    <div id="mikayla-avatar">
-        👧
-        <div class="bubble" id="avatar-bubble">Yeay!</div>
-    </div>
-
-    <!-- ===== MENU ===== -->
+    <!-- ===== MENU ===== (Avatar telah dibuang) ===== -->
     <div id="menu-screen" class="screen active">
         <div class="menu-top">
-            <span class="title-emoji">👧🦄</span>
+            <span class="title-emoji">👧🦄</span>  <!-- Kekal bersama unicorn -->
             <h1 id="menu-title">Minda Mikayla</h1>
             <div class="menu-sub" id="menu-sub">Mari belajar dan bermain!</div>
             <div id="highscore-menu">🏆 Rekod: 0</div>
@@ -917,7 +868,7 @@
 
 <script>
     // =========================================================
-    // DATA PERMAINAN DENGAN TERJEMAHAN
+    // DATA PERMAINAN DENGAN TERJEMAHAN (SAMA SEPERTI SEBELUM)
     // =========================================================
     const gameData = {
         colors: [
@@ -1204,8 +1155,8 @@
     let _currentGameType = null;
     let _currentOptions = [];
     let _currentCorrectAnswer = null;
-    let _currentCorrectName = ''; // nama dalam BM (asli)
-    let _currentCorrectNameEn = ''; // nama dalam BI
+    let _currentCorrectName = '';
+    let _currentCorrectNameEn = '';
 
     const surpriseMessages = ["🎁 Hadiah untuk Mikayla! +10 mata bonus!","🎉 Kotak kejutan! Mikayla dapat bonus 10 mata!","🌟 Istimewa! Mikayla dapat tambahan 10 mata!","💎 Hebat! Mikayla dapat 10 mata bonus!"];
     const categoryEmojis = { colors:'🎨', numbers:'🔢', shapes:'🔺', letters:'🔤', animals:'🐾', fruits:'🍎', vehicles:'🚗', foods:'🍕', jobs:'👨‍⚕️', superheroes:'🦸' };
@@ -1227,7 +1178,7 @@
     let currentReadingTab = 'numbers';
 
     // =========================================================
-    // FUNGSI UTAMA
+    // FUNGSI UTAMA (TANPA REACTION AVATAR)
     // =========================================================
     function initAudio() {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1269,7 +1220,7 @@
         }
     }
 
-    // Fungsi untuk dapatkan nama item mengikut bahasa
+    // Fungsi dapatkan nama item
     function getItemName(item, langCode) {
         if (langCode === 'bi' && item.nameEn) {
             return item.nameEn;
@@ -1287,7 +1238,6 @@
         praiseMessages = t.correct_messages;
         wrongMessages = t.wrong_messages;
 
-        // Update UI elements
         document.getElementById('menu-title').textContent = t.menu_title;
         document.getElementById('menu-sub').textContent = t.menu_sub;
         document.getElementById('btn-start').textContent = t.btn_start;
@@ -1344,40 +1294,33 @@
     }
 
     // =========================================================
-    // REFRESH SOALAN SEMASA (dengan terjemahan)
+    // REFRESH SOALAN & REWARD
     // =========================================================
     function refreshCurrentQuestion() {
         if (!_currentGameType || !_currentOptions.length) return;
         const t = lang[currentLang];
-        // Gunakan nama yang betul mengikut bahasa
         const correctName = currentLang === 'bm' ? _currentCorrectName : _currentCorrectNameEn;
         const template = t.question_templates[_currentGameType] || 'Find {name}!';
         const newQuestionText = template.replace('{name}', correctName);
         document.getElementById('question-text').innerText = newQuestionText;
         currentQuestionText = newQuestionText;
 
-        // Update bonus indicator
         if (isBonus) {
             document.getElementById('bonus-indicator').innerHTML = t.bonus_text;
         } else {
             document.getElementById('bonus-indicator').innerHTML = '';
         }
 
-        // Update labels on option cards (for non-colors)
+        // Kemaskini label option (untuk bukan kategori warna)
         const optionCards = document.querySelectorAll('.option-card');
         optionCards.forEach(card => {
             const itemId = card.dataset.id;
-            // Cari item dalam _currentOptions
             const item = _currentOptions.find(opt => opt.id === itemId);
             if (item) {
                 const label = card.querySelector('.label');
-                if (label) {
-                    // Untuk warna, label tidak wujud (kita guna bg color) jadi skip
-                    // Tapi jika ada label (bukan warna), kemaskini
-                    if (_currentGameType !== 'colors') {
-                        const name = currentLang === 'bm' ? item.name : (item.nameEn || item.name);
-                        label.innerText = name;
-                    }
+                if (label && _currentGameType !== 'colors') {
+                    const name = currentLang === 'bm' ? item.name : (item.nameEn || item.name);
+                    label.innerText = name;
                 }
             }
         });
@@ -1436,48 +1379,24 @@
         clearInterval(timerInterval);
         document.getElementById('timer-container').style.display = 'none';
         isAnswered = true;
-        setMikaylaReaction('👧');
         showScreen('menu-screen');
     }
 
     // =========================================================
-    // SAMBUTAN AUTOMATIK
+    // SAMBUTAN AUTOMATIK (tanpa avatar)
     // =========================================================
     function welcomeUser() {
         const t = lang[currentLang];
         if (!welcomeSpoken) {
             setTimeout(() => {
                 speakAI(t.welcome);
-                setMikaylaReaction('👋', 'Jom main!');
-                const avatar = document.getElementById('mikayla-avatar');
-                avatar.classList.remove('wave');
-                void avatar.offsetWidth;
-                avatar.classList.add('wave');
                 welcomeSpoken = true;
             }, 600);
         } else {
             setTimeout(() => {
                 speakAI(t.welcome_back);
-                setMikaylaReaction('😊', 'Main lagi!');
             }, 400);
         }
-    }
-
-    function setMikaylaReaction(emoji, bubbleText='') {
-        const avatar = document.getElementById('mikayla-avatar');
-        const bubble = document.getElementById('avatar-bubble');
-        avatar.childNodes[0].nodeValue = emoji;
-        if (bubbleText) {
-            bubble.innerText = bubbleText;
-            bubble.classList.add('show');
-        } else {
-            bubble.classList.remove('show');
-        }
-        clearTimeout(avatar._timeout);
-        avatar._timeout = setTimeout(() => {
-            avatar.childNodes[0].nodeValue = '👧';
-            bubble.classList.remove('show');
-        }, 2500);
     }
 
     // =========================================================
@@ -1677,7 +1596,6 @@
         const correctAnswer = options[Math.floor(Math.random() * options.length)];
         currentAnswer = correctAnswer.id;
 
-        // Simpan data soalan untuk refresh
         _currentGameType = gameType;
         _currentOptions = options;
         _currentCorrectAnswer = correctAnswer.id;
@@ -1738,8 +1656,6 @@
             if (gameType === 'colors') {
                 btn.style.backgroundColor = opt.color;
                 btn.style.borderColor = opt.color;
-                // Untuk warna, kita boleh tambah label kecil jika mahu, tapi kita biarkan kosong
-                // sebab warna sudah jelas dengan latar belakang
             } else {
                 const emojiSpan = document.createElement('span');
                 emojiSpan.className = 'emoji';
@@ -1748,7 +1664,6 @@
                 btn.appendChild(emojiSpan);
                 const label = document.createElement('span');
                 label.className = 'label';
-                // Gunakan terjemahan
                 const labelName = currentLang === 'bm' ? opt.name : (opt.nameEn || opt.name);
                 label.innerText = labelName;
                 btn.appendChild(label);
@@ -1786,7 +1701,6 @@
                 localStorage.setItem('mikayla_category_unlocked', JSON.stringify(categoryUnlocked));
             }
             if (score > highScore) { highScore = score; localStorage.setItem('mikayla_highscore', highScore); updateScore(); }
-            setMikaylaReaction('🥳', 'Yeay!');
             if (isBonus) playBonus(); else playSuccess();
             shootConfetti(30);
             checkSurprise();
@@ -1796,7 +1710,6 @@
             document.querySelectorAll('.option-card').forEach(card => {
                 if (card.dataset.id === currentAnswer) card.classList.add('correct');
             });
-            setMikaylaReaction('😅', 'Cuba lagi!');
             playError();
             setTimeout(() => showReward(false), 1200);
         }
@@ -1878,9 +1791,6 @@
                 document.getElementById('timer-container').style.display = 'none';
                 isAnswered = true;
                 showScreen(target);
-                if (target === 'menu-screen') {
-                    setMikaylaReaction('👧');
-                }
             }
         });
     });
@@ -1908,7 +1818,7 @@
         }
     })();
 
-    console.log('🎮 Minda Mikayla sedia (Dwibahasa penuh + terjemahan item)');
+    console.log('🎮 Minda Mikayla sedia (Avatar dibuang, emoji tajuk kekal)');
 </script>
 </body>
 </html>
