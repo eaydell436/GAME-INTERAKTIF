@@ -55,31 +55,33 @@
             width: 100%;
             max-width: 480px;
             height: 100dvh;          /* guna dynamic viewport */
-            max-height: none;        /* buang had 900px */
+            max-height: none;
             background-color: var(--theme-bg);
             position: relative;
             display: flex;
             flex-direction: column;
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            border-radius: 0;        /* full skrin, tiada bucu bulat */
+            border-radius: 0;
             transition: background-color 0.8s ease;
-            overflow: hidden;
+            overflow: hidden;        /* elak sebarang overflow */
+            overflow-x: hidden;      /* khusus untuk elak overflow ke kanan */
         }
 
         /* ===== SKRIN ===== */
         .screen {
             display: none;
             flex-direction: column;
-            justify-content: flex-start;  /* jangan tengah-tengah, guna ruang atas */
+            justify-content: flex-start;
             align-items: center;
             height: 100%;
             width: 100%;
-            padding: 10px 15px;
+            padding: 8px 12px;
             text-align: center;
             animation: fadeIn 0.5s ease;
             position: relative;
             z-index: 1;
-            overflow: hidden;        /* elak skrol */
+            overflow: hidden;
+            box-sizing: border-box;
         }
         .screen.active {
             display: flex;
@@ -91,60 +93,65 @@
         }
         h1 {
             font-family: 'Fredoka One', cursive;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--primary);
             text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             line-height: 1.2;
         }
 
-        /* ===== GAME SCREEN - FLEX COLUMN ===== */
+        /* ===== GAME SCREEN ===== */
         #game-screen {
-            padding: 10px 15px;
+            padding: 6px 10px;
             justify-content: flex-start;
-            gap: 2px;
+            gap: 0px;
         }
 
         /* Status bar - kekal di atas */
         #status-bar {
             flex-shrink: 0;
             width: 100%;
-            padding: 8px 12px;
+            padding: 4px 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-family: 'Fredoka One', cursive;
             z-index: 20;
             background: rgba(255,255,255,0.5);
             backdrop-filter: blur(4px);
-            flex-wrap: wrap;
+            flex-wrap: nowrap;        /* jangan wrap */
             gap: 4px;
             border-radius: 0;
-            min-height: 48px;
+            min-height: 40px;
+            box-sizing: border-box;
+            overflow: hidden;
         }
         .status-left, .status-right {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
+            flex-shrink: 0;
         }
         .status-item {
             background: rgba(255,255,255,0.8);
-            padding: 2px 10px;
+            padding: 2px 8px;
             border-radius: 30px;
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-size: 1rem;
+            gap: 3px;
+            font-size: 0.9rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            white-space: nowrap;
         }
         .btn-home {
             background: none;
             border: none;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             cursor: pointer;
-            padding: 0 4px;
+            padding: 0 2px;
             color: var(--text-color);
+            flex-shrink: 0;
         }
         .btn-home:active { transform: scale(0.8); }
 
@@ -154,27 +161,29 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
-            min-height: 60px;
-            padding: 4px 0;
-            margin-bottom: 2px;
+            min-height: 50px;
+            padding: 2px 0;
+            margin-bottom: 0px;
+            box-sizing: border-box;
         }
         h2 {
             font-family: 'Fredoka One', cursive;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--text-color);
             margin: 0;
             flex: 1;
             line-height: 1.2;
+            word-break: break-word;
         }
         #replay-audio-btn {
             background-color: var(--accent);
             border: none;
             border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            font-size: 1.3rem;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -190,18 +199,18 @@
 
         #bonus-indicator {
             flex-shrink: 0;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #F1C40F;
-            height: 24px;
-            line-height: 24px;
+            height: 22px;
+            line-height: 22px;
         }
 
         /* ===== TIMER ===== */
         #timer-container {
             flex-shrink: 0;
-            width: 80%;
-            max-width: 300px;
-            height: 10px;
+            width: 70%;
+            max-width: 250px;
+            height: 8px;
             background: #ddd;
             border-radius: 20px;
             margin: 2px auto;
@@ -218,21 +227,22 @@
 
         /* ===== GRID PILIHAN - GUNA RUANG BAKI ===== */
         #options-container {
-            flex: 1 1 auto;           /* ambil semua ruang yang tinggal */
+            flex: 1 1 auto;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
             max-width: 400px;
             margin: 4px auto 0;
-            min-height: 0;            /* penting untuk Firefox */
-            max-height: 70vh;         /* had selamat, tapi flex akan atur */
+            min-height: 0;
+            max-height: 70vh;
+            box-sizing: border-box;
         }
 
         .option-card {
             background-color: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 18px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -241,26 +251,28 @@
             cursor: pointer;
             transition: transform 0.15s, border 0.2s, background 0.2s, box-shadow 0.2s;
             border: 4px solid transparent;
-            padding: 6px;
+            padding: 4px;
             position: relative;
-            aspect-ratio: 1 / 1;       /* kekal segi empat sama */
+            aspect-ratio: 1 / 1;
             min-height: 0;
-            max-height: 100%;          /* jangan melebihi grid cell */
+            max-height: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
         }
         .option-card:active {
             transform: scale(0.94);
         }
         .option-card .emoji {
-            font-size: 3.2rem;
+            font-size: 3rem;
             line-height: 1.1;
         }
         .option-card .label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: #333;
             margin-top: 2px;
             background: rgba(255,255,255,0.7);
-            padding: 1px 8px;
+            padding: 1px 6px;
             border-radius: 20px;
         }
         .option-card.correct {
@@ -288,16 +300,17 @@
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 14px 30px;
-            font-size: 1.5rem;
+            padding: 12px 24px;
+            font-size: 1.4rem;
             font-family: 'Fredoka One', cursive;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 6px 0px #D81B60;
             transition: transform 0.1s, box-shadow 0.1s;
-            margin: 6px;
+            margin: 4px;
             width: 80%;
             max-width: 280px;
+            box-sizing: border-box;
         }
         .btn:active {
             transform: translateY(6px);
@@ -311,19 +324,19 @@
             box-shadow: 0 0px 0px #7D3C98;
         }
         .btn-small {
-            font-size: 1rem;
-            padding: 8px 16px;
+            font-size: 0.9rem;
+            padding: 6px 14px;
             width: auto;
-            max-width: 180px;
-            margin: 4px;
+            max-width: 160px;
+            margin: 3px;
         }
 
         /* ===== WATAK MIKAYLA ===== */
         #mikayla-avatar {
             position: absolute;
-            top: 55px;
-            right: 12px;
-            font-size: 2.8rem;
+            top: 48px;
+            right: 10px;
+            font-size: 2.5rem;
             z-index: 15;
             transition: transform 0.3s ease;
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
@@ -331,12 +344,12 @@
         }
         #mikayla-avatar .bubble {
             position: absolute;
-            top: -28px;
-            right: -8px;
+            top: -26px;
+            right: -6px;
             background: white;
-            padding: 4px 10px;
+            padding: 2px 8px;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-family: 'Nunito', sans-serif;
             color: #333;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -353,8 +366,8 @@
             justify-content: center;
         }
         #feedback-image {
-            font-size: 5rem;
-            margin-bottom: 10px;
+            font-size: 4.5rem;
+            margin-bottom: 8px;
             animation: pop 1s infinite alternate;
         }
 
@@ -362,17 +375,18 @@
         .category-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 8px;
             width: 100%;
             max-width: 400px;
-            margin: 10px 0;
+            margin: 6px 0;
+            box-sizing: border-box;
         }
         .cat-btn {
             background: white;
             border: 3px solid #ddd;
-            border-radius: 16px;
-            padding: 10px 4px;
-            font-size: 1.8rem;
+            border-radius: 14px;
+            padding: 8px 2px;
+            font-size: 1.6rem;
             cursor: pointer;
             transition: transform 0.2s, border-color 0.2s;
             display: flex;
@@ -382,7 +396,7 @@
         }
         .cat-btn:active { transform: scale(0.94); }
         .cat-btn .cat-label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-family: 'Nunito', sans-serif;
             color: #555;
             margin-top: 2px;
@@ -395,24 +409,25 @@
         .album-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
+            gap: 6px;
             width: 100%;
             max-width: 400px;
-            margin: 8px 0;
+            margin: 6px 0;
             max-height: 55vh;
             overflow-y: auto;
+            box-sizing: border-box;
         }
         .album-item {
             background: white;
-            border-radius: 14px;
-            padding: 8px 4px;
+            border-radius: 12px;
+            padding: 6px 2px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        .album-item .emoji { font-size: 2.2rem; }
-        .album-item .name { font-size: 0.65rem; color: #555; }
+        .album-item .emoji { font-size: 2rem; }
+        .album-item .name { font-size: 0.6rem; color: #555; }
 
         /* ===== KONFETI ===== */
         #confetti-container {
@@ -447,14 +462,17 @@
             align-items: center;
             flex-direction: column;
             backdrop-filter: blur(4px);
+            padding: 20px;
+            box-sizing: border-box;
         }
         #surprise-overlay h2 {
             color: white;
             font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
         }
         #surprise-overlay p {
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         /* ===== ANIMASI ===== */
@@ -481,42 +499,46 @@
 
         /* ===== RESPONSIF UNTUK SKRIN KECIL ===== */
         @media (max-height: 650px) {
-            #status-bar { font-size: 1rem; padding: 4px 10px; min-height: 40px; }
-            .status-item { font-size: 0.85rem; padding: 1px 8px; }
-            .btn-home { font-size: 1.5rem; }
-            h2 { font-size: 1.2rem; }
-            .question-header { min-height: 50px; gap: 6px; }
-            #replay-audio-btn { width: 36px; height: 36px; font-size: 1rem; }
-            .option-card .emoji { font-size: 2.4rem; }
-            .option-card .label { font-size: 0.7rem; }
-            #options-container { gap: 8px; }
-            #mikayla-avatar { font-size: 2.2rem; top: 48px; right: 8px; }
-            #bonus-indicator { font-size: 0.8rem; height: 20px; line-height: 20px; }
-            .btn { font-size: 1.2rem; padding: 10px 20px; }
+            #status-bar { font-size: 0.9rem; padding: 2px 6px; min-height: 34px; }
+            .status-item { font-size: 0.75rem; padding: 1px 6px; }
+            .btn-home { font-size: 1.4rem; }
+            h2 { font-size: 1.1rem; }
+            .question-header { min-height: 40px; gap: 4px; }
+            #replay-audio-btn { width: 32px; height: 32px; font-size: 0.9rem; }
+            .option-card .emoji { font-size: 2.2rem; }
+            .option-card .label { font-size: 0.65rem; }
+            #options-container { gap: 6px; }
+            #mikayla-avatar { font-size: 2rem; top: 40px; right: 6px; }
+            #bonus-indicator { font-size: 0.7rem; height: 18px; line-height: 18px; }
+            .btn { font-size: 1.1rem; padding: 8px 16px; }
+            .btn-small { font-size: 0.8rem; padding: 4px 10px; }
         }
 
         @media (max-height: 520px) {
-            .option-card .emoji { font-size: 1.8rem; }
-            .option-card .label { font-size: 0.6rem; }
-            h2 { font-size: 1rem; }
-            .question-header { min-height: 40px; }
-            #status-bar { font-size: 0.8rem; min-height: 34px; padding: 2px 8px; }
-            .status-item { font-size: 0.7rem; padding: 1px 6px; }
-            #mikayla-avatar { font-size: 1.8rem; top: 40px; }
-            #options-container { gap: 6px; }
-            .option-card { border-width: 3px; border-radius: 14px; }
+            .option-card .emoji { font-size: 1.6rem; }
+            .option-card .label { font-size: 0.55rem; }
+            h2 { font-size: 0.9rem; }
+            .question-header { min-height: 34px; }
+            #status-bar { font-size: 0.7rem; min-height: 28px; padding: 1px 4px; }
+            .status-item { font-size: 0.6rem; padding: 1px 4px; }
+            #mikayla-avatar { font-size: 1.6rem; top: 32px; }
+            #options-container { gap: 4px; }
+            .option-card { border-width: 3px; border-radius: 12px; }
+            #replay-audio-btn { width: 28px; height: 28px; font-size: 0.7rem; }
         }
 
         @media (max-width: 400px) {
-            #options-container { gap: 6px; }
-            .option-card .emoji { font-size: 2rem; }
-            .category-grid { gap: 6px; }
-            .cat-btn { font-size: 1.4rem; padding: 6px 2px; }
+            #options-container { gap: 5px; }
+            .option-card .emoji { font-size: 1.8rem; }
+            .category-grid { gap: 4px; }
+            .cat-btn { font-size: 1.2rem; padding: 4px 2px; }
             .album-grid { gap: 4px; }
+            #app-container { border-radius: 0; }
         }
 
         /* ===== HIDDEN ===== */
         .hidden { display: none !important; }
+        .reward-bonus { color: #F1C40F; font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -531,7 +553,7 @@
         <div class="status-right">
             <div class="status-item">🌟 <span id="star-display">0</span></div>
             <div class="status-item">🏆 <span id="highscore-display">0</span></div>
-            <button id="sound-toggle">🔊</button>
+            <button id="sound-toggle" style="background:none;border:none;font-size:1.5rem;cursor:pointer;padding:0 2px;">🔊</button>
         </div>
     </div>
 
@@ -543,12 +565,12 @@
 
     <!-- MENU -->
     <div id="menu-screen" class="screen active">
-        <div style="font-size: 3.5rem; margin-bottom: 6px;">👧🦄</div>
+        <div style="font-size:3.2rem; margin-bottom:4px;">👧🦄</div>
         <h1>Minda Mikayla</h1>
-        <p style="font-size: 1rem; margin-bottom: 4px; color: #555;">Mari belajar dan bermain!</p>
-        <p id="highscore-menu" style="font-size: 0.95rem; color: #D35400; margin: 0;">🏆 Rekod: 0</p>
+        <p style="font-size:0.95rem; margin-bottom:4px; color:#555;">Mari belajar dan bermain!</p>
+        <p id="highscore-menu" style="font-size:0.9rem; color:#D35400; margin:0;">🏆 Rekod: 0</p>
         <div class="category-grid" id="category-menu"></div>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 6px 0;">
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin:4px 0;">
             <button class="btn btn-small btn-secondary" onclick="toggleTimerMode()">⏱️ Lawan Masa</button>
             <button class="btn btn-small btn-secondary" onclick="showAlbum()">📚 Album</button>
         </div>
@@ -569,9 +591,9 @@
     <!-- REWARD -->
     <div id="reward-screen" class="screen">
         <div id="feedback-image">🌟</div>
-        <h1 id="feedback-text">Pandai Mikayla!</h1>
+        <h1 id="feedback-text" style="font-size:2rem; margin:6px 0;">Pandai Mikayla!</h1>
         <div id="reward-bonus-text" class="reward-bonus"></div>
-        <button class="btn btn-secondary" id="next-btn" onclick="nextQuestion()" style="margin-top: 20px;">Seterusnya</button>
+        <button class="btn btn-secondary" id="next-btn" onclick="nextQuestion()" style="margin-top:16px;">Seterusnya</button>
     </div>
 
     <!-- ALBUM -->
@@ -800,7 +822,7 @@
         const allTypes = Object.keys(gameData);
         const allBtn = document.createElement('div');
         allBtn.className = 'cat-btn' + (currentCategory === 'all' ? ' active' : '');
-        allBtn.innerHTML = `<span style="font-size:1.8rem;">🌟</span><span class="cat-label">Semua</span>`;
+        allBtn.innerHTML = `<span style="font-size:1.6rem;">🌟</span><span class="cat-label">Semua</span>`;
         allBtn.onclick = () => { currentCategory = 'all'; renderCategoryMenu(); };
         container.appendChild(allBtn);
         allTypes.forEach(key => {
@@ -809,7 +831,7 @@
             const emoji = categoryEmojis[key] || '📚';
             const name = categoryNames[key] || key;
             const badge = categoryUnlocked[key] ? '✅' : '';
-            btn.innerHTML = `<span style="font-size:1.8rem;">${emoji}</span><span class="cat-label">${name} ${badge}</span>`;
+            btn.innerHTML = `<span style="font-size:1.6rem;">${emoji}</span><span class="cat-label">${name} ${badge}</span>`;
             btn.onclick = () => { currentCategory = key; renderCategoryMenu(); };
             container.appendChild(btn);
         });
@@ -821,7 +843,7 @@
         Object.keys(gameData).forEach(key => {
             if (!categoryUnlocked[key]) return;
             const header = document.createElement('div');
-            header.style.cssText = 'grid-column:1/-1;font-weight:bold;font-size:1.1rem;margin-top:6px;';
+            header.style.cssText = 'grid-column:1/-1;font-weight:bold;font-size:1rem;margin-top:4px;';
             header.innerText = categoryEmojis[key] + ' ' + categoryNames[key];
             container.appendChild(header);
             gameData[key].forEach(item => {
