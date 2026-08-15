@@ -15,9 +15,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <style>
-        /* ============================================================
-           SEMUA GAYA SAMA SEPERTI SEBELUM, TAPI SAYA RINGKASKAN
-           ============================================================ */
+        /* ===== GAYA SAMA SEPERTI SEBELUM (Saya ringkaskan) ===== */
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700&display=swap');
         :root {
             --bg-color: #FFF0F5;
@@ -816,7 +814,7 @@
 
 <div id="app-container">
 
-    <!-- ===== STATUS BAR (SENTIASA KELIHATAN) ===== -->
+    <!-- ===== STATUS BAR ===== -->
     <div id="status-bar">
         <div class="status-left">
             <button class="btn-home" onclick="goHome()">🏠</button>
@@ -919,101 +917,101 @@
 
 <script>
     // =========================================================
-    // DATA PERMAINAN
+    // DATA PERMAINAN DENGAN TERJEMAHAN
     // =========================================================
     const gameData = {
         colors: [
-            { id: 'merah', name: 'Merah', text: '🟥', color: '#FF4136' },
-            { id: 'biru', name: 'Biru', text: '🟦', color: '#0074D9' },
-            { id: 'kuning', name: 'Kuning', text: '🟨', color: '#FFDC00' },
-            { id: 'hijau', name: 'Hijau', text: '🟩', color: '#2ECC40' },
-            { id: 'oren', name: 'Oren', text: '🟧', color: '#FF851B' },
-            { id: 'ungu', name: 'Ungu', text: '🟪', color: '#B10DC9' }
+            { id: 'merah', name: 'Merah', nameEn: 'Red', text: '🟥', color: '#FF4136' },
+            { id: 'biru', name: 'Biru', nameEn: 'Blue', text: '🟦', color: '#0074D9' },
+            { id: 'kuning', name: 'Kuning', nameEn: 'Yellow', text: '🟨', color: '#FFDC00' },
+            { id: 'hijau', name: 'Hijau', nameEn: 'Green', text: '🟩', color: '#2ECC40' },
+            { id: 'oren', name: 'Oren', nameEn: 'Orange', text: '🟧', color: '#FF851B' },
+            { id: 'ungu', name: 'Ungu', nameEn: 'Purple', text: '🟪', color: '#B10DC9' }
         ],
         numbers: [
-            { id: '1', name: 'Satu', text: '1️⃣', color: '#FF6B6B' },
-            { id: '2', name: 'Dua', text: '2️⃣', color: '#4ECDC4' },
-            { id: '3', name: 'Tiga', text: '3️⃣', color: '#FFE66D' },
-            { id: '4', name: 'Empat', text: '4️⃣', color: '#A569BD' },
-            { id: '5', name: 'Lima', text: '5️⃣', color: '#5DADE2' }
+            { id: '1', name: 'Satu', nameEn: 'One', text: '1️⃣', color: '#FF6B6B' },
+            { id: '2', name: 'Dua', nameEn: 'Two', text: '2️⃣', color: '#4ECDC4' },
+            { id: '3', name: 'Tiga', nameEn: 'Three', text: '3️⃣', color: '#FFE66D' },
+            { id: '4', name: 'Empat', nameEn: 'Four', text: '4️⃣', color: '#A569BD' },
+            { id: '5', name: 'Lima', nameEn: 'Five', text: '5️⃣', color: '#5DADE2' }
         ],
         shapes: [
-            { id: 'bulat', name: 'Bulatan', text: '⭕', color: '#E74C3C' },
-            { id: 'segiempat', name: 'Segi Empat', text: '🟫', color: '#3498DB' },
-            { id: 'segitiga', name: 'Segi Tiga', text: '🔺', color: '#2ECC71' },
-            { id: 'bintang', name: 'Bintang', text: '⭐', color: '#F1C40F' }
+            { id: 'bulat', name: 'Bulatan', nameEn: 'Circle', text: '⭕', color: '#E74C3C' },
+            { id: 'segiempat', name: 'Segi Empat', nameEn: 'Square', text: '🟫', color: '#3498DB' },
+            { id: 'segitiga', name: 'Segi Tiga', nameEn: 'Triangle', text: '🔺', color: '#2ECC71' },
+            { id: 'bintang', name: 'Bintang', nameEn: 'Star', text: '⭐', color: '#F1C40F' }
         ],
         letters: [
-            { id: 'A', name: 'A', text: '🔤', color: '#E74C3C' },
-            { id: 'B', name: 'B', text: '🇧', color: '#3498DB' },
-            { id: 'C', name: 'C', text: '🇨', color: '#2ECC71' },
-            { id: 'D', name: 'D', text: '🇩', color: '#9B59B6' },
-            { id: 'E', name: 'E', text: '🇪', color: '#E67E22' }
+            { id: 'A', name: 'A', nameEn: 'A', text: '🔤', color: '#E74C3C' },
+            { id: 'B', name: 'B', nameEn: 'B', text: '🇧', color: '#3498DB' },
+            { id: 'C', name: 'C', nameEn: 'C', text: '🇨', color: '#2ECC71' },
+            { id: 'D', name: 'D', nameEn: 'D', text: '🇩', color: '#9B59B6' },
+            { id: 'E', name: 'E', nameEn: 'E', text: '🇪', color: '#E67E22' }
         ],
         animals: [
-            { id: 'kucing', name: 'Kucing', text: '🐱', color: '#F39C12' },
-            { id: 'anjing', name: 'Anjing', text: '🐶', color: '#E67E22' },
-            { id: 'arnab', name: 'Arnab', text: '🐰', color: '#E74C3C' },
-            { id: 'ikan', name: 'Ikan', text: '🐟', color: '#3498DB' },
-            { id: 'burung', name: 'Burung', text: '🐦', color: '#2ECC71' },
-            { id: 'lembu', name: 'Lembu', text: '🐄', color: '#95A5A6' },
-            { id: 'ayam', name: 'Ayam', text: '🐔', color: '#F1C40F' },
-            { id: 'gajah', name: 'Gajah', text: '🐘', color: '#7F8C8D' }
+            { id: 'kucing', name: 'Kucing', nameEn: 'Cat', text: '🐱', color: '#F39C12' },
+            { id: 'anjing', name: 'Anjing', nameEn: 'Dog', text: '🐶', color: '#E67E22' },
+            { id: 'arnab', name: 'Arnab', nameEn: 'Rabbit', text: '🐰', color: '#E74C3C' },
+            { id: 'ikan', name: 'Ikan', nameEn: 'Fish', text: '🐟', color: '#3498DB' },
+            { id: 'burung', name: 'Burung', nameEn: 'Bird', text: '🐦', color: '#2ECC71' },
+            { id: 'lembu', name: 'Lembu', nameEn: 'Cow', text: '🐄', color: '#95A5A6' },
+            { id: 'ayam', name: 'Ayam', nameEn: 'Chicken', text: '🐔', color: '#F1C40F' },
+            { id: 'gajah', name: 'Gajah', nameEn: 'Elephant', text: '🐘', color: '#7F8C8D' }
         ],
         fruits: [
-            { id: 'epal', name: 'Epal', text: '🍎', color: '#E74C3C' },
-            { id: 'pisang', name: 'Pisang', text: '🍌', color: '#F1C40F' },
-            { id: 'oren_buah', name: 'Oren', text: '🍊', color: '#E67E22' },
-            { id: 'anggur', name: 'Anggur', text: '🍇', color: '#8E44AD' },
-            { id: 'strawberi', name: 'Strawberi', text: '🍓', color: '#E74C3C' },
-            { id: 'tembikai', name: 'Tembikai', text: '🍉', color: '#2ECC71' },
-            { id: 'mangga', name: 'Mangga', text: '🥭', color: '#F39C12' },
-            { id: 'nanas', name: 'Nanas', text: '🍍', color: '#F1C40F' }
+            { id: 'epal', name: 'Epal', nameEn: 'Apple', text: '🍎', color: '#E74C3C' },
+            { id: 'pisang', name: 'Pisang', nameEn: 'Banana', text: '🍌', color: '#F1C40F' },
+            { id: 'oren_buah', name: 'Oren', nameEn: 'Orange', text: '🍊', color: '#E67E22' },
+            { id: 'anggur', name: 'Anggur', nameEn: 'Grapes', text: '🍇', color: '#8E44AD' },
+            { id: 'strawberi', name: 'Strawberi', nameEn: 'Strawberry', text: '🍓', color: '#E74C3C' },
+            { id: 'tembikai', name: 'Tembikai', nameEn: 'Watermelon', text: '🍉', color: '#2ECC71' },
+            { id: 'mangga', name: 'Mangga', nameEn: 'Mango', text: '🥭', color: '#F39C12' },
+            { id: 'nanas', name: 'Nanas', nameEn: 'Pineapple', text: '🍍', color: '#F1C40F' }
         ],
         vehicles: [
-            { id: 'kereta', name: 'Kereta', text: '🚗', color: '#3498DB' },
-            { id: 'bas', name: 'Bas', text: '🚌', color: '#F1C40F' },
-            { id: 'kapal', name: 'Kapal', text: '🚢', color: '#1ABC9C' },
-            { id: 'kapal_terbang', name: 'Kapal Terbang', text: '✈️', color: '#95A5A6' },
-            { id: 'basikal', name: 'Basikal', text: '🚲', color: '#E67E22' },
-            { id: 'motorsikal', name: 'Motorsikal', text: '🏍️', color: '#E74C3C' },
-            { id: 'kereta_api', name: 'Kereta Api', text: '🚂', color: '#34495E' },
-            { id: 'helikopter', name: 'Helikopter', text: '🚁', color: '#2ECC71' }
+            { id: 'kereta', name: 'Kereta', nameEn: 'Car', text: '🚗', color: '#3498DB' },
+            { id: 'bas', name: 'Bas', nameEn: 'Bus', text: '🚌', color: '#F1C40F' },
+            { id: 'kapal', name: 'Kapal', nameEn: 'Ship', text: '🚢', color: '#1ABC9C' },
+            { id: 'kapal_terbang', name: 'Kapal Terbang', nameEn: 'Airplane', text: '✈️', color: '#95A5A6' },
+            { id: 'basikal', name: 'Basikal', nameEn: 'Bicycle', text: '🚲', color: '#E67E22' },
+            { id: 'motorsikal', name: 'Motorsikal', nameEn: 'Motorcycle', text: '🏍️', color: '#E74C3C' },
+            { id: 'kereta_api', name: 'Kereta Api', nameEn: 'Train', text: '🚂', color: '#34495E' },
+            { id: 'helikopter', name: 'Helikopter', nameEn: 'Helicopter', text: '🚁', color: '#2ECC71' }
         ],
         foods: [
-            { id: 'nasi', name: 'Nasi', text: '🍚', color: '#F39C12' },
-            { id: 'mi', name: 'Mi', text: '🍜', color: '#E67E22' },
-            { id: 'pizza', name: 'Pizza', text: '🍕', color: '#E74C3C' },
-            { id: 'burger', name: 'Burger', text: '🍔', color: '#D35400' },
-            { id: 'kek', name: 'Kek', text: '🎂', color: '#F1C40F' },
-            { id: 'aiskrim', name: 'Ais Krim', text: '🍦', color: '#85C1E9' },
-            { id: 'roti', name: 'Roti', text: '🍞', color: '#E67E22' },
-            { id: 'keju', name: 'Keju', text: '🧀', color: '#F1C40F' }
+            { id: 'nasi', name: 'Nasi', nameEn: 'Rice', text: '🍚', color: '#F39C12' },
+            { id: 'mi', name: 'Mi', nameEn: 'Noodles', text: '🍜', color: '#E67E22' },
+            { id: 'pizza', name: 'Pizza', nameEn: 'Pizza', text: '🍕', color: '#E74C3C' },
+            { id: 'burger', name: 'Burger', nameEn: 'Burger', text: '🍔', color: '#D35400' },
+            { id: 'kek', name: 'Kek', nameEn: 'Cake', text: '🎂', color: '#F1C40F' },
+            { id: 'aiskrim', name: 'Ais Krim', nameEn: 'Ice Cream', text: '🍦', color: '#85C1E9' },
+            { id: 'roti', name: 'Roti', nameEn: 'Bread', text: '🍞', color: '#E67E22' },
+            { id: 'keju', name: 'Keju', nameEn: 'Cheese', text: '🧀', color: '#F1C40F' }
         ],
         jobs: [
-            { id: 'doktor', name: 'Doktor', text: '👨‍⚕️', color: '#2ECC71' },
-            { id: 'polis', name: 'Polis', text: '👮', color: '#3498DB' },
-            { id: 'guru', name: 'Guru', text: '👩‍🏫', color: '#E67E22' },
-            { id: 'bomba', name: 'Bomba', text: '🧑‍🚒', color: '#E74C3C' },
-            { id: 'juruterbang', name: 'Juruterbang', text: '✈️', color: '#1ABC9C' },
-            { id: 'nelayan', name: 'Nelayan', text: '🎣', color: '#2C3E50' },
-            { id: 'tukang_kebun', name: 'Tukang Kebun', text: '🌱', color: '#27AE60' },
-            { id: 'arkitek', name: 'Arkitek', text: '🏗️', color: '#8E44AD' }
+            { id: 'doktor', name: 'Doktor', nameEn: 'Doctor', text: '👨‍⚕️', color: '#2ECC71' },
+            { id: 'polis', name: 'Polis', nameEn: 'Police', text: '👮', color: '#3498DB' },
+            { id: 'guru', name: 'Guru', nameEn: 'Teacher', text: '👩‍🏫', color: '#E67E22' },
+            { id: 'bomba', name: 'Bomba', nameEn: 'Firefighter', text: '🧑‍🚒', color: '#E74C3C' },
+            { id: 'juruterbang', name: 'Juruterbang', nameEn: 'Pilot', text: '✈️', color: '#1ABC9C' },
+            { id: 'nelayan', name: 'Nelayan', nameEn: 'Fisherman', text: '🎣', color: '#2C3E50' },
+            { id: 'tukang_kebun', name: 'Tukang Kebun', nameEn: 'Gardener', text: '🌱', color: '#27AE60' },
+            { id: 'arkitek', name: 'Arkitek', nameEn: 'Architect', text: '🏗️', color: '#8E44AD' }
         ],
         superheroes: [
-            { id: 'superman', name: 'Superman', text: '🦸', color: '#E74C3C' },
-            { id: 'spiderman', name: 'Spider-Man', text: '🕷️', color: '#E74C3C' },
-            { id: 'batman', name: 'Batman', text: '🦇', color: '#2C3E50' },
-            { id: 'wonder_woman', name: 'Wonder Woman', text: '⚡', color: '#F1C40F' },
-            { id: 'ironman', name: 'Iron Man', text: '🤖', color: '#E67E22' },
-            { id: 'thor', name: 'Thor', text: '🔨', color: '#3498DB' },
-            { id: 'hulk', name: 'Hulk', text: '💪', color: '#2ECC71' },
-            { id: 'flash', name: 'Flash', text: '⚡', color: '#F39C12' }
+            { id: 'superman', name: 'Superman', nameEn: 'Superman', text: '🦸', color: '#E74C3C' },
+            { id: 'spiderman', name: 'Spider-Man', nameEn: 'Spider-Man', text: '🕷️', color: '#E74C3C' },
+            { id: 'batman', name: 'Batman', nameEn: 'Batman', text: '🦇', color: '#2C3E50' },
+            { id: 'wonder_woman', name: 'Wonder Woman', nameEn: 'Wonder Woman', text: '⚡', color: '#F1C40F' },
+            { id: 'ironman', name: 'Iron Man', nameEn: 'Iron Man', text: '🤖', color: '#E67E22' },
+            { id: 'thor', name: 'Thor', nameEn: 'Thor', text: '🔨', color: '#3498DB' },
+            { id: 'hulk', name: 'Hulk', nameEn: 'Hulk', text: '💪', color: '#2ECC71' },
+            { id: 'flash', name: 'Flash', nameEn: 'Flash', text: '⚡', color: '#F39C12' }
         ]
     };
 
     // =========================================================
-    // DATA SUDUT BACAAN
+    // DATA SUDUT BACAAN (SAMA)
     // =========================================================
     const readingData = {
         numbers: [
@@ -1202,6 +1200,13 @@
     let praiseMessages = lang.bm.correct_messages;
     let wrongMessages = lang.bm.wrong_messages;
 
+    // Data soalan semasa untuk refresh
+    let _currentGameType = null;
+    let _currentOptions = [];
+    let _currentCorrectAnswer = null;
+    let _currentCorrectName = ''; // nama dalam BM (asli)
+    let _currentCorrectNameEn = ''; // nama dalam BI
+
     const surpriseMessages = ["🎁 Hadiah untuk Mikayla! +10 mata bonus!","🎉 Kotak kejutan! Mikayla dapat bonus 10 mata!","🌟 Istimewa! Mikayla dapat tambahan 10 mata!","💎 Hebat! Mikayla dapat 10 mata bonus!"];
     const categoryEmojis = { colors:'🎨', numbers:'🔢', shapes:'🔺', letters:'🔤', animals:'🐾', fruits:'🍎', vehicles:'🚗', foods:'🍕', jobs:'👨‍⚕️', superheroes:'🦸' };
     const categoryNames = { colors:'Warna', numbers:'Nombor', shapes:'Bentuk', letters:'Huruf', animals:'Haiwan', fruits:'Buah', vehicles:'Kenderaan', foods:'Makanan', jobs:'Pekerjaan', superheroes:'Superhero' };
@@ -1264,6 +1269,14 @@
         }
     }
 
+    // Fungsi untuk dapatkan nama item mengikut bahasa
+    function getItemName(item, langCode) {
+        if (langCode === 'bi' && item.nameEn) {
+            return item.nameEn;
+        }
+        return item.name;
+    }
+
     // =========================================================
     // BAHASA TOGGLE
     // =========================================================
@@ -1274,6 +1287,7 @@
         praiseMessages = t.correct_messages;
         wrongMessages = t.wrong_messages;
 
+        // Update UI elements
         document.getElementById('menu-title').textContent = t.menu_title;
         document.getElementById('menu-sub').textContent = t.menu_sub;
         document.getElementById('btn-start').textContent = t.btn_start;
@@ -1301,6 +1315,17 @@
             renderAlbum();
         }
 
+        // Refresh soalan/reward jika skrin aktif
+        const activeScreen = document.querySelector('.screen.active');
+        if (activeScreen) {
+            const id = activeScreen.id;
+            if (id === 'game-screen') {
+                refreshCurrentQuestion();
+            } else if (id === 'reward-screen') {
+                refreshRewardMessage();
+            }
+        }
+
         document.getElementById('lang-toggle').textContent = langCode === 'bm' ? '🇲🇾' : '🇬🇧';
         document.getElementById('lang-toggle').title = langCode === 'bm' ? 'Tukar ke BI' : 'Switch to BM';
         document.documentElement.lang = langCode === 'bm' ? 'ms' : 'en';
@@ -1316,6 +1341,68 @@
         const btn = document.getElementById('timer-toggle');
         const t = lang[currentLang];
         btn.title = timerMode ? t.timer_on : t.timer_off;
+    }
+
+    // =========================================================
+    // REFRESH SOALAN SEMASA (dengan terjemahan)
+    // =========================================================
+    function refreshCurrentQuestion() {
+        if (!_currentGameType || !_currentOptions.length) return;
+        const t = lang[currentLang];
+        // Gunakan nama yang betul mengikut bahasa
+        const correctName = currentLang === 'bm' ? _currentCorrectName : _currentCorrectNameEn;
+        const template = t.question_templates[_currentGameType] || 'Find {name}!';
+        const newQuestionText = template.replace('{name}', correctName);
+        document.getElementById('question-text').innerText = newQuestionText;
+        currentQuestionText = newQuestionText;
+
+        // Update bonus indicator
+        if (isBonus) {
+            document.getElementById('bonus-indicator').innerHTML = t.bonus_text;
+        } else {
+            document.getElementById('bonus-indicator').innerHTML = '';
+        }
+
+        // Update labels on option cards (for non-colors)
+        const optionCards = document.querySelectorAll('.option-card');
+        optionCards.forEach(card => {
+            const itemId = card.dataset.id;
+            // Cari item dalam _currentOptions
+            const item = _currentOptions.find(opt => opt.id === itemId);
+            if (item) {
+                const label = card.querySelector('.label');
+                if (label) {
+                    // Untuk warna, label tidak wujud (kita guna bg color) jadi skip
+                    // Tapi jika ada label (bukan warna), kemaskini
+                    if (_currentGameType !== 'colors') {
+                        const name = currentLang === 'bm' ? item.name : (item.nameEn || item.name);
+                        label.innerText = name;
+                    }
+                }
+            }
+        });
+    }
+
+    function refreshRewardMessage() {
+        if (typeof _lastRewardCorrect !== 'undefined') {
+            const t = lang[currentLang];
+            const img = document.getElementById('feedback-image');
+            const text = document.getElementById('feedback-text');
+            const bonus = document.getElementById('reward-bonus-text');
+            if (_lastRewardCorrect) {
+                const msgs = praiseMessages;
+                const msg = msgs[Math.floor(Math.random()*msgs.length)];
+                text.innerText = msg;
+                bonus.innerText = _lastRewardBonus ? t.bonus_reward : '';
+                img.innerText = '🎉';
+            } else {
+                const msgs = wrongMessages;
+                const msg = msgs[Math.floor(Math.random()*msgs.length)];
+                text.innerText = msg;
+                bonus.innerText = '';
+                img.innerText = '😊💪';
+            }
+        }
     }
 
     // =========================================================
@@ -1336,10 +1423,6 @@
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.toggle('active', item.dataset.target === id);
         });
-
-        // Status bar sentiasa kelihatan, kecuali kita nak sembunyi? Kita biar je.
-        // Tapi untuk game/reward, kita biarkan ia kelihatan juga, tapi mungkin kita boleh sembunyi jika perlu.
-        // Biar je.
 
         if (id === 'menu-screen') {
             welcomeUser();
@@ -1473,7 +1556,8 @@
             gameData[key].forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'album-item';
-                div.innerHTML = `<span class="emoji">${item.text}</span><span class="name">${item.name}</span>`;
+                const itemName = currentLang === 'bm' ? item.name : (item.nameEn || item.name);
+                div.innerHTML = `<span class="emoji">${item.text}</span><span class="name">${itemName}</span>`;
                 container.appendChild(div);
             });
         });
@@ -1545,6 +1629,9 @@
     // =========================================================
     // PERMAINAN
     // =========================================================
+    let _lastRewardCorrect = false;
+    let _lastRewardBonus = false;
+
     function checkSurprise() {
         if (stars >= 5) {
             stars = 0;
@@ -1590,15 +1677,25 @@
         const correctAnswer = options[Math.floor(Math.random() * options.length)];
         currentAnswer = correctAnswer.id;
 
+        // Simpan data soalan untuk refresh
+        _currentGameType = gameType;
+        _currentOptions = options;
+        _currentCorrectAnswer = correctAnswer.id;
+        _currentCorrectName = correctAnswer.name;
+        _currentCorrectNameEn = correctAnswer.nameEn || correctAnswer.name;
+
         if (Math.random() < 0.2) {
             isBonus = true;
             document.getElementById('bonus-indicator').innerHTML = lang[currentLang].bonus_text;
             playBonus();
+        } else {
+            document.getElementById('bonus-indicator').innerHTML = '';
         }
 
         const t = lang[currentLang];
+        const correctName = currentLang === 'bm' ? correctAnswer.name : (correctAnswer.nameEn || correctAnswer.name);
         const template = t.question_templates[gameType] || 'Find {name}!';
-        currentQuestionText = template.replace('{name}', correctAnswer.name);
+        currentQuestionText = template.replace('{name}', correctName);
         document.getElementById('question-text').innerText = currentQuestionText;
         speakAI(currentQuestionText);
         document.getElementById('app-container').style.backgroundColor = themeColors[gameType] || '#FFF0F5';
@@ -1641,6 +1738,8 @@
             if (gameType === 'colors') {
                 btn.style.backgroundColor = opt.color;
                 btn.style.borderColor = opt.color;
+                // Untuk warna, kita boleh tambah label kecil jika mahu, tapi kita biarkan kosong
+                // sebab warna sudah jelas dengan latar belakang
             } else {
                 const emojiSpan = document.createElement('span');
                 emojiSpan.className = 'emoji';
@@ -1649,7 +1748,9 @@
                 btn.appendChild(emojiSpan);
                 const label = document.createElement('span');
                 label.className = 'label';
-                label.innerText = opt.name;
+                // Gunakan terjemahan
+                const labelName = currentLang === 'bm' ? opt.name : (opt.nameEn || opt.name);
+                label.innerText = labelName;
                 btn.appendChild(label);
             }
             if (isBonus && opt.id === currentAnswer) btn.classList.add('bonus');
@@ -1702,6 +1803,9 @@
     }
 
     function showReward(isCorrect) {
+        _lastRewardCorrect = isCorrect;
+        _lastRewardBonus = isBonus;
+
         const img = document.getElementById('feedback-image');
         const text = document.getElementById('feedback-text');
         const bonus = document.getElementById('reward-bonus-text');
@@ -1790,7 +1894,6 @@
     showScreen('menu-screen');
     welcomeSpoken = false;
 
-    // Init sound toggle text
     document.getElementById('sound-toggle').title = lang[currentLang].sound_on;
     document.getElementById('timer-toggle').title = lang[currentLang].timer_off;
 
@@ -1805,7 +1908,7 @@
         }
     })();
 
-    console.log('🎮 Minda Mikayla sedia (Dwibahasa, status bar sentiasa kelihatan)');
+    console.log('🎮 Minda Mikayla sedia (Dwibahasa penuh + terjemahan item)');
 </script>
 </body>
 </html>
