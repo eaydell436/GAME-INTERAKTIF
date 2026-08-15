@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Permainan Minda Mikayla</title>
 
-    <!-- ===== PWA MANIFEST & IKON ===== -->
+    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/eaydell436/GAME-INTERAKTIF/main/icongame.png">
     <link rel="icon" type="image/png" sizes="512x512" href="https://raw.githubusercontent.com/eaydell436/GAME-INTERAKTIF/main/icongame.png">
@@ -30,7 +30,6 @@
             --timer-bg: #FF6B6B;
         }
 
-        /* ===== RESET + PAPARAN PENUH ===== */
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
@@ -50,11 +49,10 @@
             align-items: center;
         }
 
-        /* ===== PANEL UTAMA - 100% SKRIN ===== */
         #app-container {
             width: 100%;
             max-width: 480px;
-            height: 100dvh;          /* guna dynamic viewport */
+            height: 100dvh;
             max-height: none;
             background-color: var(--theme-bg);
             position: relative;
@@ -63,11 +61,10 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
             border-radius: 0;
             transition: background-color 0.8s ease;
-            overflow: hidden;        /* elak sebarang overflow */
-            overflow-x: hidden;      /* khusus untuk elak overflow ke kanan */
+            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* ===== SKRIN ===== */
         .screen {
             display: none;
             flex-direction: column;
@@ -87,6 +84,81 @@
             display: flex;
         }
 
+        /* ===== ANIMASI MASUK ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 5px rgba(255,105,180,0.3); }
+            50% { box-shadow: 0 0 25px rgba(255,105,180,0.7); }
+            100% { box-shadow: 0 0 5px rgba(255,105,180,0.3); }
+        }
+
+        @keyframes timerPulse {
+            0%, 100% { background: var(--timer-bg); }
+            50% { background: #ff0000; box-shadow: 0 0 15px rgba(255,0,0,0.5); }
+        }
+
+        @keyframes bounceScore {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); color: #FFD700; }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .anim-pop {
+            animation: popIn 0.4s ease forwards;
+        }
+
+        .anim-slide {
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        .anim-float {
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .anim-glow {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        .anim-pulse {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
         /* ===== MENU ===== */
         #menu-screen {
             justify-content: center;
@@ -98,16 +170,10 @@
             text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
             margin-bottom: 6px;
             line-height: 1.2;
+            animation: slideUp 0.6s ease;
         }
 
-        /* ===== GAME SCREEN ===== */
-        #game-screen {
-            padding: 6px 10px;
-            justify-content: flex-start;
-            gap: 0px;
-        }
-
-        /* Status bar - kekal di atas */
+        /* ===== STATUS BAR ===== */
         #status-bar {
             flex-shrink: 0;
             width: 100%;
@@ -120,7 +186,7 @@
             z-index: 20;
             background: rgba(255,255,255,0.5);
             backdrop-filter: blur(4px);
-            flex-wrap: nowrap;        /* jangan wrap */
+            flex-wrap: nowrap;
             gap: 4px;
             border-radius: 0;
             min-height: 40px;
@@ -143,7 +209,12 @@
             font-size: 0.9rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             white-space: nowrap;
+            transition: transform 0.2s;
         }
+        .status-item.bounce {
+            animation: bounceScore 0.4s ease;
+        }
+
         .btn-home {
             background: none;
             border: none;
@@ -152,8 +223,9 @@
             padding: 0 2px;
             color: var(--text-color);
             flex-shrink: 0;
+            transition: transform 0.2s;
         }
-        .btn-home:active { transform: scale(0.8); }
+        .btn-home:active { transform: scale(0.7) rotate(-10deg); }
 
         /* ===== SOALAN ===== */
         .question-header {
@@ -176,6 +248,7 @@
             flex: 1;
             line-height: 1.2;
             word-break: break-word;
+            animation: slideUp 0.4s ease;
         }
         #replay-audio-btn {
             background-color: var(--accent);
@@ -189,12 +262,15 @@
             align-items: center;
             cursor: pointer;
             box-shadow: 0 4px 0px #E5C345;
-            transition: transform 0.1s, box-shadow 0.1s;
+            transition: transform 0.15s, box-shadow 0.15s;
             flex-shrink: 0;
         }
         #replay-audio-btn:active {
-            transform: translateY(4px);
+            transform: translateY(4px) scale(0.9);
             box-shadow: 0 0px 0px #E5C345;
+        }
+        #replay-audio-btn:hover {
+            transform: scale(1.05);
         }
 
         #bonus-indicator {
@@ -203,6 +279,7 @@
             color: #F1C40F;
             height: 22px;
             line-height: 22px;
+            animation: pulse 1s infinite;
         }
 
         /* ===== TIMER ===== */
@@ -216,16 +293,20 @@
             margin: 2px auto;
             overflow: hidden;
             display: none;
+            transition: height 0.3s;
         }
         #timer-bar {
             height: 100%;
             width: 100%;
             background: var(--timer-bg);
             border-radius: 20px;
-            transition: width 0.1s linear;
+            transition: width 0.1s linear, background 0.3s;
+        }
+        #timer-bar.warning {
+            animation: timerPulse 0.5s infinite;
         }
 
-        /* ===== GRID PILIHAN - GUNA RUANG BAKI ===== */
+        /* ===== GRID PILIHAN ===== */
         #options-container {
             flex: 1 1 auto;
             display: grid;
@@ -249,7 +330,7 @@
             align-items: center;
             box-shadow: 0 6px 0px rgba(0,0,0,0.08);
             cursor: pointer;
-            transition: transform 0.15s, border 0.2s, background 0.2s, box-shadow 0.2s;
+            transition: transform 0.15s, border 0.2s, background 0.2s, box-shadow 0.3s;
             border: 4px solid transparent;
             padding: 4px;
             position: relative;
@@ -258,13 +339,24 @@
             max-height: 100%;
             box-sizing: border-box;
             overflow: hidden;
+            animation: popIn 0.5s ease forwards;
+            opacity: 0;
         }
+        .option-card:nth-child(1) { animation-delay: 0.05s; }
+        .option-card:nth-child(2) { animation-delay: 0.15s; }
+        .option-card:nth-child(3) { animation-delay: 0.25s; }
+        .option-card:nth-child(4) { animation-delay: 0.35s; }
+
         .option-card:active {
-            transform: scale(0.94);
+            transform: scale(0.92);
         }
         .option-card .emoji {
             font-size: 3rem;
             line-height: 1.1;
+            transition: transform 0.3s;
+        }
+        .option-card:hover .emoji {
+            transform: scale(1.1) rotate(-5deg);
         }
         .option-card .label {
             font-size: 0.85rem;
@@ -278,7 +370,8 @@
         .option-card.correct {
             border-color: var(--success);
             background-color: #E8F8F5;
-            box-shadow: 0 0 20px rgba(46,204,113,0.4);
+            box-shadow: 0 0 30px rgba(46,204,113,0.5);
+            animation: popIn 0.4s ease;
         }
         .option-card.wrong {
             border-color: var(--error);
@@ -295,6 +388,11 @@
             opacity: 0.7;
         }
 
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 10px rgba(241,196,15,0.4); }
+            100% { box-shadow: 0 0 30px rgba(241,196,15,0.9); }
+        }
+
         /* ===== BUTANG ===== */
         .btn {
             background-color: var(--primary);
@@ -306,15 +404,21 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 6px 0px #D81B60;
-            transition: transform 0.1s, box-shadow 0.1s;
+            transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
             margin: 4px;
             width: 80%;
             max-width: 280px;
             box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
         }
         .btn:active {
-            transform: translateY(6px);
+            transform: translateY(6px) scale(0.96);
             box-shadow: 0 0px 0px #D81B60;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0px #D81B60;
         }
         .btn-secondary {
             background-color: var(--secondary);
@@ -323,12 +427,26 @@
         .btn-secondary:active {
             box-shadow: 0 0px 0px #7D3C98;
         }
+        .btn-secondary:hover {
+            box-shadow: 0 8px 0px #7D3C98;
+        }
         .btn-small {
             font-size: 0.9rem;
             padding: 6px 14px;
             width: auto;
             max-width: 160px;
             margin: 3px;
+        }
+        .btn .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            transform: scale(0);
+            animation: rippleAnim 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes rippleAnim {
+            to { transform: scale(4); opacity: 0; }
         }
 
         /* ===== WATAK MIKAYLA ===== */
@@ -355,10 +473,21 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             white-space: nowrap;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: scale(0.8);
         }
         #mikayla-avatar .bubble.show {
             opacity: 1;
+            transform: scale(1);
+        }
+        #mikayla-avatar.jump {
+            animation: jump 0.5s ease;
+        }
+        @keyframes jump {
+            0% { transform: translateY(0) rotate(0deg); }
+            30% { transform: translateY(-30px) rotate(-10deg); }
+            60% { transform: translateY(-15px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
         }
 
         /* ===== REWARD SCREEN ===== */
@@ -369,6 +498,11 @@
             font-size: 4.5rem;
             margin-bottom: 8px;
             animation: pop 1s infinite alternate;
+        }
+        @keyframes pop {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(-5deg); }
+            100% { transform: scale(1) rotate(5deg); }
         }
 
         /* ===== ALBUM & KATEGORI ===== */
@@ -388,13 +522,14 @@
             padding: 8px 2px;
             font-size: 1.6rem;
             cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-shadow: 0 4px 0 rgba(0,0,0,0.05);
         }
-        .cat-btn:active { transform: scale(0.94); }
+        .cat-btn:active { transform: scale(0.92); }
+        .cat-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 rgba(0,0,0,0.1); }
         .cat-btn .cat-label {
             font-size: 0.6rem;
             font-family: 'Nunito', sans-serif;
@@ -404,6 +539,7 @@
         .cat-btn.active {
             border-color: var(--primary);
             background: #FFF0F5;
+            animation: glowPulse 2s infinite;
         }
 
         .album-grid {
@@ -425,7 +561,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: transform 0.2s;
         }
+        .album-item:hover { transform: scale(1.05); }
         .album-item .emoji { font-size: 2rem; }
         .album-item .name { font-size: 0.6rem; color: #555; }
 
@@ -464,40 +602,20 @@
             backdrop-filter: blur(4px);
             padding: 20px;
             box-sizing: border-box;
+            animation: fadeIn 0.5s ease;
         }
         #surprise-overlay h2 {
             color: white;
             font-family: 'Fredoka One', cursive;
             font-size: 1.8rem;
+            animation: pulse 1.5s infinite;
         }
         #surprise-overlay p {
             color: white;
             font-size: 1.1rem;
         }
 
-        /* ===== ANIMASI ===== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
-        }
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 10px rgba(241,196,15,0.5); }
-            100% { box-shadow: 0 0 30px rgba(241,196,15,0.9); }
-        }
-        .shake { animation: shake 0.4s ease; }
-        .pop { animation: pop 0.5s ease; }
-
-        /* ===== RESPONSIF UNTUK SKRIN KECIL ===== */
+        /* ===== RESPONSIF ===== */
         @media (max-height: 650px) {
             #status-bar { font-size: 0.9rem; padding: 2px 6px; min-height: 34px; }
             .status-item { font-size: 0.75rem; padding: 1px 6px; }
@@ -536,9 +654,8 @@
             #app-container { border-radius: 0; }
         }
 
-        /* ===== HIDDEN ===== */
         .hidden { display: none !important; }
-        .reward-bonus { color: #F1C40F; font-size: 1.2rem; }
+        .reward-bonus { color: #F1C40F; font-size: 1.2rem; animation: pulse 1s infinite; }
     </style>
 </head>
 <body>
@@ -548,11 +665,11 @@
     <div id="status-bar" style="display: none;">
         <div class="status-left">
             <button class="btn-home" onclick="goHome()">🏠</button>
-            <div class="status-item">⭐ <span id="score-display">0</span></div>
+            <div class="status-item" id="score-item">⭐ <span id="score-display">0</span></div>
         </div>
         <div class="status-right">
-            <div class="status-item">🌟 <span id="star-display">0</span></div>
-            <div class="status-item">🏆 <span id="highscore-display">0</span></div>
+            <div class="status-item" id="star-item">🌟 <span id="star-display">0</span></div>
+            <div class="status-item" id="highscore-item">🏆 <span id="highscore-display">0</span></div>
             <button id="sound-toggle" style="background:none;border:none;font-size:1.5rem;cursor:pointer;padding:0 2px;">🔊</button>
         </div>
     </div>
@@ -565,7 +682,7 @@
 
     <!-- MENU -->
     <div id="menu-screen" class="screen active">
-        <div style="font-size:3.2rem; margin-bottom:4px;">👧🦄</div>
+        <div style="font-size:3.2rem; margin-bottom:4px; animation: float 3s infinite;">👧🦄</div>
         <h1>Minda Mikayla</h1>
         <p style="font-size:0.95rem; margin-bottom:4px; color:#555;">Mari belajar dan bermain!</p>
         <p id="highscore-menu" style="font-size:0.9rem; color:#D35400; margin:0;">🏆 Rekod: 0</p>
@@ -616,7 +733,7 @@
 
 <script>
     // =========================================================
-    // DATA PERMAINAN
+    // DATA PERMAINAN (sama seperti sebelumnya)
     // =========================================================
     const gameData = {
         colors: [
@@ -734,7 +851,7 @@
     let _lastCategory = null;
 
     // =========================================================
-    // FUNGSI
+    // FUNGSI (sama seperti sebelumnya, dengan tambahan animasi)
     // =========================================================
     function initAudio() {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -783,20 +900,48 @@
     }
 
     function updateScore() {
-        document.getElementById('score-display').innerText = score;
-        document.getElementById('star-display').innerText = stars;
-        document.getElementById('highscore-display').innerText = highScore;
-        document.getElementById('highscore-menu').innerText = '🏆 Rekod: ' + highScore;
+        const scoreEl = document.getElementById('score-display');
+        const starEl = document.getElementById('star-display');
+        const highEl = document.getElementById('highscore-display');
+        const highMenu = document.getElementById('highscore-menu');
+
+        scoreEl.innerText = score;
+        starEl.innerText = stars;
+        highEl.innerText = highScore;
+        highMenu.innerText = '🏆 Rekod: ' + highScore;
+
+        // Bounce animation on score change
+        const scoreItem = document.getElementById('score-item');
+        const starItem = document.getElementById('star-item');
+        scoreItem.classList.remove('bounce');
+        starItem.classList.remove('bounce');
+        // Force reflow
+        void scoreItem.offsetWidth;
+        scoreItem.classList.add('bounce');
+        starItem.classList.add('bounce');
+        setTimeout(() => {
+            scoreItem.classList.remove('bounce');
+            starItem.classList.remove('bounce');
+        }, 500);
     }
 
-    function setMikaylaReaction(emoji, bubbleText='') {
+    function setMikaylaReaction(emoji, bubbleText='', jump=false) {
         const avatar = document.getElementById('mikayla-avatar');
         const bubble = document.getElementById('avatar-bubble');
         avatar.childNodes[0].nodeValue = emoji;
         if (bubbleText) { bubble.innerText = bubbleText; bubble.classList.add('show'); }
         else bubble.classList.remove('show');
+        if (jump) {
+            avatar.classList.remove('jump');
+            void avatar.offsetWidth;
+            avatar.classList.add('jump');
+            setTimeout(() => avatar.classList.remove('jump'), 600);
+        }
         clearTimeout(avatar._timeout);
-        avatar._timeout = setTimeout(() => { avatar.childNodes[0].nodeValue = '👧'; bubble.classList.remove('show'); }, 2000);
+        avatar._timeout = setTimeout(() => {
+            avatar.childNodes[0].nodeValue = '👧';
+            bubble.classList.remove('show');
+        }, 2500);
     }
 
     function toggleTimerMode() {
@@ -812,7 +957,7 @@
         document.getElementById('timer-container').style.display = 'none';
         showScreen('menu-screen');
         isAnswered = true;
-        setMikaylaReaction('👧');
+        setMikaylaReaction('👋', 'Jumpa lagi!');
         speakAI('Jom main lagi nanti!');
     }
 
@@ -868,6 +1013,7 @@
             updateScore();
             if (score > highScore) { highScore = score; localStorage.setItem('mikayla_highscore', highScore); updateScore(); }
             shootConfetti(40);
+            setMikaylaReaction('🎁', 'Hadiah!', true);
         }
     }
     function closeSurprise() { document.getElementById('surprise-overlay').style.display = 'none'; }
@@ -924,6 +1070,7 @@
         if (timerMode) {
             timeLeft = 10;
             document.getElementById('timer-bar').style.width = '100%';
+            document.getElementById('timer-bar').classList.remove('warning');
             document.getElementById('timer-container').style.display = 'block';
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
@@ -931,6 +1078,7 @@
                 if (timeLeft <= 0) {
                     timeLeft = 0;
                     document.getElementById('timer-bar').style.width = '0%';
+                    document.getElementById('timer-bar').classList.remove('warning');
                     clearInterval(timerInterval);
                     if (!isAnswered) {
                         isAnswered = true;
@@ -941,8 +1089,14 @@
                         setTimeout(() => showReward(false), 800);
                     }
                 } else {
-                    document.getElementById('timer-bar').style.width = (timeLeft / 10 * 100) + '%';
-                    if (timeLeft < 3) playTimerTick();
+                    const pct = (timeLeft / 10 * 100);
+                    document.getElementById('timer-bar').style.width = pct + '%';
+                    if (timeLeft < 3) {
+                        document.getElementById('timer-bar').classList.add('warning');
+                        playTimerTick();
+                    } else {
+                        document.getElementById('timer-bar').classList.remove('warning');
+                    }
                 }
             }, 100);
         } else {
@@ -953,8 +1107,8 @@
         container.innerHTML = '';
         options.forEach((opt, index) => {
             const btn = document.createElement('div');
-            btn.className = 'option-card pop';
-            btn.style.animationDelay = `${index * 0.08}s`;
+            btn.className = 'option-card';
+            btn.style.animationDelay = `${index * 0.1 + 0.1}s`;
             btn.dataset.id = opt.id;
             if (gameType === 'colors') {
                 btn.style.backgroundColor = opt.color;
@@ -1002,7 +1156,7 @@
                 localStorage.setItem('mikayla_category_unlocked', JSON.stringify(categoryUnlocked));
             }
             if (score > highScore) { highScore = score; localStorage.setItem('mikayla_highscore', highScore); updateScore(); }
-            setMikaylaReaction('🥳', 'Yeay!');
+            setMikaylaReaction('🥳', 'Yeay!', true);
             if (isBonus) playBonus(); else playSuccess();
             shootConfetti(30);
             checkSurprise();
@@ -1012,7 +1166,7 @@
             document.querySelectorAll('.option-card').forEach(card => {
                 if (card.dataset.id === currentAnswer) card.classList.add('correct');
             });
-            setMikaylaReaction('😅', 'Cuba lagi!');
+            setMikaylaReaction('😅', 'Cuba lagi!', false);
             playError();
             setTimeout(() => showReward(false), 1200);
         }
@@ -1028,6 +1182,8 @@
             text.innerText = msg;
             bonus.innerText = isBonus ? '⭐ BONUS! +20 mata! ⭐' : '';
             speakAI(msg);
+            // Add confetti again
+            shootConfetti(20);
         } else {
             const msg = encouragementMessages[Math.floor(Math.random()*encouragementMessages.length)];
             img.innerText = '😊💪';
@@ -1094,7 +1250,7 @@
         }
     })();
 
-    console.log('🎮 Permainan Minda Mikayla sedia (PWA)');
+    console.log('🎮 Permainan Minda Mikayla sedia (PWA + Animasi)');
 </script>
 </body>
 </html>
